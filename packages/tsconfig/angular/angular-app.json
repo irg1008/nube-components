@@ -1,7 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Angular App",
-  "extends": "./angular-library.json",
-  "include": ["src"],
-  "exclude": ["dist", "build", "node_modules"]
+  "extends": "./angular-library.json"
 }

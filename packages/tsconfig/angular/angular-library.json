@@ -2,5 +2,20 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Angular Library",
   "extends": "../base.json",
-  "compilerOptions": {}
+  "compileOnSave": false,
+  "compilerOptions": {
+    "lib": ["DOM", "ES2022"],
+    "module": "ES2022",
+    "target": "ES2022",
+    "sourceMap": true,
+    "declaration": false,
+    "importHelpers": false,
+    "useDefineForClassFields": false,
+    "noImplicitOverride": false
+  },
+  "angulaCompilerOptions": {
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
 }

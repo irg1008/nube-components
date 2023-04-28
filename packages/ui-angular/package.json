@@ -1,0 +1,16 @@
+{
+  "name": "ui-angular",
+  "version": "0.0.0",
+  "main": "./src/...",
+  "types": "./src/...",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint ..."
+  },
+  "devDependencies": {
+    "eslint": "8.39.0",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "5.0.4"
+  }
+}
