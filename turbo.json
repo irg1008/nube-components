@@ -7,9 +7,15 @@
       "persistent": true
     },
     "build": {
-      "outputs": []
+      "outputs": [],
+      "dependsOn": ["build-storybook"]
+    },
+    "preview": {
+      "cache": false,
+      "persistent": true
     },
     "lint": {},
-    "storybook": {}
+    "storybook": {},
+    "build-storybook": {}
   }
 }
