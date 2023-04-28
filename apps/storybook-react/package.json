@@ -8,8 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "storybook": "storybook dev -p 6006 -c ./storybook/config",
+    "storybook:build": "storybook build -c ./storybook/config -o ./storybook/export"
   },
   "dependencies": {
     "react": "18.2.0",
