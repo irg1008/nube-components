@@ -1,5 +1,15 @@
 module.exports = {
-  extends: ['turbo', 'prettier', 'plugin:react/jsx-runtime'],
-  plugins: ['react'],
+  extends: [
+    'turbo',
+    'prettier',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+  ],
+  plugins: [],
   rules: {},
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
 };
