@@ -1,18 +1,19 @@
 {
-  "name": "ui-react",
+  "name": "storybook-react",
   "version": "0.0.0",
-  "main": "./src/index.tsx",
-  "types": "./src/index.tsx",
-  "license": "MIT",
-  "scripts": {
-    "lint": "eslint \"**/*.ts*\""
-  },
+  "description": "",
+  "main": "src/index.tsx",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
     "eslint": "8.39.0",
     "eslint-config-custom": "workspace:*",
     "react": "18.2.0",
+    "react-dom": "18.2.0",
     "tsconfig": "workspace:*",
     "typescript": "5.0.4"
   }

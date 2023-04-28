@@ -5,16 +5,20 @@
       "path": ".."
     },
     {
-      "name": "📚 Storybook",
-      "path": "../apps/storybook"
-    },
-    {
       "name": "🔵 React",
       "path": "../packages/ui-react"
     },
     {
+      "name": "📘 React Storybook",
+      "path": "../apps/storybook-react"
+    },
+    {
       "name": "🔴 Angular",
       "path": "../packages/ui-angular"
+    },
+    {
+      "name": "📕 Angular Storybook",
+      "path": "../apps/storybook-angular"
     }
   ],
   "settings": {
