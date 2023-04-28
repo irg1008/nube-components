@@ -83,6 +83,9 @@ importers:
       typescript:
         specifier: 5.0.4
         version: 5.0.4
+      ui-react:
+        specifier: workspace:*
+        version: link:../../packages/ui-react
       vite:
         specifier: 4.3.3
         version: 4.3.3
