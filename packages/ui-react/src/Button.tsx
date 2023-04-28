@@ -1,5 +1,5 @@
 const Button = () => {
-  return <button>Boop</button>;
+  return <button>Boop baaap!</button>;
 };
 
 export { Button };
