@@ -1,0 +1,28 @@
+{
+  "folders": [
+    {
+      "name": "✨ Workspace",
+      "path": ".."
+    },
+    {
+      "name": "📚 Storybook",
+      "path": "../apps/storybook"
+    },
+    {
+      "name": "🔵 React",
+      "path": "../packages/ui-react"
+    },
+    {
+      "name": "🔴 Angular",
+      "path": "../packages/ui-angular"
+    }
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+      "source.organizeImports": true
+    },
+    "explorer.excludeGitIgnore": true
+  }
+}
