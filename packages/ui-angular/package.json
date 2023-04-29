@@ -8,9 +8,7 @@
     "lint": "eslint ..."
   },
   "devDependencies": {
-    "eslint": "8.39.0",
     "eslint-config-custom": "workspace:*",
-    "tsconfig": "workspace:*",
-    "typescript": "5.0.4"
+    "tsconfig": "workspace:*"
   }
 }
