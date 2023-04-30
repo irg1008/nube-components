@@ -7,8 +7,10 @@ module.exports = {
     'plugin:storybook/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
+    'plugin:@angular-eslint/recommended',
+    'plugin:@angular-eslint/template/process-inline-templates',
   ],
-  plugins: ['@typescript-eslint', 'react', 'react-refresh'],
+  plugins: ['react', 'react-refresh'],
   rules: {
     'react-refresh/only-export-components': 'warn',
   },
