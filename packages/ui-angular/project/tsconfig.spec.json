@@ -1,3 +1,7 @@
 {
-  "extends": "tsconfig/angular/angular-library.spec.json"
+  "extends": "tsconfig/angular/angular-library.spec.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/spec"
+  },
+  "include": ["**/*.spec.ts", "**/*.d.ts"]
 }

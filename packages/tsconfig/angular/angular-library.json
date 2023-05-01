@@ -3,11 +3,9 @@
   "display": "Angular Library",
   "extends": "./angular-base.json",
   "compilerOptions": {
-    "outDir": "../out-tsc/lib",
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
     "types": []
-  },
-  "exclude": ["**/*.spec.ts"]
+  }
 }
