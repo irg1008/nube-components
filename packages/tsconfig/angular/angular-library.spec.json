@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Angular Library Spec",
+  "extends": "./angular-base.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/spec",
+    "types": ["jasmine"]
+  },
+  "include": ["**/*.spec.ts", "**/*.d.ts"]
+}

@@ -1,21 +1,13 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Angular Library",
-  "extends": "../base.json",
-  "compileOnSave": false,
+  "extends": "./angular-base.json",
   "compilerOptions": {
-    "lib": ["DOM", "ES2022"],
-    "module": "ES2022",
-    "target": "ES2022",
-    "sourceMap": true,
-    "declaration": false,
-    "importHelpers": false,
-    "useDefineForClassFields": false,
-    "noImplicitOverride": false
+    "outDir": "../out-tsc/lib",
+    "declaration": true,
+    "declarationMap": true,
+    "inlineSources": true,
+    "types": []
   },
-  "angulaCompilerOptions": {
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  }
+  "exclude": ["**/*.spec.ts"]
 }

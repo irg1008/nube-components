@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   standalone: true,
-  selector: 'ui-button',
+  selector: 'lib-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
