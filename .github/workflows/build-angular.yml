@@ -32,7 +32,7 @@ jobs:
 
       - name: Set pnpm env
         run: |
-          npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+          pnpm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
 
       - name: Get pnpm store directory
         id: pnpm-cache
