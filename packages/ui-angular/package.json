@@ -10,7 +10,7 @@
     "build": "ng build ui",
     "watch": "ng build ui --watch --configuration development",
     "lint": "ng lint",
-    "release": "pnpm publish dist --no-git-checks"
+    "release": "pnpm publish dist --no-git-checks --access=public"
   },
   "private": false,
   "peerDependencies": {
