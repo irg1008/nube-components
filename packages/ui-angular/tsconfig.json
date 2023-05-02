@@ -1,10 +1,10 @@
 {
   "extends": "tsconfig/angular/angular-base.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "outDir": "./dist/out-tsc",
     "paths": {
-      "@/*": ["project/src/lib/*"]
+      "@/*": ["lib/*"]
     }
   }
 }

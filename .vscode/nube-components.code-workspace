@@ -31,6 +31,6 @@
       "source.fixAll.eslint": true,
       "source.organizeImports": true
     },
-    "explorer.excludeGitIgnore": true
+    "explorer.excludeGitIgnore": false
   }
 }

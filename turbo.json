@@ -7,7 +7,7 @@
       "persistent": true
     },
     "build": {
-      "outputs": [],
+      "outputs": ["dist"],
       "dependsOn": ["build-storybook"]
     },
     "preview": {

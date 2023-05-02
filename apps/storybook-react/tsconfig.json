@@ -2,9 +2,9 @@
   "extends": "tsconfig/react/react-app.json",
   "include": ["app/src", "storybook"],
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./app",
     "paths": {
-      "@/*": ["app/src/*"]
+      "@/*": ["src/*"]
     }
   },
   "exclude": ["dist", "build", "node_modules"]

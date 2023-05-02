@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.lib.json",
+  // "tsconfig/angular/angular-library.prod.json"
+  "compilerOptions": {
+    "declarationMap": false
+  },
+  "angularCompilerOptions": {
+    "compilationMode": "partial"
+  }
+}

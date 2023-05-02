@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "dev": "pnpm watch",
+    "dev": "pnpm start --configuration development",
+    "start": "ng serve --open --port 4343",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "lint": "ng lint",
@@ -37,6 +37,7 @@
     "karma-jasmine": "5.1.0",
     "karma-jasmine-html-reporter": "2.0.0",
     "tsconfig": "workspace:*",
-    "typescript": "4.9.5"
+    "typescript": "4.9.5",
+    "ui-angular": "workspace:*"
   }
 }

@@ -1,6 +1,6 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "extends": ["./tsconfig.json", "tsconfig/angular/angular-spec.json"],
+  "extends": ["tsconfig/angular/angular-spec.json", "./tsconfig.json"],
   "compilerOptions": {
     "outDir": "./out-tsc/spec"
   },
