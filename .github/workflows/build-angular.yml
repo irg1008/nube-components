@@ -1,0 +1,65 @@
+on:
+  pull_request:
+    types: [closed]
+
+name: Build Angular
+jobs:
+  build:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [lts/*]
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'pnpm'
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      # Angular project specific
+
+      - name: Install dependencies
+        run: pnpm install --filter=ui-angular
+
+      - name: Build
+        run: pnpm build --filter=ui-angular
+
+      - name: Publish
+        run: pnpm publish --filter=ui-angular --access public dist/
+
+      #  End Angular project specific
+
+      - name: Zip build
+        run: tar -czf release.tgz dist/
+
+      - name: Push Build to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: 'release.tgz'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: '2.0.4'
