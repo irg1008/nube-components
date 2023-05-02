@@ -2,6 +2,10 @@ on:
   pull_request:
     types: [closed]
 
+defaults:
+  run:
+    working-directory: packages/ui-angular
+
 name: Build Angular
 jobs:
   build:
@@ -44,18 +48,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      # Angular project specific
-
       - name: Install dependencies
-        run: pnpm install --filter=ui-angular
+        run: pnpm install
 
       - name: Build
-        run: pnpm build --filter=ui-angular
+        run: pnpm build
 
       - name: Publish
-        run: pnpm publish --filter=ui-angular --no-git-checks --access public dist/
-
-      #  End Angular project specific
+        run: pnpm publish --no-git-checks --access public dist/
+        env:
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
 
       - name: Zip build
         run: tar -czf release.tgz dist/
