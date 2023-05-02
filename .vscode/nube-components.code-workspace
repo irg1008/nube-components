@@ -1,27 +1,27 @@
 {
   "folders": [
     {
-      "name": "✨ nube-components",
+      "name": "✨ Nube Components",
       "path": ".."
     },
     {
-      "name": "🔵 ui-react",
+      "name": "🔵 React UI",
       "path": "../packages/ui-react"
     },
     {
-      "name": "📘 storybook-react",
+      "name": "📘 React Storybook",
       "path": "../apps/storybook-react"
     },
     {
-      "name": "🔴 ui-angular",
+      "name": "🔴 Angular UI",
       "path": "../packages/ui-angular"
     },
     {
-      "name": "📕 storybook-angular",
+      "name": "📕 Angular Storybook",
       "path": "../apps/storybook-angular"
     },
     {
-      "name": "⚙️ eslint-config",
+      "name": "⚙️ ESlint Config",
       "path": "../packages/eslint-config"
     }
   ],

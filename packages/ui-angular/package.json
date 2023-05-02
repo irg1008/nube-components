@@ -1,6 +1,6 @@
 {
-  "name": "ui-angular",
-  "version": "0.0.0",
+  "name": "@nubebytes/ui-angular",
+  "version": "0.1.0",
   "main": "dist/esm2020/public-api.mjs",
   "module": "dist/esm2020/public-api.mjs",
   "types": "dist/index.d.ts",
@@ -9,9 +9,10 @@
     "dev": "pnpm watch",
     "build": "ng build ui",
     "watch": "ng build ui --watch --configuration development",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "release": "pnpm publish dist --no-git-checks"
   },
-  "private": true,
+  "private": false,
   "peerDependencies": {
     "@angular/common": "15.2.8",
     "@angular/core": "15.2.8",
