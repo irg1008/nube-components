@@ -26,6 +26,10 @@ jobs:
           version: 8
           run_install: false
 
+      - name: Set pnpm env
+        run: |
+          npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+
       - name: Get pnpm store directory
         id: pnpm-cache
         shell: bash
