@@ -53,7 +53,7 @@ jobs:
         run: pnpm build --filter=ui-angular
 
       - name: Publish
-        run: pnpm publish --filter=ui-angular --access public dist/
+        run: pnpm publish --filter=ui-angular --no-git-checks --access public dist/
 
       #  End Angular project specific
 
