@@ -7,9 +7,9 @@ env:
 
 defaults:
   run:
-    working-directory: packages/$PACKAGE
+    working-directory: packages/${{ env.PACKAGE }}
 
-name: Build $PACKAGE
+name: Build ${{ env.PACKAGE }}
 jobs:
   build:
     if: github.event.pull_request.merged == true
@@ -35,7 +35,7 @@ jobs:
 
       - name: Set pnpm env
         run: |
-          pnpm workspace $PACKAGE config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
+          pnpm workspace ${{ env.PACKAGE }} config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
 
       - name: Get pnpm store directory
         id: pnpm-cache
