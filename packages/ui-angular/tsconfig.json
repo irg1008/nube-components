@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "outDir": "./dist/out-tsc",
+    // These do not work with ng-packagr at the moment.
     "paths": {
       "@/*": ["lib/*"]
     }
