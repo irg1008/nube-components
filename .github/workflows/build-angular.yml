@@ -2,11 +2,14 @@ on:
   pull_request:
     types: [closed]
 
+env:
+  PACKAGE: ui-angular
+
 defaults:
   run:
-    working-directory: packages/ui-angular
+    working-directory: packages/$PACKAGE
 
-name: Build Angular
+name: Build $PACKAGE
 jobs:
   build:
     if: github.event.pull_request.merged == true
@@ -32,9 +35,7 @@ jobs:
 
       - name: Set pnpm env
         run: |
-          pnpm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
-        env:
-          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+          pnpm workspace $PACKAGE config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -58,6 +59,8 @@ jobs:
 
       - name: Publish
         run: pnpm publish --no-git-checks --access public
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Zip build
         run: tar -czf release.tgz dist/
