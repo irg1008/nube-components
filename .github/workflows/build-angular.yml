@@ -5,10 +5,6 @@ on:
 env:
   PACKAGE: ui-angular
 
-defaults:
-  run:
-    working-directory: packages/${{ env.PACKAGE }}
-
 name: Build ${{ env.PACKAGE }}
 jobs:
   build:
@@ -17,6 +13,10 @@ jobs:
     strategy:
       matrix:
         node-version: [lts/*]
+
+    defaults:
+      run:
+        working-directory: packages/${{ env.PACKAGE }}
 
     steps:
       - uses: actions/checkout@v1
