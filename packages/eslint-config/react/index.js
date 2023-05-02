@@ -1,6 +1,6 @@
 module.exports = {
   extends: [
-    require.resolve('../'),
+    '../',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
   ],

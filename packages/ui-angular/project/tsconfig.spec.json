@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/angular/angular-library.spec.json",
+  "extends": "tsconfig/angular/angular-spec.json",
   "compilerOptions": {
     "outDir": "../out-tsc/spec"
   },

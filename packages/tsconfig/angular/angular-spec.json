@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Angular Library Spec",
+  "display": "Angular Spec",
   "extends": "./angular-base.json",
   "compilerOptions": {
     "types": ["jasmine"]

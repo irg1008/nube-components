@@ -4,7 +4,7 @@ module.exports = {
     {
       files: ['*.ts'],
       extends: [
-        require.resolve('../'),
+        '../',
         'plugin:@angular-eslint/recommended',
         'plugin:@angular-eslint/template/process-inline-templates',
       ],
@@ -13,7 +13,7 @@ module.exports = {
           'error',
           {
             type: 'attribute',
-            prefix: 'lib',
+            prefix: 'app',
             style: 'camelCase',
           },
         ],
@@ -21,7 +21,7 @@ module.exports = {
           'error',
           {
             type: 'element',
-            prefix: 'lib',
+            prefix: 'app',
             style: 'kebab-case',
           },
         ],
@@ -30,7 +30,6 @@ module.exports = {
     {
       files: ['*.html'],
       extends: ['plugin:@angular-eslint/template/recommended'],
-      rules: {},
     },
   ],
 };
