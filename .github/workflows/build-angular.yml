@@ -1,11 +1,10 @@
+name: Build ${{ env.PACKAGE }}
 on:
   pull_request:
     types: [closed]
-
 env:
   PACKAGE: ui-angular
 
-name: Build ${{ env.PACKAGE }}
 jobs:
   build:
     if: github.event.pull_request.merged == true
