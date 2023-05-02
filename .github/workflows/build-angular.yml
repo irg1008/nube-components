@@ -37,7 +37,7 @@ jobs:
 
       - name: Set pnpm env
         run: |
-          pnpm workspace ${{ env.PACKAGE }} config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
+          pnpm config set --location  ${{ env.PACKAGE }} '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
 
       - name: Get pnpm store directory
         id: pnpm-cache
