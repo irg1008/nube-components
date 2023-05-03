@@ -62,6 +62,9 @@ importers:
       '@angular/compiler-cli':
         specifier: 15.2.8
         version: 15.2.8(@angular/compiler@15.2.8)(typescript@4.9.5)
+      '@nubebytes/ui-angular':
+        specifier: workspace:*
+        version: link:../../packages/ui-angular
       '@types/jasmine':
         specifier: 4.3.1
         version: 4.3.1
@@ -92,9 +95,6 @@ importers:
       typescript:
         specifier: 4.9.5
         version: 4.9.5
-      ui-angular:
-        specifier: workspace:*
-        version: link:../../packages/ui-angular
 
   apps/storybook-react:
     dependencies:
@@ -105,6 +105,9 @@ importers:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
+      '@nubebytes/ui-react':
+        specifier: workspace:*
+        version: link:../../packages/ui-react
       '@storybook/addon-essentials':
         specifier: 7.0.7
         version: 7.0.7(react-dom@18.2.0)(react@18.2.0)
@@ -150,9 +153,6 @@ importers:
       typescript:
         specifier: 5.0.4
         version: 5.0.4
-      ui-react:
-        specifier: workspace:*
-        version: link:../../packages/ui-react
       vite:
         specifier: 4.3.3
         version: 4.3.3
@@ -210,32 +210,32 @@ importers:
   packages/ui-angular:
     dependencies:
       '@angular/animations':
-        specifier: 15.2.8
+        specifier: ^15.0.2
         version: 15.2.8(@angular/core@15.2.8)
       '@angular/common':
-        specifier: 15.2.8
+        specifier: ^15.0.2
         version: 15.2.8(@angular/core@15.2.8)(rxjs@7.8.1)
       '@angular/compiler':
-        specifier: 15.2.8
+        specifier: ^15.0.2
         version: 15.2.8(@angular/core@15.2.8)
       '@angular/core':
-        specifier: 15.2.8
-        version: 15.2.8(rxjs@7.8.1)(zone.js@0.13.0)
+        specifier: ^15.0.2
+        version: 15.2.8(rxjs@7.8.1)(zone.js@0.12.0)
       '@angular/forms':
-        specifier: 15.2.8
+        specifier: ^15.0.2
         version: 15.2.8(@angular/common@15.2.8)(@angular/core@15.2.8)(@angular/platform-browser@15.2.8)(rxjs@7.8.1)
       '@angular/platform-browser':
-        specifier: 15.2.8
+        specifier: ^15.0.2
         version: 15.2.8(@angular/animations@15.2.8)(@angular/common@15.2.8)(@angular/core@15.2.8)
       '@angular/platform-browser-dynamic':
-        specifier: 15.2.8
+        specifier: ^15.0.2
         version: 15.2.8(@angular/common@15.2.8)(@angular/compiler@15.2.8)(@angular/core@15.2.8)(@angular/platform-browser@15.2.8)
       rxjs:
-        specifier: 7.8.1
+        specifier: ^7.8.0
         version: 7.8.1
       zone.js:
-        specifier: 0.13.0
-        version: 0.13.0
+        specifier: ^0.12.0
+        version: 0.12.0
     devDependencies:
       '@angular-devkit/build-angular':
         specifier: 15.2.7
@@ -746,6 +746,18 @@ packages:
     dependencies:
       '@angular/core': 15.2.8(rxjs@7.8.1)(zone.js@0.13.0)
       tslib: 2.5.0
+
+  /@angular/core@15.2.8(rxjs@7.8.1)(zone.js@0.12.0):
+    resolution: {integrity: sha512-NDs+g4uM4EhyCvluf8a0YBCFXsDAEfCMHOD5cS00Bl+liTQ7JwtmepkWXMyjLB92irC9JaR79kdy4BoIKOh8WA==}
+    engines: {node: ^14.20.0 || ^16.13.0 || >=18.10.0}
+    peerDependencies:
+      rxjs: ^6.5.3 || ^7.4.0
+      zone.js: ~0.11.4 || ~0.12.0 || ~0.13.0
+    dependencies:
+      rxjs: 7.8.1
+      tslib: 2.5.0
+      zone.js: 0.12.0
+    dev: false
 
   /@angular/core@15.2.8(rxjs@7.8.1)(zone.js@0.13.0):
     resolution: {integrity: sha512-NDs+g4uM4EhyCvluf8a0YBCFXsDAEfCMHOD5cS00Bl+liTQ7JwtmepkWXMyjLB92irC9JaR79kdy4BoIKOh8WA==}
@@ -12954,6 +12966,12 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zone.js@0.12.0:
+    resolution: {integrity: sha512-XtC+I5dXU14HrzidAKBNMqneIVUykLEAA1x+v4KVrd6AUPWlwYORF8KgsVqvgdHiKZ4BkxxjvYi/ksEixTPR0Q==}
+    dependencies:
+      tslib: 2.5.0
+    dev: false
 
   /zone.js@0.13.0:
     resolution: {integrity: sha512-7m3hNNyswsdoDobCkYNAy5WiUulkMd3+fWaGT9ij6iq3Zr/IwJo4RMCYPSDjT+r7tnPErmY9sZpKhWQ8S5k6XQ==}

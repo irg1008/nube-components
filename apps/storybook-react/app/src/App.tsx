@@ -1,4 +1,4 @@
-import { Button } from 'ui-react';
+import { Button } from '@nubebytes/ui-react';
 
 function App() {
   return (
