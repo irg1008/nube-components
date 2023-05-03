@@ -31,6 +31,7 @@
       "source.fixAll.eslint": true,
       "source.organizeImports": true
     },
-    "explorer.excludeGitIgnore": false
+    "explorer.excludeGitIgnore": false,
+    "liveServer.settings.multiRootWorkspaceName": "✨ Nube Components"
   }
 }

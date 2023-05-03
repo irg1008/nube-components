@@ -6,7 +6,6 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "ng": "ng",
-    "dev": "pnpm watch",
     "build": "ng build ui",
     "watch": "ng build ui --watch --configuration development",
     "lint": "ng lint",
