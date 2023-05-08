@@ -33,18 +33,24 @@ export class AppComponent extends DropContainerDirective<Example> {
     super('name');
   }
 
-  override move(item: Example, position: number): void {}
+  override move(item: Example, position: number): void {
+    console.log('move', item, position);
+  }
 
   override copy(
     item: Example,
     position: number,
     newContainer: CdkDropList<Example[]>,
-  ): void {}
+  ): void {
+    console.log('copy', item, position, newContainer);
+  }
 
   override transfer(
     item: Example,
     position: number,
     oldContainer?: CdkDropList<Example[]> | undefined,
     newContainer?: CdkDropList<Example[]> | undefined,
-  ): void {}
+  ): void {
+    console.log('transfer', item, position, oldContainer, newContainer);
+  }
 }

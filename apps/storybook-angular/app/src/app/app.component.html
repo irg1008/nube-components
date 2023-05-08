@@ -1,25 +1,19 @@
 <lib-button></lib-button>
 
-<lib-drag-drop [options]="options">
-  <div
-    [id]="'example'"
-    cdkDropList
-    cdkDropListGroup
-    cdkScrollable
-    cdkDropListAutoScrollStep="5"
-    cdkDropListOrientation="vertical"
-    [cdkDropListData]="exampleData"
-    class="list">
-    <ng-container *ngFor="let ex of exampleData; let i = index">
-      <div
-        cdkDrag
-        [cdkDragData]="ex"
-        cdkDragBoundary=".list"
-        cdkDragLockAxis="y">
-        <article class="list-item">
-          {{ ex.name }}
-        </article>
-      </div>
-    </ng-container>
-  </div>
-</lib-drag-drop>
+<div
+  [id]="'example'"
+  cdkDropList
+  cdkDropListGroup
+  cdkScrollable
+  cdkDropListAutoScrollStep="5"
+  cdkDropListOrientation="vertical"
+  [cdkDropListData]="exampleData"
+  class="list">
+  <ng-container *ngFor="let ex of exampleData; let i = index">
+    <div cdkDrag [cdkDragData]="ex" cdkDragBoundary=".list" cdkDragLockAxis="y">
+      <article class="list-item">
+        {{ ex.name }}
+      </article>
+    </div>
+  </ng-container>
+</div>
