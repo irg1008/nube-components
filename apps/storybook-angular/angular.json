@@ -10,21 +10,21 @@
           "style": "scss"
         }
       },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "app",
+      "sourceRoot": "app/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/storybook-angular",
-            "index": "src/index.html",
-            "main": "src/main.ts",
+            "outputPath": "app/dist",
+            "index": "app/src/index.html",
+            "main": "app/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "assets": ["app/src/favicon.ico", "app/src/assets"],
+            "styles": ["app/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -78,15 +78,33 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "assets": ["app/src/favicon.ico", "app/src/assets"],
+            "styles": ["app/src/styles.scss"],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": ["app/src/**/*.ts", "app/src/**/*.html"]
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": "storybook/config",
+            "browserTarget": "storybook-angular:build",
+            "compodoc": false,
+            "port": 6001
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": "storybook/config",
+            "browserTarget": "storybook-angular:build",
+            "compodoc": false,
+            "outputDir": "storybook/export"
           }
         }
       }

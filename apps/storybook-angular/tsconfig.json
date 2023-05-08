@@ -1,10 +1,12 @@
 {
   "extends": "tsconfig/angular/angular-base.json",
+  "include": ["app/src", "storybook"],
   "compilerOptions": {
-    "baseUrl": "./src",
-    "outDir": "./dist/out-tsc",
+    "baseUrl": "./app",
+    "outDir": "./app/dist/out-tsc",
     "paths": {
-      "@/*": ["app/*"]
+      "@/*": ["src/*"]
     }
-  }
+  },
+  "exclude": ["dist", "build", "node_modules"]
 }

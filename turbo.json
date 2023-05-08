@@ -18,6 +18,6 @@
       "cache": true
     },
     "storybook": {},
-    "storybook:build": {}
+    "build-storybook": {}
   }
 }

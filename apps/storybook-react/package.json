@@ -4,12 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 5002",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "storybook": "storybook dev -p 6006 -c ./storybook/config",
-    "storybook:build": "storybook build -c ./storybook/config -o ./storybook/export"
+    "storybook": "storybook dev -p 6002 -c ./storybook/config",
+    "build-storybook": "storybook build -c ./storybook/config -o ./storybook/export"
   },
   "dependencies": {
     "react": "18.2.0",
