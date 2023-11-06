@@ -1,11 +1,9 @@
-import { Button } from '@nubebytes/ui-react';
+import { CustomEditor } from '@nubebytes/ui-react';
 
-function App() {
+export default function App() {
   return (
     <>
-      <Button />
+      <CustomEditor />
     </>
   );
 }
-
-export default App;
