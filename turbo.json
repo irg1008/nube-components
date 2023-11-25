@@ -2,22 +2,26 @@
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
   "pipeline": {
+    "lint": {
+      "cache": true
+    },
+    "format": {},
     "dev": {
       "cache": false,
       "persistent": true
-    },
-    "build": {
-      "outputs": ["dist"],
-      "dependsOn": ["build-storybook"]
     },
     "preview": {
       "cache": false,
       "persistent": true
     },
-    "lint": {
-      "cache": true
+    "build": {
+      "cache": true,
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build"]
     },
-    "storybook": {},
-    "build-storybook": {}
+    "prerelease": {
+      "cache": true,
+      "dependsOn": ["build", "lint", "format"]
+    }
   }
 }
