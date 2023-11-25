@@ -232,6 +232,7 @@ export abstract class DropContainerDirective<S = unknown, T = S>
    * @param {CdkDragExit<S>} _ Item being dragged out.
    * @memberof DropContainerDirective
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private exit(_: CdkDragExit<T[]>) {
     this.droppingNow = false;
   }

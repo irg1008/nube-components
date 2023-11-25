@@ -5,17 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ButtonComponent, DragDropComponent } from '@nubebytes/ui-angular';
+import { ButtonComponent } from '@nubebytes/ui-angular';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ButtonComponent,
-    DragDropModule,
-    DragDropComponent,
-  ],
+  imports: [BrowserModule, AppRoutingModule, ButtonComponent, DragDropModule],
   providers: [],
   bootstrap: [AppComponent],
 })
