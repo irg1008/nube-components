@@ -1,4 +1,4 @@
-import { SocialViewports, Viewport } from '@/editor/utils/viewport.utils';
+import { Viewport, ViewportCategory } from '@/editor/utils/viewport.utils';
 import {
   Button,
   Chip,
@@ -13,7 +13,7 @@ import { twMerge } from 'tailwind-merge';
 
 type ViewportsMenuProps = {
   onChange: (size: Viewport) => void;
-} & SocialViewports;
+} & ViewportCategory;
 
 export const ViewportsMenu = forwardRef<HTMLButtonElement, ViewportsMenuProps>(
   ({ name, viewports, onChange, icon: Icon }, ref) => {
@@ -21,24 +21,24 @@ export const ViewportsMenu = forwardRef<HTMLButtonElement, ViewportsMenuProps>(
 
     return (
       <Menu
-        ref={ref}
-        placement="right-start"
         open={openMenu}
         handler={setOpenMenu}
+        ref={ref}
         allowHover
+        placement="left-start"
         offset={15}>
-        <MenuHandler className="tw-flex tw-items-center tw-justify-start tw-gap-3">
+        <MenuHandler className="flex items-center justify-start gap-3">
           <MenuItem>
             <ChevronUpIcon
               strokeWidth={2.5}
               className={twMerge(
-                'tw-h-3.5 tw-w-3.5 tw-opacity-50 tw-transition-transform',
-                openMenu ? 'tw--rotate-90' : '',
+                'h-3.5 w-3.5 opacity-50 transition-transform',
+                openMenu ? '-rotate-90' : '',
               )}
             />
 
-            <span className="tw-flex tw-items-center tw-gap-2">
-              <Icon className="tw-h-4 tw-w-4" />
+            <span className="flex items-center gap-2">
+              <Icon className="h-4 w-4" />
               {name}
             </span>
           </MenuItem>
@@ -48,11 +48,11 @@ export const ViewportsMenu = forwardRef<HTMLButtonElement, ViewportsMenuProps>(
           {Object.entries(viewports).map(([detail, size]) => (
             <MenuItem
               key={detail}
-              className="tw-flex tw-items-center tw-justify-between tw-gap-10"
+              className="flex items-center justify-between gap-10"
               onClick={() => {
                 setOpenMenu(false);
                 onChange({
-                  social: name,
+                  name,
                   detail,
                   canvasSize: size,
                 });
@@ -67,28 +67,28 @@ export const ViewportsMenu = forwardRef<HTMLButtonElement, ViewportsMenuProps>(
   },
 );
 
-type SocialViewportsMenuProps = {
-  socialViewports: SocialViewports[];
+type ViewportCategoryMenuProps = {
+  categories: ViewportCategory[];
 } & Pick<ViewportsMenuProps, 'onChange'>;
 
-export const SocialViewportsMenu = ({
-  socialViewports,
+export const ViewportsCategoriesMenu = ({
+  categories,
   onChange,
-}: SocialViewportsMenuProps) => {
+}: ViewportCategoryMenuProps) => {
   return (
     <Menu allowHover>
       <MenuHandler>
         <Button
           fullWidth
           variant="gradient"
-          className="tw-flex tw-items-center tw-justify-center tw-gap-3">
+          className="flex items-center justify-center gap-3">
           <Ratio size={16} />
           Selecciona preset
         </Button>
       </MenuHandler>
       <MenuList>
-        {socialViewports.map((social) => (
-          <ViewportsMenu key={social.name} onChange={onChange} {...social} />
+        {categories.map((c) => (
+          <ViewportsMenu key={c.name} onChange={onChange} {...c} />
         ))}
       </MenuList>
     </Menu>
