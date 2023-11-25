@@ -1,10 +1,10 @@
 {
   "extends": "tsconfig/react/react-app.json",
-  "include": ["app/src", "storybook"],
+  "include": ["app/src", "storybook", "vite.config.ts"],
   "compilerOptions": {
     "baseUrl": "./app",
     "paths": {
-      "@/*": ["src/*"]
+      "~/*": ["src/*"]
     }
   },
   "exclude": ["dist", "build", "node_modules"]
