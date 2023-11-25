@@ -1,134 +1,119 @@
 import { useEditor } from '@/editor/hooks/useEditor';
-import { useEditorHotkey } from '@/editor/hooks/useEditorHotkey';
-import { track } from '@tldraw/tldraw';
+import { ButtonGroup } from '@material-tailwind/react';
+import { track, useNativeClipboardEvents } from '@tldraw/tldraw';
+import { motion } from 'framer-motion';
 import {
-  CommandIcon,
   EraserIcon,
+  HighlighterIcon,
+  ImageIcon,
+  MoreVerticalIcon,
   MousePointer2Icon,
   PencilIcon,
-  RedoIcon,
+  Redo2Icon,
+  ReplaceIcon,
+  ShapesIcon,
+  SlashIcon,
+  Trash2Icon,
   TypeIcon,
-  UndoIcon,
+  Undo2Icon,
 } from 'lucide-react';
-import { ReactNode } from 'react';
-import { Keys } from 'react-hotkeys-hook';
-
-import {
-  Button,
-  ButtonGroup,
-  ButtonProps,
-  Chip,
-  Tooltip,
-} from '@material-tailwind/react';
-
-type CustomButtonProps = Omit<ButtonProps, 'ref'> & { tooltip?: ReactNode };
-
-const CustomButton = ({
-  children,
-  tooltip,
-  variant = 'filled',
-  ...props
-}: CustomButtonProps) => {
-  const btn = (
-    <Button
-      size="sm"
-      className="shrink tw-flex tw-items-center tw-justify-center tw-gap-2"
-      variant={variant}
-      {...props}>
-      {children}
-    </Button>
-  );
-
-  if (!tooltip) return btn;
-
-  return (
-    <Tooltip placement="bottom" content={tooltip}>
-      {btn}
-    </Tooltip>
-  );
-};
-
-type ActionProps = {
-  hotkey: Keys;
-  action: () => void;
-  tooltip: string;
-};
-
-const Action = ({
-  hotkey,
-  action,
-  tooltip,
-  ...props
-}: ActionProps & CustomButtonProps) => {
-  useEditorHotkey(hotkey, action);
-
-  return (
-    <CustomButton
-      {...props}
-      onClick={() => action()}
-      tooltip={
-        <div className="tw-relative">
-          <span className="tw-text-center">{tooltip ?? ''} </span>
-          <div className="tw-top-100 tw-w-100 tw-absolute tw-left-1/2 tw-flex tw--translate-x-1/2 tw-translate-y-0.5 tw-justify-center">
-            <Chip
-              variant="outlined"
-              icon={<CommandIcon className="tw-h-4 tw-w-4" />}
-              size="sm"
-              value={<code>{hotkey}</code>}
-            />
-          </div>
-        </div>
-      }
-    />
-  );
-};
+import { FreeFormMenu } from '../ui/freeform-menu';
+import { LayerActionsMenu } from '../ui/layer-actions-menu';
+import { Action } from './action';
 
 export const Toolbar = track(() => {
-  const { setTool, editor, deleteSelected } = useEditor();
-  useEditorHotkey(['delete', 'backspace'], deleteSelected);
+  const {
+    editor,
+    setTool,
+    setCustomTool,
+    performAction,
+    deleteSelected,
+    isReadonly,
+  } = useEditor();
+  useNativeClipboardEvents();
 
   return (
-    <div className="h-[min-content] grow tw-flex tw-flex-col tw-items-center tw-justify-start tw-gap-4 tw-p-4 sm:tw-flex-row-reverse sm:tw-items-start sm:tw-justify-center">
-      <ButtonGroup>
+    <motion.div
+      animate={{ translateY: isReadonly ? '-100%' : 0 }}
+      className="flex h-[min-content] grow flex-col flex-wrap items-center justify-start gap-2 p-4 ease-in-out sm:flex-row sm:items-start sm:justify-center sm:gap-4">
+      <ButtonGroup size="sm" className="order-2">
         <Action
-          hotkey="shift+s"
+          hotkey="alt+s"
           action={() => setTool('select')}
           tooltip="Selección">
-          <MousePointer2Icon className="tw-h-4 tw-w-4" />
+          <MousePointer2Icon className="h-4 w-4" />
+        </Action>
+        <Action hotkey="alt+d" action={() => setTool('draw')} tooltip="Dibujar">
+          <PencilIcon className="h-4 w-4" />
         </Action>
         <Action
-          hotkey="shift+d"
-          action={() => setTool('draw')}
-          tooltip="Dibujar">
-          <PencilIcon className="tw-h-4 tw-w-4" />
+          hotkey={'alt+l'}
+          variant="text"
+          action={() => setTool('line')}
+          tooltip="Línea">
+          <SlashIcon className="h-4 w-4" />
         </Action>
-        <Action hotkey="shift+t" action={() => setTool('text')} tooltip="Texto">
-          <TypeIcon className="tw-h-4 tw-w-4" />
+        <Action hotkey="alt+t" action={() => setTool('text')} tooltip="Texto">
+          <TypeIcon className="h-4 w-4" />
         </Action>
         <Action
-          hotkey="shift+b"
+          hotkey="alt+b"
           action={() => setTool('eraser')}
           tooltip="Borrar">
-          <EraserIcon className="tw-h-4 tw-w-4" />
+          <EraserIcon className="h-4 w-4" />
         </Action>
       </ButtonGroup>
 
-      <ButtonGroup variant="outlined">
+      <ButtonGroup size="sm" className="order-2">
+        <Action
+          hotkey="alt+i"
+          action={() => setTool('asset')}
+          tooltip="Subir archivo">
+          <ImageIcon className="h-4 w-4" />
+        </Action>
+        <Action
+          hotkey="alt+p"
+          action={() => setCustomTool('placeholder-img')}
+          tooltip="Imagen de catálogo">
+          <ReplaceIcon className="h-4 w-4" />
+        </Action>
+        <Action
+          hotkey="alt+s"
+          action={() => setTool('highlight')}
+          tooltip="Subrayador">
+          <HighlighterIcon className="h-4 w-4" />
+        </Action>
+        <FreeFormMenu onFormPick={setTool}>
+          <ShapesIcon className="h-4 w-4" />
+        </FreeFormMenu>
+      </ButtonGroup>
+
+      <ButtonGroup variant="outlined" size="sm" className="order-3 sm:order-1">
         <Action
           hotkey="ctrl+z"
           action={() => editor.undo()}
           disabled={!editor.canUndo || editor.history.numUndos === 1}
           tooltip="Deshacer">
-          <UndoIcon className="tw-h-4 tw-w-4" />
+          <Undo2Icon className="h-4 w-4" />
         </Action>
         <Action
           hotkey="ctrl+shift+z"
           action={() => editor.redo()}
           disabled={!editor.canRedo}
           tooltip="Rehacer">
-          <RedoIcon className="tw-h-4 tw-w-4" />
+          <Redo2Icon className="h-4 w-4" />
         </Action>
+        <Action
+          hotkey={['delete', 'backspace']}
+          disabled={editor.selectedShapes.length === 0}
+          action={() => deleteSelected()}
+          tooltip="Borrar">
+          <Trash2Icon className="h-4 w-4" />
+        </Action>
+        <LayerActionsMenu onAction={performAction}>
+          <MoreVerticalIcon className="h-4 w-4" />
+        </LayerActionsMenu>
       </ButtonGroup>
-    </div>
+    </motion.div>
   );
 });
