@@ -1,6 +1,6 @@
-import { SocialViewportsMenu } from '@/editor/components/ui/viewports-menu';
+import { ViewportsCategoriesMenu } from '@/editor/components/ui/viewports-menu';
 import { CanvasSize } from '@/editor/stores/canvas.store';
-import { socialViewports } from '@/editor/utils/viewport.utils';
+import { viewportCats } from '@/editor/utils/viewport.utils';
 import { Input } from '@material-tailwind/react';
 import { RectangleHorizontal, RectangleVertical } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -25,7 +25,7 @@ export const ViewportSelect = ({
     getValues,
     formState: { errors, isValid },
   } = useForm<CanvasSize>({
-    defaultValues: canvasSize,
+    values: canvasSize,
     mode: 'onChange',
   });
 
@@ -35,8 +35,8 @@ export const ViewportSelect = ({
   }, 800);
 
   return (
-    <section className="tw-flex tw-flex-col tw-gap-3">
-      <fieldset className="tw-flex tw-flex-col tw-gap-3 md:tw-flex-row">
+    <section className="flex flex-col gap-3">
+      <fieldset className="flex flex-col gap-3 md:flex-row">
         <Input
           type="number"
           min={minCanvasWidth}
@@ -74,8 +74,8 @@ export const ViewportSelect = ({
         />
       </fieldset>
 
-      <SocialViewportsMenu
-        socialViewports={socialViewports}
+      <ViewportsCategoriesMenu
+        categories={viewportCats}
         onChange={({ canvasSize }) => {
           onChange(canvasSize);
           reset(canvasSize);

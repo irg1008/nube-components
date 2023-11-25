@@ -4,6 +4,7 @@ import { track } from '@tldraw/tldraw';
 import { ArrowRightToLine } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import { useToggle } from 'usehooks-ts';
+import { ReadonlyOverlay } from './readonly-overlay';
 import { SidebarContent } from './sidebar-content';
 
 export const Sidebar = track(() => {
@@ -13,23 +14,24 @@ export const Sidebar = track(() => {
   return (
     <aside
       ref={sidebarRef}
-      className="tw-absolute tw-right-0 tw-h-full tw-w-0 tw-overflow-visible lg:tw-relative lg:tw-w-auto lg:tw-overflow-auto">
+      className="absolute right-0 h-full w-0 overflow-visible lg:relative lg:w-auto">
       <section
         className={twMerge(
-          open ? 'tw--translate-x-full' : 'tw-translate-x-0',
-          'tw-relative tw-h-full tw-gap-3 tw-border-l-2 tw-border-gray-900 tw-bg-gray-50 tw-px-6 tw-py-8 tw-shadow-xl tw-transition-transform tw-duration-300 lg:tw-translate-x-0 w-[calc(70vw)] max-w-[var(--sidebar-width)] lg:duration-0',
+          'relative h-full w-[calc(70vw)] max-w-[var(--sidebar-width)] gap-3 border-l-2 border-gray-900 bg-gray-50 shadow-xl transition-transform duration-300 lg:translate-x-0 lg:duration-0',
+          open ? '-translate-x-full' : 'translate-x-0',
         )}>
-        <span className="tw-bottom-0 tw-left-0 tw--translate-x-full tw-p-6 lg:tw-hidden !absolute">
+        <span className="!absolute bottom-10 left-0 -translate-x-full p-6 lg:hidden">
           <IconButton onClick={toggleOpen}>
             <ArrowRightToLine
               className={twMerge(
-                open ? '' : 'tw-rotate-180',
-                'tw-transition-transform tw-duration-300',
+                open ? '' : 'rotate-180',
+                'transition-transform duration-300',
               )}
             />
           </IconButton>
         </span>
 
+        <ReadonlyOverlay />
         <SidebarContent />
       </section>
     </aside>
