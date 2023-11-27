@@ -9,7 +9,14 @@ import {
   saveHTMLFile,
   saveObjectAsFile,
 } from '@/editor/utils/files.utils';
-import { StoreSnapshot, TLRecord, TLShape, useExportAs } from '@tldraw/tldraw';
+import {
+  StoreSnapshot,
+  TLRecord,
+  TLShape,
+  TLStoreSnapshot,
+  useCopyAs,
+  useExportAs,
+} from '@tldraw/tldraw';
 import { useCanvas } from './useCanvas';
 import { useEditor } from './useEditor';
 
@@ -23,13 +30,19 @@ export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
   const { editor } = useEditor();
   const { canvas, canvasSize, resetCanvas } = useCanvas();
   const exportAs = useExportAs();
+  const copyAs = useCopyAs();
 
   const exportCanvas = () => {
     return exportAs([canvas.id], 'png');
   };
 
+  const copyCanvas = () => {
+    return copyAs([canvas.id], 'png');
+  };
+
   const exportCanvasImg = async (name?: string) => {
     if (!name) return exportCanvas();
+
     const shapes = updateShapeProp(canvas as TLShape, {
       prop: 'name',
       value: name,
@@ -39,17 +52,25 @@ export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
     await exportCanvas();
   };
 
+  const getSnapshot = () => {
+    return editor.store.getSnapshot('all');
+  };
+
+  const setSnapshot = (snapshot: TLStoreSnapshot) => {
+    editor.batch(() => {
+      editor.store.loadSnapshot(snapshot);
+      resetCanvas();
+    });
+  };
+
   const saveSnapshot = (fileName: string) => {
-    const snapshot = editor.store.getSnapshot('all');
+    const snapshot = getSnapshot();
     saveObjectAsFile(snapshot, `${fileName}${exportExtension}`);
   };
 
   const loadSnapshot = async (file: File) => {
     const snapshot: StoreSnapshot<TLRecord> = await getObjectFromFile(file);
-    editor.batch(() => {
-      editor.store.loadSnapshot(snapshot);
-      resetCanvas();
-    });
+    setSnapshot(snapshot);
   };
 
   const getShapeMetaValue = (s: TLShape) => (s as ShapeWithValue).meta.value;
@@ -59,21 +80,27 @@ export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
   };
 
   const exportHTML = (fileName: string) => {
-    const canvasHTML = generateCanvasHTML(canvasSize);
+    const canvasHTML = getCanvasHTML();
     saveHTMLFile(canvasHTML, fileName);
   };
 
   const exportTemplateHTML = (fileName: string) => {
-    const withMetaValue = getShapesWithMetaValues();
+    const canvasHTML = getTemplateCanvasHTML();
+    saveHTMLFile(canvasHTML, fileName);
+  };
 
-    const canvasHTML = updateElementsValue(
-      generateCanvasHTML(canvasSize),
+  const getCanvasHTML = () => {
+    return generateCanvasHTML(canvasSize);
+  };
+
+  const getTemplateCanvasHTML = () => {
+    const withMetaValue = getShapesWithMetaValues();
+    return updateElementsValue(
+      getCanvasHTML(),
       withMetaValue,
       getShapeMetaValue,
       (el) => getTextShapeElement(el)!,
     );
-
-    saveHTMLFile(canvasHTML, fileName);
   };
 
   return {
@@ -83,5 +110,10 @@ export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
     exportHTML,
     saveSnapshot,
     loadSnapshot,
+    setSnapshot,
+    getSnapshot,
+    getCanvasHTML,
+    copyCanvas,
+    getTemplateCanvasHTML,
   };
 };
