@@ -1,11 +1,15 @@
-import { StoreSnapshot, TLRecord, TLShape, useExportAs } from '@tldraw/tldraw';
-import { generateCanvasHTML } from '../utils/canvas-html.utils';
-import { updateShapeProp } from '../utils/editor.utils';
+import {
+  generateCanvasHTML,
+  getTextShapeElement,
+  updateElementsValue,
+} from '@/editor/utils/canvas-html.utils';
+import { updateShapeProp } from '@/editor/utils/editor.utils';
 import {
   getObjectFromFile,
   saveHTMLDoc,
   saveObjectAsFile,
-} from '../utils/files.utils';
+} from '@/editor/utils/files.utils';
+import { StoreSnapshot, TLRecord, TLShape, useExportAs } from '@tldraw/tldraw';
 import { useCanvas } from './useCanvas';
 import { useEditor } from './useEditor';
 
@@ -13,8 +17,10 @@ type ExportOptions = {
   exportExtension?: string;
 };
 
+type ShapeWithValue = TLShape & { meta: { value: string } };
+
 export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
-  const { editor, runTransientAction } = useEditor();
+  const { editor } = useEditor();
   const { canvas, canvasSize, resetCanvas } = useCanvas();
   const exportAs = useExportAs();
 
@@ -24,11 +30,10 @@ export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
 
   const exportCanvasImg = async (name?: string) => {
     if (!name) return exportCanvas();
-    const withNewName = updateShapeProp(canvas as TLShape, 'name', name);
-    runTransientAction(async () => {
-      editor.updateShape(withNewName);
-      await exportCanvas();
-    });
+    const shapes = updateShapeProp(canvas as TLShape, 'name', name);
+
+    editor.updateShape(shapes, { ephemeral: true });
+    await exportCanvas();
   };
 
   const saveSnapshot = (fileName: string) => {
@@ -44,8 +49,22 @@ export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
     });
   };
 
+  const getShapeMetaValue = (s: TLShape) => (s as ShapeWithValue).meta.value;
+  const getShapesWithMetaValues = () => {
+    const shapes = editor.currentPageShapes;
+    return shapes.filter(getShapeMetaValue);
+  };
+
   const exportHTML = (fileName: string) => {
-    const canvasHTML = generateCanvasHTML(canvasSize);
+    const withMetaValue = getShapesWithMetaValues();
+
+    const canvasHTML = updateElementsValue(
+      generateCanvasHTML(canvasSize),
+      withMetaValue,
+      getShapeMetaValue,
+      (el) => getTextShapeElement(el)!,
+    );
+
     saveHTMLDoc(canvasHTML, `${fileName}.html`);
   };
 

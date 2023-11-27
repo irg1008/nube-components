@@ -27,12 +27,30 @@ export const generateCanvasHTML = (canvasSize: CanvasSize) => {
   return newDoc;
 };
 
+export const updateElementsValue = <T extends { id: string }>(
+  doc: Document,
+  values: T[],
+  valueTransform: (v: T) => string,
+  select?: (el: HTMLElement) => HTMLElement,
+) => {
+  values.forEach((v) => {
+    let el = doc.getElementById(v.id);
+    if (!el) return;
+    if (select) el = select(el);
+    el.textContent = valueTransform(v);
+  });
+  return doc;
+};
+
+export const getTextShapeElement = (el: HTMLElement) =>
+  el.querySelector('.tl-text-content') as HTMLElement;
+
 const transformCanvasToExport = (
   canvas: HTMLDivElement,
   { h, w }: CanvasSize,
 ) => {
   canvas.classList.remove('tl-html-layer');
-  canvas.classList.add('transform-none', 'tl-container');
+  canvas.classList.add('tl-container');
   canvas.style.transform = 'none';
   canvas.style.clipPath = `polygon(0px 0px, ${w}px 0px, ${w}px ${h}px, 0px ${h}px)`;
   canvas.style.width = `${w}px`;

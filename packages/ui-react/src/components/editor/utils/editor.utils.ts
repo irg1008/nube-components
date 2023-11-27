@@ -53,9 +53,13 @@ export const updateShape = <T extends string, V>(
   };
 };
 
-export type UpdatePropsParams<V> = [prop: string, value: V, meta?: JsonObject];
+export type UpdatePropsParams<V extends string | number> = [
+  prop: string,
+  value: V | ((shape: TLShape) => V),
+  meta?: JsonObject,
+];
 
-export const updateShapeProp = <V>(
+export const updateShapeProp = <V extends string | number>(
   shape: TLShape,
   ...[prop, value, meta]: UpdatePropsParams<V>
 ): TLShapePartial => {
@@ -64,12 +68,12 @@ export const updateShapeProp = <V>(
     type: shape.type,
     meta,
     props: {
-      [prop]: value,
+      [prop]: typeof value === 'function' ? value(shape) : value,
     },
   };
 };
 
-export const updateShapesProp = <V>(
+export const updateShapesProp = <V extends string | number>(
   shapes: TLShape[],
   ...[prop, value, meta]: UpdatePropsParams<V>
 ) => {

@@ -17,15 +17,11 @@ export const getObjectFromFile = async (file: File) => {
 };
 
 export const saveObjectAsFile = (object: object, fileName: string) => {
-  const blob = new Blob([JSON.stringify(object)], {
-    type: 'application/json',
-  });
+  const blob = new Blob([JSON.stringify(object)], { type: 'application/json' });
   donwloadBlob(blob, fileName);
 };
 
 export const saveHTMLDoc = (doc: Document, fileName: string) => {
-  const blob = new Blob([doc.documentElement.outerHTML], {
-    type: 'text/html',
-  });
+  const blob = new Blob([doc.documentElement.outerHTML], { type: 'text/html' });
   donwloadBlob(blob, fileName);
 };
