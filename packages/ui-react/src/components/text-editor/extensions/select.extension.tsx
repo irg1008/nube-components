@@ -70,6 +70,11 @@ export function Select<T extends SelectItem>({
         <MenuHandler>
           <Chip
             variant="outlined"
+            animate={{
+              mount: {
+                transition: { duration: 0 },
+              },
+            }}
             icon={
               <div
                 data-drag-handle

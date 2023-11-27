@@ -10,7 +10,14 @@ type VariableWidgetProps = {
   variables: Variable[];
 };
 
-export const VariableWidget: Widget<Text | Url, VariableWidgetProps> = ({
+type VariableWidgetMeta = {
+  content: JSONContent;
+  value: string;
+};
+
+type VariableWidgetType<T> = Widget<T, VariableWidgetProps, VariableWidgetMeta>;
+
+export const VariableWidget: VariableWidgetType<Url | Text> = ({
   initialValue,
   onChange,
   meta,
@@ -36,10 +43,9 @@ export const VariableWidget: Widget<Text | Url, VariableWidgetProps> = ({
     return displayValue;
   };
 
-  const onVariableChange = (value: string, meta: JSONContent) => {
+  const onVariableChange = (value: string, content: JSONContent) => {
     const displayValue = fillDisplayValue(value);
-    const content = meta['content'] as JSONContent;
-    onChange(displayValue, { content });
+    onChange(displayValue, { content, value });
   };
 
   return (
@@ -51,7 +57,7 @@ export const VariableWidget: Widget<Text | Url, VariableWidgetProps> = ({
         <VariableInput
           format="{{#}}"
           variables={variables}
-          content={(meta['content'] as JSONContent) ?? initialValue}
+          content={meta.content ?? initialValue}
           onChange={onVariableChange}
         />
       </div>
@@ -59,7 +65,7 @@ export const VariableWidget: Widget<Text | Url, VariableWidgetProps> = ({
   );
 };
 
-export const TextVariableWidget: Widget<Text> = (props) => {
+export const TextVariableWidget: VariableWidgetType<Text> = (props) => {
   const { variablesConfig } = useConfig();
   if (!variablesConfig) return <></>;
 
@@ -73,7 +79,7 @@ export const TextVariableWidget: Widget<Text> = (props) => {
   );
 };
 
-export const UrlVariableWidget: Widget<Url> = (props) => {
+export const UrlVariableWidget: VariableWidgetType<Url> = (props) => {
   const { variablesConfig } = useConfig();
   if (!variablesConfig) return <></>;
 

@@ -9,7 +9,6 @@ import type {
   TLDefaultDashStyle as Dash,
   TLDefaultFillStyle as Fill,
   TLDefaultFontStyle as Font,
-  JsonObject,
   TLDefaultSizeStyle as Size,
   TLTextShape,
 } from '@tldraw/tldraw';
@@ -166,17 +165,17 @@ export type ExtractTypeForProp<K extends EditableProp> =
 export type Props = TLDefaultShape['props'];
 export type PropsKey = keyof Props;
 
-export type WidgetProps<T, M extends JsonObject = JsonObject> = {
+export type WidgetProps<T, M = object> = {
   initialValue: T;
   onChange: (newValue: T, meta?: M) => void;
   meta: M;
 };
 
-type WidgetFC<T, P> = (props: WidgetProps<T> & P) => JSX.Element;
+type WidgetFC<T, P, M> = (props: WidgetProps<T, M> & P) => JSX.Element;
 
-export type Widget<T, P = unknown> =
-  | MemoExoticComponent<WidgetFC<T, P>>
-  | WidgetFC<T, P>;
+export type Widget<T, P = unknown, M = object> =
+  | MemoExoticComponent<WidgetFC<T, P, M>>
+  | WidgetFC<T, P, M>;
 
 export type WidgetRecord = {
   [K in EditableProp]: Widget<ExtractTypeForProp<K>>;
