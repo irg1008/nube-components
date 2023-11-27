@@ -4,6 +4,7 @@ import { ViewportSelect } from '@/editor/components/sidebar/viewport-select';
 import { Collapse } from '@/editor/components/ui/collapse';
 import { ColorPicker } from '@/editor/components/ui/color-picker';
 import { useCanvas } from '@/editor/hooks/useCanvas';
+import { useConfig } from '@/editor/stores/config.store';
 import { Typography } from '@material-tailwind/react';
 import { track } from '@tldraw/tldraw';
 import { useToggle } from 'usehooks-ts';
@@ -19,6 +20,8 @@ export const SidebarContent = track(() => {
 
   const [canvasSizeOpen, toggleCanvasSizeOpen] = useToggle(true);
   const [shapeOptionsOpen, toggleShapeOptionsOpen] = useToggle(true);
+
+  const { hideExportUI } = useConfig();
 
   return (
     <div className="custom-scrollbar-thin relative flex h-full flex-col gap-5 overflow-auto px-6 py-8">
@@ -46,9 +49,11 @@ export const SidebarContent = track(() => {
         </Collapse>
       )}
 
-      <section className="fixed bottom-0 left-0 z-30 h-min w-full px-4 py-2">
-        <ExportSection />
-      </section>
+      {!hideExportUI && (
+        <section className="fixed bottom-0 left-0 z-30 h-min w-full px-4 py-2">
+          <ExportSection />
+        </section>
+      )}
     </div>
   );
 });
