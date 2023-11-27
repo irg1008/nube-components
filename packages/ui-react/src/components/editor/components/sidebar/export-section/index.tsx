@@ -3,7 +3,6 @@ import { useExport } from '@/editor/hooks/useExport';
 import { getIconElement } from '@/editor/utils/icons.utils';
 import {
   Button,
-  ButtonGroup,
   Dialog,
   DialogBody,
   DialogFooter,
@@ -125,14 +124,18 @@ export const ExportSection = () => {
           uploadRef.current!.value = '';
         }}
       />
-      <ButtonGroup fullWidth>
+      <div className="flex flex-col justify-evenly gap-2 md:flex-row">
         <Button
+          fullWidth
+          variant="gradient"
           onClick={() => uploadRef.current!.click()}
           className="flex items-center justify-center gap-2">
           <ImportIcon className="h-4 w-4 rotate-180" />
           Importar
         </Button>
         <Button
+          fullWidth
+          variant="gradient"
           onClick={() => {
             openDialog();
             editor.selectNone();
@@ -141,7 +144,7 @@ export const ExportSection = () => {
           <DownloadIcon className="h-4 w-4" />
           Exportar
         </Button>
-      </ButtonGroup>
+      </div>
 
       <Dialog
         size="sm"

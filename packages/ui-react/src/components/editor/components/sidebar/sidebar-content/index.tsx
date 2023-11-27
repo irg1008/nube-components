@@ -7,6 +7,7 @@ import { useCanvas } from '@/editor/hooks/useCanvas';
 import { useConfig } from '@/editor/stores/config.store';
 import { Typography } from '@material-tailwind/react';
 import { track } from '@tldraw/tldraw';
+import { twMerge } from 'tailwind-merge';
 import { useToggle } from 'usehooks-ts';
 
 export const SidebarContent = track(() => {
@@ -41,7 +42,9 @@ export const SidebarContent = track(() => {
       {selectedShapes.length > 0 && (
         <Collapse
           as="section"
-          collapseProps={{ className: 'px-1' }}
+          collapseProps={{
+            className: twMerge('px-1', !hideExportUI && 'mb-5'),
+          }}
           open={shapeOptionsOpen}
           toggleOpen={toggleShapeOptionsOpen}
           label="Opciones de selección">
