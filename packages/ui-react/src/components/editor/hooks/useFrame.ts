@@ -2,7 +2,6 @@ import { BRShape } from '@/editor/shapes/basic-rectangle/basic-rectangle.types';
 import { CanvasSize } from '@/editor/stores/canvas.store';
 import { BackgroundColor } from '@/editor/styles/background-color';
 import {
-  UpdatePropsParams,
   filterShapeInChanges,
   shapeLookup,
   updateShapesProp,
@@ -98,8 +97,8 @@ export const useFrameOperations = ({
         tempShapes = tempShapes.filter(cb);
         return this;
       },
-      updateProp<V>(...[prop, value, meta]: UpdatePropsParams<V>) {
-        const partialShapes = updateShapesProp(tempShapes, prop, value, meta);
+      updateProp<V>(prop: string, value: V) {
+        const partialShapes = updateShapesProp(tempShapes, { prop, value });
         return {
           run: () => {
             editor.updateShapes(partialShapes);

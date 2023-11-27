@@ -16,11 +16,6 @@ export const generateCanvasHTML = (canvasSize: CanvasSize) => {
   const canvasNode = getCanvasNode();
   transformCanvasToExport(canvasNode, canvasSize);
 
-  // TODO: Swap temp values inside variables maybe identified somehow with a tag attributte???
-  // Swap the value for scriban template variable
-  // In this swap we could also receive the variable type from configuration and add the specific scriban syntax
-  // Maybe bette rnot because in dates for example we need to add .Datetime (like in C#) and we don't want o miss c# syntax here.
-
   newDoc.body.innerHTML = canvasNode.outerHTML;
   transformBodyToExport(newDoc.body);
 

@@ -25,3 +25,7 @@ export const saveHTMLDoc = (doc: Document, fileName: string) => {
   const blob = new Blob([doc.documentElement.outerHTML], { type: 'text/html' });
   donwloadBlob(blob, fileName);
 };
+
+export const saveHTMLFile = (doc: Document, fileName: string) => {
+  saveHTMLDoc(doc, `${fileName}.html`);
+};

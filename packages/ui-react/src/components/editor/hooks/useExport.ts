@@ -6,7 +6,7 @@ import {
 import { updateShapeProp } from '@/editor/utils/editor.utils';
 import {
   getObjectFromFile,
-  saveHTMLDoc,
+  saveHTMLFile,
   saveObjectAsFile,
 } from '@/editor/utils/files.utils';
 import { StoreSnapshot, TLRecord, TLShape, useExportAs } from '@tldraw/tldraw';
@@ -30,7 +30,10 @@ export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
 
   const exportCanvasImg = async (name?: string) => {
     if (!name) return exportCanvas();
-    const shapes = updateShapeProp(canvas as TLShape, 'name', name);
+    const shapes = updateShapeProp(canvas as TLShape, {
+      prop: 'name',
+      value: name,
+    });
 
     editor.updateShape(shapes, { ephemeral: true });
     await exportCanvas();
@@ -56,6 +59,11 @@ export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
   };
 
   const exportHTML = (fileName: string) => {
+    const canvasHTML = generateCanvasHTML(canvasSize);
+    saveHTMLFile(canvasHTML, fileName);
+  };
+
+  const exportTemplateHTML = (fileName: string) => {
     const withMetaValue = getShapesWithMetaValues();
 
     const canvasHTML = updateElementsValue(
@@ -65,12 +73,13 @@ export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
       (el) => getTextShapeElement(el)!,
     );
 
-    saveHTMLDoc(canvasHTML, `${fileName}.html`);
+    saveHTMLFile(canvasHTML, fileName);
   };
 
   return {
     exportExtension,
     exportCanvasImg,
+    exportTemplateHTML,
     exportHTML,
     saveSnapshot,
     loadSnapshot,

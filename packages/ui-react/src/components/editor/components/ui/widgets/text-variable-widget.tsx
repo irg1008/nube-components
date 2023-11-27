@@ -3,21 +3,16 @@ import { useConfig } from '@/editor/stores/config.store';
 import { Typography } from '@material-tailwind/react';
 import { JSONContent } from '@tiptap/core';
 import { Variable, VariableInput } from '../variable-input';
-import { Text, Url, Widget } from './widget.types';
+import { Text, Url, VariableMeta, Widget } from './widget.types';
 
 type VariableWidgetProps = {
   label: string;
   variables: Variable[];
 };
 
-type VariableWidgetMeta = {
-  content: JSONContent;
-  value: string;
-};
+type WithMeta<T, P = unknown> = Widget<T, P, VariableMeta>;
 
-type VariableWidgetType<T> = Widget<T, VariableWidgetProps, VariableWidgetMeta>;
-
-export const VariableWidget: VariableWidgetType<Url | Text> = ({
+export const VariableWidget: WithMeta<Url | Text, VariableWidgetProps> = ({
   initialValue,
   onChange,
   meta,
@@ -65,7 +60,7 @@ export const VariableWidget: VariableWidgetType<Url | Text> = ({
   );
 };
 
-export const TextVariableWidget: VariableWidgetType<Text> = (props) => {
+export const TextVariableWidget: WithMeta<Text> = (props) => {
   const { variablesConfig } = useConfig();
   if (!variablesConfig) return <></>;
 
@@ -79,7 +74,7 @@ export const TextVariableWidget: VariableWidgetType<Text> = (props) => {
   );
 };
 
-export const UrlVariableWidget: VariableWidgetType<Url> = (props) => {
+export const UrlVariableWidget: WithMeta<Url> = (props) => {
   const { variablesConfig } = useConfig();
   if (!variablesConfig) return <></>;
 

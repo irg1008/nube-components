@@ -1,5 +1,6 @@
 import {
   JsonObject,
+  JsonPrimitive,
   RecordsDiff,
   TLRecord,
   TLShape,
@@ -53,29 +54,31 @@ export const updateShape = <T extends string, V>(
   };
 };
 
-export type UpdatePropsParams<V extends string | number> = [
-  prop: string,
-  value: V | ((shape: TLShape) => V),
-  meta?: JsonObject,
-];
+export type UpdatePropCb<V> = (shape: TLShape) => V;
 
-export const updateShapeProp = <V extends string | number>(
+export type UpdatePropsParams<V = JsonPrimitive> = {
+  prop: string;
+  value: V;
+  meta?: Partial<JsonObject>;
+};
+
+export const updateShapeProp = <V = JsonPrimitive>(
   shape: TLShape,
-  ...[prop, value, meta]: UpdatePropsParams<V>
+  { prop, value, meta }: UpdatePropsParams<V>,
 ): TLShapePartial => {
   return {
     id: shape.id,
     type: shape.type,
     meta,
     props: {
-      [prop]: typeof value === 'function' ? value(shape) : value,
+      [prop]: value,
     },
   };
 };
 
-export const updateShapesProp = <V extends string | number>(
+export const updateShapesProp = <V = JsonPrimitive>(
   shapes: TLShape[],
-  ...[prop, value, meta]: UpdatePropsParams<V>
+  options: UpdatePropsParams<V>,
 ) => {
-  return shapes.map((shape) => updateShapeProp(shape, prop, value, meta));
+  return shapes.map((shape) => updateShapeProp(shape, options));
 };

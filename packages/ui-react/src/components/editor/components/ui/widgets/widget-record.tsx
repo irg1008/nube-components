@@ -14,9 +14,10 @@ import { SplineWidget } from './spline-widget';
 import { TextVariableWidget, UrlVariableWidget } from './text-variable-widget';
 import {
   EditableProp,
+  ExtractMetaForProp,
   ExtractTypeForProp,
   PropsKey,
-  Widget,
+  WidgetForKey,
   WidgetProps,
   WidgetRecord,
 } from './widget.types';
@@ -43,7 +44,7 @@ const propWidgets: Partial<WidgetRecord> = {
   [EditableProp.Spline]: SplineWidget,
 };
 
-export type WidgetForPropProps<
+export type WidgetForProps<
   K extends keyof WidgetRecord,
   C = keyof JSX.IntrinsicElements,
 > = {
@@ -63,10 +64,10 @@ export const WidgetForProp = <
   prop,
   as,
   containerProps,
-}: WidgetForPropProps<K, C>) => {
+}: WidgetForProps<K, C>) => {
   if (!Object.keys(propWidgets).includes(prop)) return;
 
-  const PropWidget = propWidgets[prop] as Widget<ExtractTypeForProp<K>>;
+  const PropWidget = propWidgets[prop] as WidgetForKey<K>;
   if (!PropWidget) return null;
 
   const [firstShape] = shapes;
@@ -76,7 +77,7 @@ export const WidgetForProp = <
     children: (
       <PropWidget
         initialValue={firstShape.props[prop as PropsKey]}
-        meta={firstShape.meta}
+        meta={firstShape.meta as ExtractMetaForProp<K>}
         onChange={onChange}
       />
     ),

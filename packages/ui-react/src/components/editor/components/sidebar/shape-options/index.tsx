@@ -5,8 +5,7 @@ import {
   getShapesSharedProps,
   updateShapesProp,
 } from '@/editor/utils/editor.utils';
-import { JsonObject } from '@tldraw/tldraw';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { OpacitySlider } from '../opacity-slider';
 
 export const ShapeOptions = () => {
@@ -16,14 +15,6 @@ export const ShapeOptions = () => {
   const props = useMemo(
     () => getShapesSharedProps<EditableProp>(shapes),
     [shapes],
-  );
-
-  const onChange = useCallback(
-    (...values: [prop: EditableProp, newValue: unknown, meta?: JsonObject]) => {
-      const updated = updateShapesProp(editor.selectedShapes, ...values);
-      editor.updateShapes(updated);
-    },
-    [editor],
   );
 
   return (
@@ -37,7 +28,14 @@ export const ShapeOptions = () => {
           as="li"
           shapes={shapes}
           prop={prop}
-          onChange={(...values) => onChange(prop, ...values)}
+          onChange={(value, meta) => {
+            const updated = updateShapesProp(editor.selectedShapes, {
+              prop,
+              value,
+              meta,
+            });
+            editor.updateShapes(updated);
+          }}
         />
       ))}
     </ul>
