@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --sidebar-width: 350px;
-}
-
 .tl-frame-label {
   @apply !hidden;
 }
