@@ -9,6 +9,7 @@ import {
 import { CopyIcon, PipetteIcon } from 'lucide-react';
 import { useRef } from 'react';
 import { HexColorPicker } from 'react-colorful';
+import { toast } from 'sonner';
 import { useBoolean, useOnClickOutside } from 'usehooks-ts';
 
 type ColorPickerProps = {
@@ -90,7 +91,13 @@ export const ColorPicker = ({ initialColor, onChange }: ColorPickerProps) => {
           />
           <Tooltip content="Copiar al portapapales">
             <IconButton
-              onClick={() => copyToClipboard()}
+              onClick={() => {
+                copyToClipboard();
+                toast.success('Color copiado al portapapeles', {
+                  id: 'copyColor',
+                  duration: 1000,
+                });
+              }}
               size="sm"
               variant="text"
               className="!absolute right-1 top-1">
