@@ -30,6 +30,7 @@ enum ExportFormat {
   Image = 'image',
   Snapshot = 'snapshot',
   HTML = 'html',
+  TemplateHTML = 'templateHTML',
 }
 
 type FormatInfo = {
@@ -45,6 +46,7 @@ export const ExportSection = () => {
     loadSnapshot,
     saveSnapshot,
     exportHTML,
+    exportTemplateHTML,
   } = useExport();
   const { editor } = useEditor();
 
@@ -69,12 +71,22 @@ export const ExportSection = () => {
       description: 'Una imagen de tu template en formato PNG.',
       icon: FileImage,
     },
-    [ExportFormat.HTML]: {
+    [ExportFormat.TemplateHTML]: {
       label: 'Template dinámico (.HTML)',
       description: (
         <span>
-          Una página web que contiene tu template en formato <em>template</em>{' '}
-          con variables dinámicas
+          Una página web que contiene tu template en formato <em>HTML</em> con
+          variables dinámicas
+        </span>
+      ),
+      icon: FileCodeIcon,
+    },
+    [ExportFormat.HTML]: {
+      label: 'HTML estático (.HTML)',
+      description: (
+        <span>
+          Una página web que contiene tu template en formato <em>HTML</em> con
+          estilos y texto estático
         </span>
       ),
       icon: FileCodeIcon,
@@ -90,7 +102,8 @@ export const ExportSection = () => {
   const exportCb: Record<ExportFormat, () => void | Promise<void>> = {
     [ExportFormat.Image]: exportCanvasImg,
     [ExportFormat.Snapshot]: () => saveSnapshot('snapshot'),
-    [ExportFormat.HTML]: () => exportHTML('template'),
+    [ExportFormat.HTML]: () => exportHTML('static'),
+    [ExportFormat.TemplateHTML]: () => exportTemplateHTML('template'),
   };
 
   const exportFormat = async () => {
