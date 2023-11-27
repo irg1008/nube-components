@@ -4,23 +4,18 @@ import {
   randProductName,
   randUrl,
 } from '@ngneat/falso';
-import {
-  Editor,
-  EditorConfig,
-  Variable,
-  VariableConfig,
-} from '@nubebytes/ui-react';
+import { Editor, Variable, VariableConfig } from '@nubebytes/ui-react';
 
 enum VariableType {
-  Price = 'price',
-  OfferPrice = 'offerPrice',
-  Name = 'name',
-  Image = 'image',
-  Image2 = 'image2',
-  Image3 = 'image3',
-  Image4 = 'image4',
-  Image5 = 'image5',
-  Category = 'category',
+  Price = 'Price',
+  OfferPrice = 'OfferPrice',
+  Name = 'Name',
+  Image = 'Image',
+  Image2 = 'Image2',
+  Image3 = 'Image3',
+  Image4 = 'Image4',
+  Image5 = 'Image5',
+  Category = 'Category',
 }
 
 const imageVariables: Variable[] = [
@@ -91,14 +86,13 @@ const variablesConfig: VariableConfig = {
   variableValueResolver: (k) => mockUp[k],
 };
 
-const editgorConfig: EditorConfig = {
-  variablesConfig,
-};
-
 export default function App() {
   return (
-    <div className="h-screen w-full">
-      <Editor config={editgorConfig} />
+    <div className="flex h-screen w-full flex-col gap-3 p-4">
+      <h2 className="font-mono text-4xl font-bold uppercase">Editor</h2>
+      <div className="flex-grow overflow-hidden rounded-2xl border-2 border-black shadow-xl">
+        <Editor variablesConfig={variablesConfig} />
+      </div>
     </div>
   );
 }
