@@ -9,9 +9,8 @@ export const NubeProvider = ({ children }: PropsWithChildren) => {
         position="bottom-center"
         richColors={false}
         closeButton
-        toastOptions={{
-          className: 'font-sans text-sm',
-        }}
+        offset={16}
+        toastOptions={{ className: 'font-sans text-sm' }}
       />
       {children}
     </ThemeProvider>
