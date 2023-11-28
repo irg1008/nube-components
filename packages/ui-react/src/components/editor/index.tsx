@@ -1,5 +1,4 @@
 import { Canvas, Tldraw } from '@tldraw/tldraw';
-import '@tldraw/tldraw/tldraw.css';
 import { ComponentProps } from 'react';
 import { CustomUI } from './components/custom-ui';
 import { customShapeUtils, customTools } from './shapes';
@@ -27,19 +26,21 @@ const externalAssetsConfig: Pick<
 // You need to use exploded editor but this brings tons of issues on asset loading as well as other bugs.
 // For the moment we can't extend custom shpaes so we are stuck with base.
 
-export const CustomEditor = (config: EditorConfig) => (
-  <section className="h-full w-full overflow-visible">
-    <Tldraw
-      {...externalAssetsConfig}
-      hideUi
-      persistenceKey="editor"
-      initialState="select"
-      shapeUtils={customShapeUtils}
-      tools={customTools}>
-      <CanvasProvider>
-        <CustomUI config={config} />
-      </CanvasProvider>
-      <Canvas />
-    </Tldraw>
-  </section>
-);
+export const CustomEditor = (config: EditorConfig) => {
+  return (
+    <section className="h-full w-full overflow-visible">
+      <Tldraw
+        {...externalAssetsConfig}
+        hideUi
+        persistenceKey="editor"
+        initialState="select"
+        shapeUtils={customShapeUtils}
+        tools={customTools}>
+        <CanvasProvider>
+          <CustomUI config={config} />
+        </CanvasProvider>
+        <Canvas />
+      </Tldraw>
+    </section>
+  );
+};
