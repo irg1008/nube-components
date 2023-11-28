@@ -1,11 +1,12 @@
 {
   "extends": "tsconfig/angular/angular-base.json",
   "compilerOptions": {
+    "jsx": "react-jsx",
     "baseUrl": "./src",
     "outDir": "./dist/out-tsc",
-    // These do not work with ng-packagr at the moment.
     "paths": {
       "@/*": ["lib/*"]
-    }
+    },
+    "strictPropertyInitialization": false
   }
 }

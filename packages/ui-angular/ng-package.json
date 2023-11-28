@@ -3,5 +3,7 @@
   "dest": "dist",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": ["react", "react-dom", "@nubebytes/ui-react"],
+  "assets": ["./assets/**/*.*"]
 }

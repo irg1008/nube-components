@@ -10,19 +10,22 @@
   },
   "scripts": {
     "ng": "ng",
+    "build:sass": "sass src/lib/styles/index.scss assets/styles.css",
+    "prebuild": "npm run build:sass",
     "build": "ng build ui",
+    "prewatch": "npm run build:sass",
     "watch": "ng build ui --watch --configuration development",
     "lint": "ng lint ui"
   },
   "peerDependencies": {
-    "@angular/animations": "16.2.11",
-    "@angular/common": "16.2.11",
-    "@angular/compiler": "16.2.11",
-    "@angular/core": "16.2.11",
-    "@angular/cdk": "16.2.10",
-    "@angular/forms": "16.2.11",
-    "@angular/platform-browser": "16.2.11",
-    "@angular/platform-browser-dynamic": "16.2.11",
+    "@angular/animations": "^16.2.11",
+    "@angular/cdk": "^16.2.10",
+    "@angular/common": "^16.2.11",
+    "@angular/compiler": "^16.2.11",
+    "@angular/core": "^16.2.11",
+    "@angular/forms": "^16.2.11",
+    "@angular/platform-browser": "^16.2.11",
+    "@angular/platform-browser-dynamic": "^16.2.11",
     "rxjs": "7.8.1",
     "zone.js": "~0.13.3"
   },
@@ -30,10 +33,20 @@
     "@angular-devkit/build-angular": "16.2.8",
     "@angular/cli": "16.2.8",
     "@angular/compiler-cli": "16.2.11",
+    "@tldraw/tldraw": "2.0.0-alpha.18",
+    "@types/react": "18.2.38",
+    "@types/react-dom": "18.2.17",
     "eslint-config-custom": "workspace:*",
     "ng-packagr": "16.2.3",
+    "sass": "1.69.5",
     "tsconfig": "workspace:*",
-    "typescript": "~5.1.6"
+    "typescript": "~5.1.6",
+    "tslib": "2.6.2"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "@nubebytes/ui-react": "workspace:*",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
 }
