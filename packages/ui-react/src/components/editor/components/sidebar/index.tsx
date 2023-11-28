@@ -1,6 +1,5 @@
 import { useCanvas } from '@/editor/hooks/useCanvas';
 import { IconButton } from '@material-tailwind/react';
-import { track } from '@tldraw/tldraw';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRightToLine } from 'lucide-react';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -9,7 +8,7 @@ import { useBoolean } from 'usehooks-ts';
 import { ReadonlyOverlay } from './readonly-overlay';
 import { SidebarContent } from './sidebar-content';
 
-export const Sidebar = track(() => {
+export const Sidebar = () => {
   const {
     value: open,
     toggle: toggleOpen,
@@ -58,4 +57,4 @@ export const Sidebar = track(() => {
       </AnimatePresence>
     </>
   );
-});
+};

@@ -25,7 +25,7 @@ type CanvasContext = {
   canvasSize: CanvasSize;
   canvas: Frame;
   zoomToFrame: (animation: Animation) => void;
-  refitCanvas: ({ moveCamera }?: RefitCanvasOptions) => void;
+  refitCanvas: (options?: RefitCanvasOptions) => void;
   changeSelectedOpacity: (opacity: number) => void;
   resizeCanvas: FrameHook['resizeFrame'];
   resetCanvas: FrameHook['initFrame'];

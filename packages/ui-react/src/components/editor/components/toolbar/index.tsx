@@ -1,6 +1,6 @@
 import { useEditor } from '@/editor/hooks/useEditor';
 import { ButtonGroup } from '@material-tailwind/react';
-import { track, useNativeClipboardEvents } from '@tldraw/tldraw';
+import { useNativeClipboardEvents } from '@tldraw/tldraw';
 import { motion } from 'framer-motion';
 import {
   EraserIcon,
@@ -21,7 +21,7 @@ import { FreeFormMenu } from '../ui/freeform-menu';
 import { LayerActionsMenu } from '../ui/layer-actions-menu';
 import { Action } from './action';
 
-export const Toolbar = track(() => {
+export const Toolbar = () => {
   const {
     editor,
     setTool,
@@ -116,4 +116,4 @@ export const Toolbar = track(() => {
       </ButtonGroup>
     </motion.div>
   );
-});
+};

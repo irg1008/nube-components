@@ -6,11 +6,10 @@ import { ColorPicker } from '@/editor/components/ui/color-picker';
 import { useCanvas } from '@/editor/hooks/useCanvas';
 import { useConfig } from '@/editor/stores/config.store';
 import { Typography } from '@material-tailwind/react';
-import { track } from '@tldraw/tldraw';
 import { twMerge } from 'tailwind-merge';
 import { useToggle } from 'usehooks-ts';
 
-export const SidebarContent = track(() => {
+export const SidebarContent = () => {
   const {
     resizeCanvas,
     canvasSize,
@@ -59,4 +58,4 @@ export const SidebarContent = track(() => {
       )}
     </div>
   );
-});
+};
