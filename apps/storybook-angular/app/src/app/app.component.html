@@ -1,3 +1,5 @@
 <div class="editor-container">
-  <lib-react-editor></lib-react-editor>
+  <lib-react-editor
+    [editorConfig]="editorConfig"
+    (editorMount)="editor = $event" />
 </div>
