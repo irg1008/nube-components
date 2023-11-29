@@ -28,7 +28,7 @@ const elementName = 'reactEditor';
   selector: 'lib-react-editor',
   template: `<span #${elementName}></span>`,
   styleUrls: ['./react-editor-wrapper.component.scss'],
-  encapsulation: ViewEncapsulation.ShadowDom,
+  encapsulation: ViewEncapsulation.None,
 })
 export class ReactEditorWrapperComponent
   implements OnChanges, OnDestroy, AfterViewInit
