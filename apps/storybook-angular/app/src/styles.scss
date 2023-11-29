@@ -1,6 +1,8 @@
 body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
     'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 $drag-transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
