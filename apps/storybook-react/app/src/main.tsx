@@ -1,7 +1,7 @@
 import { NubeProvider } from '@nubebytes/ui-react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from '~/app';
+import App from '~/App';
 import './index.css';
 import '@nubebytes/ui-react/index.css';
 
