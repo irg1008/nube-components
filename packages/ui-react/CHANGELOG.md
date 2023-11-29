@@ -1,5 +1,11 @@
 # @nubebytes/ui-react
 
+## 0.1.0
+
+### Minor Changes
+
+- Editor is now functional and ready to use in any react app. Import EditorComponent with library css to use
+
 ## 0.0.3
 
 ### Patch Changes
