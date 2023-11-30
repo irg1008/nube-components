@@ -1,1 +1,1 @@
-export const shapeName = 'placeholder-img';
+export const placeholderImage = 'placeholder-img';

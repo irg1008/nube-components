@@ -4,7 +4,6 @@ import {
 } from '@/editor/styles/object-position';
 import { ObjectFitStyle, objectFitPropName } from '@/editor/styles/objet-fit';
 import { ShapeProps, T } from '@tldraw/tldraw';
-import {} from './placeholder-img.consts';
 import { PIShape } from './placeholder-img.types';
 
 export const basicRectangleProps: ShapeProps<PIShape> = {

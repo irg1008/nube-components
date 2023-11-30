@@ -1,1 +1,1 @@
-export const shapeName = 'basic-rectangle';
+export const basicRectangle = 'basic-rectangle';

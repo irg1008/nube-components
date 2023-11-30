@@ -9,12 +9,12 @@ import {
   TLOnTranslateHandler,
   TLOnTranslateStartHandler,
 } from '@tldraw/tldraw';
-import { shapeName } from './basic-rectangle.consts';
+import { basicRectangle } from './basic-rectangle.consts';
 import { basicRectangleProps, defaultProps } from './basic-rectangle.props';
 import { BRShape } from './basic-rectangle.types';
 
 export class BasicRectangleUtil extends ShapeUtil<BRShape> {
-  static override type = shapeName;
+  static override type = basicRectangle;
   static override props = basicRectangleProps;
 
   override canResize = () => false;

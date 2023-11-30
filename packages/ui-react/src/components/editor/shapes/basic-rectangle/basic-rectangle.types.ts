@@ -3,10 +3,10 @@ import {
   backgroundColorPropName,
 } from '@/editor/styles/background-color';
 import { TLBaseShape } from '@tldraw/tldraw';
-import { shapeName } from './basic-rectangle.consts';
+import { basicRectangle } from './basic-rectangle.consts';
 
 export type BRShape = TLBaseShape<
-  typeof shapeName,
+  typeof basicRectangle,
   {
     w: number;
     h: number;

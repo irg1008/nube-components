@@ -1,8 +1,8 @@
 import { BaseBoxShapeTool } from '@tldraw/tldraw';
-import { shapeName } from './basic-rectangle.consts';
+import { basicRectangle } from './basic-rectangle.consts';
 
 export class BasicRectangleTool extends BaseBoxShapeTool {
-  static override id = shapeName;
+  static override id = basicRectangle;
   static override initial = 'idle';
-  override shapeType = shapeName;
+  override shapeType = basicRectangle;
 }

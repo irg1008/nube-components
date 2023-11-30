@@ -4,10 +4,10 @@ import {
 } from '@/editor/styles/object-position';
 import { ObjectFit, objectFitPropName } from '@/editor/styles/objet-fit';
 import { TLBaseShape } from '@tldraw/tldraw';
-import { shapeName } from './placeholder-img.consts';
+import { placeholderImage } from './placeholder-img.consts';
 
 export type PIShape = TLBaseShape<
-  typeof shapeName,
+  typeof placeholderImage,
   {
     w: number;
     h: number;

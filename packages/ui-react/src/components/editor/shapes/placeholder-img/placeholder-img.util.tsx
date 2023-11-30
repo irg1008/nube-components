@@ -11,7 +11,7 @@ import {
 } from '@tldraw/tldraw';
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { shapeName } from './placeholder-img.consts';
+import { placeholderImage } from './placeholder-img.consts';
 import { basicRectangleProps, defaultProps } from './placeholder-img.props';
 import { PIShape } from './placeholder-img.types';
 
@@ -28,7 +28,7 @@ const getDataURIFromURL = async (url: string): Promise<string> => {
 };
 
 export class PlaceholderImgUtil extends ShapeUtil<PIShape> {
-  static override type = shapeName;
+  static override type = placeholderImage;
   static override props = basicRectangleProps;
 
   override isAspectRatioLocked = () => false;
@@ -51,7 +51,7 @@ export class PlaceholderImgUtil extends ShapeUtil<PIShape> {
     return resizeBox(shape, info);
   };
 
-  override async toSvg(shape: PIShape) {
+  override toSvg = async (shape: PIShape) => {
     const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     let src = shape.props.customUrl;
 
@@ -70,7 +70,7 @@ export class PlaceholderImgUtil extends ShapeUtil<PIShape> {
     g.appendChild(image);
 
     return g;
-  }
+  };
 
   indicator(shape: PIShape) {
     const { w, h } = shape.props;
@@ -85,6 +85,11 @@ export class PlaceholderImgUtil extends ShapeUtil<PIShape> {
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [validUrl, setValidUrl] = useState<boolean>(true);
+
+    const isHovered = this.editor.hoveredShapeId === shape.id;
+    const isSelected = this.editor.selectedShapeIds.includes(shape.id);
+    const emptyUrl = !trimmedUrl;
+    const showDimensions = isHovered || isSelected || emptyUrl || !validUrl;
 
     return (
       <HTMLContainer id={shape.id} className="relative">
@@ -109,13 +114,8 @@ export class PlaceholderImgUtil extends ShapeUtil<PIShape> {
           )}>
           <Chip
             className={twMerge(
-              'bg-gray-800 px-4 py-3 text-white transition-opacity duration-200',
-              this.editor.hoveredShapeId === shape.id ||
-                this.editor.selectedShapeIds.includes(shape.id) ||
-                !trimmedUrl ||
-                !validUrl
-                ? 'opacity-100'
-                : '!opacity-0',
+              'bg-gray-800 px-4 py-3 text-white opacity-0 transition-opacity duration-200',
+              showDimensions && 'opacity-100',
             )}
             size="lg"
             value={`${bounds.w.toFixed()}x${bounds.h.toFixed()}`}
