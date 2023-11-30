@@ -20,15 +20,14 @@ export const VariableWidget: WithMeta<Url | Text, VariableWidgetProps> = ({
   variables,
 }) => {
   const { scapeEditingState } = useEditor();
-
   const { variablesConfig } = useConfig();
-  if (!variablesConfig) return <></>;
 
-  const { variableValueResolver, imageVariables, textVariables } =
-    variablesConfig;
-  const variableKeys = [...imageVariables, ...textVariables].map((v) => v.key);
+  const variableKeys = variables.map((v) => v.key);
 
   const fillDisplayValue = (displayValue: string) => {
+    if (!variablesConfig) return displayValue;
+    const { variableValueResolver } = variablesConfig;
+
     variableKeys.forEach((key) => {
       displayValue = displayValue.replaceAll(
         `{{${key}}}`,

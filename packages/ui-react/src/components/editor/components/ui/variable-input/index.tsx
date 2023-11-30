@@ -48,6 +48,13 @@ export const VariableInput = ({
       .run();
   };
 
+  const syncVariables = () => {
+    if (!editor) return;
+    editor.commands.focus('all');
+    editor.commands.updateAttributes('select', { items: variables });
+    editor.commands.focus('end');
+  };
+
   const onEditorChange = () => {
     if (!editor || !onChange) return;
     const displayValue = editor.getText();
@@ -55,8 +62,18 @@ export const VariableInput = ({
     onChange(displayValue, content);
   };
 
+  const isSameContent = () => {
+    return JSON.stringify(content) === JSON.stringify(editor!.getJSON());
+  };
+
   useUpdateEffect(() => {
     if (!editor) return;
+
+    queueMicrotask(() => {
+      syncVariables();
+      onEditorChange();
+    });
+
     editor.on('update', onEditorChange);
 
     return () => {
@@ -65,9 +82,11 @@ export const VariableInput = ({
   }, [editor]);
 
   useUpdateEffect(() => {
-    if (!editor || content === undefined) return;
+    if (!editor || content === undefined || isSameContent()) return;
+
     queueMicrotask(() => {
       editor.commands.setContent(content);
+      syncVariables();
     });
   }, [content]);
 
