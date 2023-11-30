@@ -8,7 +8,7 @@ import {
   MenuList,
 } from '@material-tailwind/react';
 import { Editor, JSONContent } from '@tiptap/react';
-import { PlusCircleIcon } from 'lucide-react';
+import { ListRestartIcon, PlusCircleIcon } from 'lucide-react';
 import { useState } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
 
@@ -37,6 +37,7 @@ export const VariableInput = ({
   const addVariable = (item: Variable) => {
     editor
       ?.chain()
+
       .insertContent({
         type: 'select',
         attrs: {
@@ -45,7 +46,10 @@ export const VariableInput = ({
           format,
         },
       })
+
       .run();
+
+    syncVariables();
   };
 
   const syncVariables = () => {
@@ -62,17 +66,17 @@ export const VariableInput = ({
     onChange(displayValue, content);
   };
 
-  const isSameContent = () => {
-    return JSON.stringify(content) === JSON.stringify(editor!.getJSON());
+  const setContent = () => {
+    if (!editor || content === undefined) return;
+    queueMicrotask(() => {
+      editor?.commands.setContent(content);
+    });
   };
 
   useUpdateEffect(() => {
     if (!editor) return;
 
-    queueMicrotask(() => {
-      syncVariables();
-      onEditorChange();
-    });
+    setContent();
 
     editor.on('update', onEditorChange);
 
@@ -82,12 +86,7 @@ export const VariableInput = ({
   }, [editor]);
 
   useUpdateEffect(() => {
-    if (!editor || content === undefined || isSameContent()) return;
-
-    queueMicrotask(() => {
-      editor.commands.setContent(content);
-      syncVariables();
-    });
+    setContent();
   }, [content]);
 
   return (
@@ -109,6 +108,11 @@ export const VariableInput = ({
               {v.label}
             </MenuItem>
           ))}
+          <hr className="pointer-events-none my-2" />
+          <MenuItem className="flex gap-2" onClick={() => syncVariables()}>
+            <ListRestartIcon className="h-4 w-4" />
+            Refrescar opciones
+          </MenuItem>
         </MenuList>
       </Menu>
     </div>
