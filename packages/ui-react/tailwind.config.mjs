@@ -8,6 +8,7 @@ const config = {
   theme: {
     extend: {},
   },
+  important: true,
   plugins: [tailwindScrollbar({ nocompatible: true }), tailwindAnimated],
 };
 

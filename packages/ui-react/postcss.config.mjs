@@ -3,5 +3,8 @@ export default {
     tailwindcss: {},
     autoprefixer: {},
     'postcss-import': {},
+    'postcss-prefix-selector': {
+      prefix: '.nb-world',
+    },
   },
 };
