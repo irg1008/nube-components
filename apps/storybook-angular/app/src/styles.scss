@@ -1,9 +1,6 @@
-body {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
-}
+$enable-important-utilities: true;
+
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
 
 $drag-transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 

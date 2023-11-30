@@ -57,10 +57,6 @@ const textVariables: Variable[] = [
     key: VariableType.OfferPrice,
   },
   {
-    label: 'Nombre',
-    key: VariableType.Name,
-  },
-  {
     label: 'Categoría',
     key: VariableType.Category,
   },

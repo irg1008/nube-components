@@ -4,7 +4,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "baseUrl": "./app",
-    "outDir": "./app/dist/out-tsc",
+    "outDir": "./app/dist",
     "paths": {
       "@/*": ["src/*"]
     },
