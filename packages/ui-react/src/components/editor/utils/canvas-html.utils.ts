@@ -9,6 +9,12 @@ const getCanvasNode = () => {
     .cloneNode(true) as HTMLDivElement;
 };
 
+const removeFrameNode = (canvas: HTMLDivElement) => {
+  const frame = canvas.querySelector('[data-shape-type="frame"]');
+  if (!frame) return;
+  frame.remove();
+};
+
 export const generateCanvasHTML = (canvasSize: CanvasSize) => {
   const newDoc = document.implementation.createHTMLDocument();
 
@@ -18,10 +24,12 @@ export const generateCanvasHTML = (canvasSize: CanvasSize) => {
   newDoc.head.append(...styles, fontStyle);
 
   const canvasNode = getCanvasNode();
+  removeFrameNode(canvasNode);
   transformCanvasToExport(canvasNode, canvasSize);
-
   newDoc.body.innerHTML = canvasNode.outerHTML;
+
   transformBodyToExport(newDoc.body);
+  transformHeadToExport(newDoc.head);
 
   return newDoc;
 };
@@ -33,7 +41,7 @@ export const updateElementsValue = <T extends { id: string }>(
 ) => {
   values.forEach((v) => {
     const el = doc.getElementById(v.id);
-    if (!el) throw new Error(`Element not found for value with id ${v.id}`);
+    if (!el) return;
     valueTransform(el, v);
   });
   return doc;
@@ -42,23 +50,24 @@ export const updateElementsValue = <T extends { id: string }>(
 export const getTextShapeElement = (el: HTMLElement) =>
   el.querySelector('.tl-text-content') as HTMLElement;
 
-const transformCanvasToExport = (
-  canvas: HTMLDivElement,
-  { h, w }: CanvasSize,
-) => {
+const transformCanvasToExport = (canvas: HTMLDivElement, size: CanvasSize) => {
   canvas.classList.remove('tl-html-layer');
   canvas.classList.add('tl-container');
   canvas.style.transform = 'none';
-  canvas.style.clipPath = `polygon(0px 0px, ${w}px 0px, ${w}px ${h}px, 0px ${h}px)`;
-  canvas.style.width = `${w}px`;
-  canvas.style.height = `${h}px`;
+  canvas.style.width = `${size.w}px`;
+  canvas.style.height = `${size.h}px`;
 };
 
 const transformBodyToExport = (body: HTMLElement) => {
   body.style.width = 'min-content';
   body.style.height = 'min-content';
   body.style.margin = '0';
-  body.style.padding = '0';
-  body.style.background = 'none';
+  body.style.overflow = 'visible';
   body.classList.add(cssScopeClassName);
+};
+
+const transformHeadToExport = (head: HTMLElement) => {
+  const meta = document.createElement('meta');
+  meta.setAttribute('charset', 'utf-8');
+  head.appendChild(meta);
 };

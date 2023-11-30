@@ -43,6 +43,7 @@ export const getFontsStyle = () => {
 export const getFontFaceSetString = () => {
   let fontStyleString = '';
   document.fonts.forEach((font) => {
+    if (!('$$_fontface' in font)) return;
     fontStyleString += (font as FontFace & { $$_fontface: string })[
       '$$_fontface'
     ];
