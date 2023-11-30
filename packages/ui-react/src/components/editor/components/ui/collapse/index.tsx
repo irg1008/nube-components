@@ -41,7 +41,6 @@ export const Collapse = ({
       <>
         <Button
           size={size}
-          ripple={false}
           variant="text"
           fullWidth
           className="flex cursor-pointer items-center justify-between py-2"

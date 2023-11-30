@@ -2,11 +2,18 @@ import { useEditor } from '@/editor/hooks/useEditor';
 import {
   Frame,
   FrameHook,
-  InitianFrameOptions,
+  InitialFrameOptions,
   useFrame,
 } from '@/editor/hooks/useFrame';
 import { Editor, TLShape, track } from '@tldraw/tldraw';
-import { PropsWithChildren, RefObject, createContext, useRef } from 'react';
+import {
+  PropsWithChildren,
+  RefObject,
+  createContext,
+  useRef,
+  useState,
+} from 'react';
+import { EditorConfig, SetUp } from './config.store';
 
 export type CanvasSize = {
   w: number;
@@ -33,20 +40,25 @@ type CanvasContext = {
   canvasColor: FrameHook['backgroundColor'];
   sidebarRef: SidebarRef;
   selectedShapes: TLShape[];
+  setConfig: (config: EditorConfig) => void;
+  config: EditorConfig;
 };
 
 export const StoreContext = createContext<CanvasContext>(null!);
 
 export type CanvasProviderProps = {
   sidebarRef?: SidebarRef;
-} & Partial<InitianFrameOptions>;
+  initialConfig?: EditorConfig;
+} & Partial<InitialFrameOptions>;
 
 export const CanvasProvider = track(
   ({
     children,
     initialSize = { w: 1000, h: 1000 },
     initialBackground = '#ffffff',
+    initialConfig = {},
   }: PropsWithChildren<CanvasProviderProps>) => {
+    const [config, setConfig] = useState<EditorConfig>(initialConfig);
     const sidebarRef: SidebarRef = useRef(null);
 
     const getCanvasShift = () => {
@@ -112,6 +124,8 @@ export const CanvasProvider = track(
           canvas: frame,
           canvasColor: backgroundColor,
           selectedShapes: selectedChildren,
+          config,
+          setConfig,
           refitCanvas,
           resetCanvas: initFrame,
           resizeCanvas: resizeFrame,
@@ -119,7 +133,7 @@ export const CanvasProvider = track(
           changeCanvasColor: changeBackgroundColor,
           changeSelectedOpacity,
         }}>
-        {children}
+        <SetUp>{children}</SetUp>
       </StoreContext.Provider>
     );
   },

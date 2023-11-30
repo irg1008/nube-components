@@ -165,7 +165,7 @@ export const useFrameOperations = ({
   };
 };
 
-export type InitianFrameOptions = {
+export type InitialFrameOptions = {
   initialSize: CanvasSize;
   initialBackground: BackgroundColor;
 };
@@ -175,7 +175,7 @@ export type FrameOptions = {
   name?: string;
   onChange?: (frame: Frame) => void;
   epheremeralChanges?: boolean;
-} & InitianFrameOptions;
+} & InitialFrameOptions;
 
 export type FrameHook = ReturnType<typeof useFrame>;
 
