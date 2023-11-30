@@ -1,16 +1,21 @@
 import { CanvasSize } from '@/editor/stores/canvas.store';
-import { getInlineHeadStyles } from './dom.utils';
+import '@tldraw/tldraw/tldraw.css';
+import { cssScopeClassName } from 'config/styles.config';
+import { getInlineStyles } from './dom.utils';
 import { getFontFaceSetStyle } from './font.utils';
 
 const getCanvasNode = () => {
-  return document.querySelector<HTMLDivElement>('.tl-shapes')!;
+  return document
+    .querySelector('.tl-shapes')!
+    .cloneNode(true) as HTMLDivElement;
 };
 
 export const generateCanvasHTML = (canvasSize: CanvasSize) => {
   const newDoc = document.implementation.createHTMLDocument();
 
   const fontStyle = getFontFaceSetStyle();
-  const styles = getInlineHeadStyles();
+  const styles = getInlineStyles();
+
   newDoc.head.append(...styles, fontStyle);
 
   const canvasNode = getCanvasNode();
@@ -25,14 +30,12 @@ export const generateCanvasHTML = (canvasSize: CanvasSize) => {
 export const updateElementsValue = <T extends { id: string }>(
   doc: Document,
   values: T[],
-  valueTransform: (v: T) => string,
-  select?: (el: HTMLElement) => HTMLElement,
+  valueTransform: (el: HTMLElement, v: T) => void,
 ) => {
   values.forEach((v) => {
-    let el = doc.getElementById(v.id);
-    if (!el) return;
-    if (select) el = select(el);
-    el.textContent = valueTransform(v);
+    const el = doc.getElementById(v.id);
+    if (!el) throw new Error(`Element not found for value with id ${v.id}`);
+    valueTransform(el, v);
   });
   return doc;
 };
@@ -58,4 +61,5 @@ const transformBodyToExport = (body: HTMLElement) => {
   body.style.margin = '0';
   body.style.padding = '0';
   body.style.background = 'none';
+  body.classList.add(cssScopeClassName);
 };

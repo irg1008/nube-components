@@ -4,7 +4,7 @@ export const createStyleWithContent = (content: string) => {
   return styleNode;
 };
 
-export const getInlineHeadStyles = () => {
+export const getInlineStyles = () => {
   const styleNodes = document.querySelectorAll('style');
   const inlineStyles: HTMLStyleElement[] = [];
 
