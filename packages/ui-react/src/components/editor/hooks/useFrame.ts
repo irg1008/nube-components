@@ -258,7 +258,7 @@ export const useFrame = ({
     changeBackgroundColor(bgColor);
   };
 
-  const { filterShapes, isFrameChild, exitEditingState } = useFrameOperations({
+  const { filterShapes, isFrameChild } = useFrameOperations({
     frame,
     restoreOp: createFrame,
   });
@@ -270,8 +270,7 @@ export const useFrame = ({
         .ofType<TLTextShape>('text')
         .withEmptyProp('text')
         .updateProp('text', 'Texto')
-        .run()
-        .exitEditingState();
+        .run();
 
       filterShapes(updated).isFrameAffected()?.preventFrameAlterations();
       filterShapes(removed).isFrameAffected()?.preventFrameDeletion();
@@ -284,7 +283,6 @@ export const useFrame = ({
         .notOfType<TLLineShape>('line')
         .delete();
     },
-    onDoubleClick: () => exitEditingState(),
   });
 
   useUpdateEffect(() => {
