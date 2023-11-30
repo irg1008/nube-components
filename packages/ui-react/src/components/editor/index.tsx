@@ -1,9 +1,11 @@
-import { Canvas, Tldraw } from '@tldraw/tldraw';
+import { Tldraw } from '@tldraw/tldraw';
+import '@tldraw/tldraw/tldraw.css';
 import { ComponentProps } from 'react';
 import { CustomUI } from './components/custom-ui';
 import { customShapeUtils, customTools } from './shapes';
 import { CanvasProvider } from './stores/canvas.store';
 import { EditorConfig } from './stores/config.store';
+import './styles.module.css';
 
 const externalAssetsConfig: Pick<
   ComponentProps<typeof Tldraw>,
@@ -39,7 +41,6 @@ export const CustomEditor = (config: EditorConfig) => {
         <CanvasProvider>
           <CustomUI config={config} />
         </CanvasProvider>
-        <Canvas />
       </Tldraw>
     </section>
   );

@@ -18,9 +18,6 @@ export const TextWidget: Widget<Text> = track(({ initialValue, onChange }) => {
         value={initialValue}
         className="custom-scrollbar-thin min-h-[50px]"
         onClick={() => scapeEditingState()}
-        containerProps={{
-          className: '!min-w-0',
-        }}
         onChange={(e) => onChange(e.target.value)}
       />
     </>

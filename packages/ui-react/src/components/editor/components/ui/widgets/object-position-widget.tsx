@@ -57,7 +57,7 @@ export const ObjectPositionWidget: Widget<ObjectPosition> = ({
             {getIconElement(ExpandIcon)}
           </IconButton>
         </MenuHandler>
-        <MenuList className="grid !min-w-0 grid-cols-3 grid-rows-3 place-content-center gap-2">
+        <MenuList className="grid min-w-0 grid-cols-3 grid-rows-3 place-content-center gap-2">
           {Object.keys(options).map((option) => (
             <div key={option} className="focus:outline-none">
               <Tooltip key={option} content={options[option].tooltip}>

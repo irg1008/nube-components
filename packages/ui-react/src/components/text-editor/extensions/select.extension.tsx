@@ -78,7 +78,7 @@ export function Select<T extends SelectItem>({
             icon={
               <div
                 data-drag-handle
-                className="!flex h-full w-full cursor-move items-center justify-center">
+                className="flex h-full w-full cursor-move items-center justify-center">
                 <GripVerticalIcon className="h-3 w-3 opacity-75" />
               </div>
             }

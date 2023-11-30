@@ -34,7 +34,7 @@ export const Action = ({
               icon={<CommandIcon className="h-4 w-4" />}
               size="sm"
               value={
-                <code>
+                <code className="text-inherit">
                   {typeof hotkey === 'string' ? hotkey : hotkey.join(' / ')}
                 </code>
               }

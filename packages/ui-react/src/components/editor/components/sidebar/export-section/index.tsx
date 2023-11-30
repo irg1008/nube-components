@@ -162,7 +162,7 @@ export const ExportSection = () => {
                   selected={selectedFormat === format}
                   className={twMerge(
                     'p-0',
-                    selectedFormat === format && '!bg-gray-300',
+                    selectedFormat === format && 'bg-gray-300',
                   )}>
                   <label
                     htmlFor={format}

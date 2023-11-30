@@ -82,12 +82,10 @@ export const ColorPicker = ({ initialColor, onChange }: ColorPickerProps) => {
           )}
           <Input
             readOnly
+            className="flex-grow"
             crossOrigin=""
             label="Hex"
             value={initialColor}
-            containerProps={{
-              className: '!min-w-0',
-            }}
           />
           <Tooltip content="Copiar al portapapales">
             <IconButton
@@ -100,7 +98,7 @@ export const ColorPicker = ({ initialColor, onChange }: ColorPickerProps) => {
               }}
               size="sm"
               variant="text"
-              className="!absolute right-1 top-1">
+              className="absolute right-1 top-1">
               <CopyIcon className="h-4 w-4" />
             </IconButton>
           </Tooltip>

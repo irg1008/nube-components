@@ -26,7 +26,6 @@ export const OpacitySlider = () => {
           min={0.00001}
           max={100}
           value={opacityPerc}
-          className="!min-w-0"
           onChange={(e) => {
             changeSelectedOpacity(e.target.valueAsNumber / 100);
           }}

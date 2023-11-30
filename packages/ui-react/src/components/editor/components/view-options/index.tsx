@@ -74,7 +74,7 @@ export const ViewOptions = () => {
   ];
 
   return (
-    <div className="absolute bottom-0 left-0 flex h-[min-content] grow items-start justify-center gap-4 p-4">
+    <div className="absolute bottom-0 left-0 flex items-start justify-center gap-4 p-4">
       <ButtonGroup size="sm" variant="filled" color="white">
         {actions.map((props) => (
           <Action key={props.tooltip} {...props} />

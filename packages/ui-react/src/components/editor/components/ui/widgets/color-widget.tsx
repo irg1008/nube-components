@@ -28,7 +28,7 @@ export const ColorWidget: Widget<Color, ColorWidgetProps> = ({
       <Menu allowHover>
         <MenuHandler>
           <IconButton
-            className="rounded-xl border-2 border-white shadow-md"
+            className="bg-unset rounded-xl border-2 border-white shadow-md"
             size="sm"
             style={{
               backgroundColor: getCss(initialValue),
@@ -36,16 +36,16 @@ export const ColorWidget: Widget<Color, ColorWidgetProps> = ({
             <></>
           </IconButton>
         </MenuHandler>
-        <MenuList className="grid !min-w-0 grid-cols-4 place-content-center gap-2">
+        <MenuList className="grid min-w-0 grid-cols-4 place-content-center gap-2">
           {colors.map((color) => (
             <div key={color} className="focus:outline-none">
               <IconButton
-                className="rounded-xl border-2 border-white shadow-md"
+                className="bg-unset rounded-xl border-2 border-white shadow-md"
                 size="sm"
+                onClick={() => onChange(color)}
                 style={{
                   backgroundColor: getCss(color),
-                }}
-                onClick={() => onChange(color)}>
+                }}>
                 <></>
               </IconButton>
             </div>

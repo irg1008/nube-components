@@ -42,7 +42,7 @@ export const ViewportSelect = ({
           min={minCanvasWidth}
           crossOrigin={''}
           containerProps={{
-            className: 'basis-1/2 !min-w-0',
+            className: 'basis-1/2',
           }}
           label="Ancho"
           icon={<RectangleHorizontal size={16} />}
@@ -60,7 +60,7 @@ export const ViewportSelect = ({
           min={minCanvasHeight}
           crossOrigin={''}
           containerProps={{
-            className: 'basis-1/2 !min-w-0',
+            className: 'basis-1/2',
           }}
           label="Alto"
           icon={<RectangleVertical size={16} />}

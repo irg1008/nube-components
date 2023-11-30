@@ -49,7 +49,7 @@ export function TextEditor({ content, onCreate, autofocus }: TextEditorProps) {
     editorProps: {
       attributes: {
         class:
-          'h-full flex items-center grow overflow-x-auto scrollbar-none !whitespace-nowrap leading-[100%] p-2 font-sans text-sm [&>*]:min-w-full [&_*]:inline [&_*]:!whitespace-nowrap',
+          'h-full flex items-center grow overflow-x-auto scrollbar-none whitespace-nowrap leading-[100%] p-2 font-sans text-sm [&>*]:min-w-full [&_*]:inline [&_*]:whitespace-nowrap',
       },
     },
   });

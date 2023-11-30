@@ -1,12 +1,6 @@
-@import '@tldraw/tldraw/tldraw.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.tl-frame-label {
-  @apply !hidden;
-}
 
 @layer utilities {
   .custom-scrollbar-thin {
