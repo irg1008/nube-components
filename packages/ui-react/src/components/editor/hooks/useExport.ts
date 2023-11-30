@@ -1,6 +1,9 @@
 import {
+  filterShapesWithValue,
+  getDynamicElement,
+} from '@/editor/shapes/dynamic-shapes';
+import {
   generateCanvasHTML,
-  getTextShapeElement,
   updateElementsValue,
 } from '@/editor/utils/canvas-html.utils';
 import { updateShapeProp } from '@/editor/utils/editor.utils';
@@ -23,8 +26,6 @@ import { useEditor } from './useEditor';
 type ExportOptions = {
   exportExtension?: string;
 };
-
-type ShapeWithValue = TLShape & { meta: { value: string } };
 
 export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
   const { editor } = useEditor();
@@ -73,10 +74,8 @@ export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
     setSnapshot(snapshot);
   };
 
-  const getShapeMetaValue = (s: TLShape) => (s as ShapeWithValue).meta.value;
-  const getShapesWithMetaValues = () => {
-    const shapes = editor.currentPageShapes;
-    return shapes.filter(getShapeMetaValue);
+  const getCanvasHTML = () => {
+    return generateCanvasHTML(canvasSize);
   };
 
   const exportHTML = (fileName: string) => {
@@ -84,23 +83,15 @@ export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
     saveHTMLFile(canvasHTML, fileName);
   };
 
+  const getTemplateCanvasHTML = () => {
+    const canvasHTML = getCanvasHTML();
+    const withMetaValue = filterShapesWithValue(editor.currentPageShapes);
+    return updateElementsValue(canvasHTML, withMetaValue, getDynamicElement);
+  };
+
   const exportTemplateHTML = (fileName: string) => {
     const canvasHTML = getTemplateCanvasHTML();
     saveHTMLFile(canvasHTML, fileName);
-  };
-
-  const getCanvasHTML = () => {
-    return generateCanvasHTML(canvasSize);
-  };
-
-  const getTemplateCanvasHTML = () => {
-    const withMetaValue = getShapesWithMetaValues();
-    return updateElementsValue(
-      getCanvasHTML(),
-      withMetaValue,
-      getShapeMetaValue,
-      (el) => getTextShapeElement(el)!,
-    );
   };
 
   return {
