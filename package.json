@@ -13,10 +13,9 @@
     "lint": "turbo lint",
     "format": "turbo run format",
     "storybook": "turbo storybook",
+    "change": "changeset && changeset version",
     "prerelease": "turbo prerelease --filter=@nubebytes/ui-*",
-    "release": "changeset version",
-    "postrelease": "changeset publish",
-    "change": "changeset"
+    "release": "turbo prerelease --filter=@nubebytes/ui-* && changeset publish"
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
