@@ -1,3 +1,5 @@
+@import '@tldraw/tldraw/tldraw.css';
+
 .tl-frame-label {
   @apply hidden;
 }

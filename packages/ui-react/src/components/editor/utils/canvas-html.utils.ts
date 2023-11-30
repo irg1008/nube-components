@@ -1,5 +1,4 @@
 import { CanvasSize } from '@/editor/stores/canvas.store';
-import '@tldraw/tldraw/tldraw.css';
 import { cssScopeClassName } from 'config/styles.config';
 import { getInlineStyles } from './dom.utils';
 import { getFontFaceSetStyle } from './font.utils';

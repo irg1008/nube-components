@@ -1,5 +1,4 @@
 import { Tldraw } from '@tldraw/tldraw';
-import '@tldraw/tldraw/tldraw.css';
 import { ComponentProps } from 'react';
 import { CustomUI } from './components/custom-ui';
 import { customShapeUtils, customTools } from './shapes';
