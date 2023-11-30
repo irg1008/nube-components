@@ -1,6 +1,6 @@
 {
   "name": "@nubebytes/ui-angular",
-  "version": "0.6.6",
+  "version": "0.5.3",
   "main": "dist/esm2020/public-api.mjs",
   "module": "dist/esm2020/public-api.mjs",
   "types": "dist/index.d.ts",
@@ -16,7 +16,7 @@
     "prewatch": "npm run build:sass",
     "watch": "ng build ui --watch --configuration development",
     "lint": "ng lint ui",
-    "prerelease": "copyfiles LICENSE dist"
+    "prerelease": "copyfiles package.json LICENSE app/dist"
   },
   "peerDependencies": {
     "@angular/animations": "^16",

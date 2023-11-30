@@ -18,7 +18,6 @@ import {
   NubeProvider,
 } from '@nubebytes/ui-react';
 import React from 'react';
-import { unmountComponentAtNode } from 'react-dom';
 import ReactDOM from 'react-dom/client';
 
 const elementName = 'reactEditor';
@@ -39,28 +38,34 @@ export class ReactEditorWrapperComponent
 
   @Output() editorMount: EventEmitter<EditorAPI> = new EventEmitter();
 
+  root: ReactDOM.Root;
+
   ngOnChanges(_: SimpleChanges): void {
     this.render();
   }
 
   ngAfterViewInit() {
+    if (!this.containerRef) return;
+    this.root = ReactDOM.createRoot(this.containerRef.nativeElement);
     this.render();
   }
 
   ngOnDestroy() {
-    unmountComponentAtNode(this.containerRef.nativeElement);
+    this.root.unmount();
   }
 
   private render() {
-    const { editorConfig, editorMount, containerRef } = this;
-    if (!containerRef) return;
+    const { editorConfig, editorMount } = this;
 
-    ReactDOM.createRoot(containerRef.nativeElement).render(
+    this.root?.render(
       <React.StrictMode>
         <NubeProvider>
           <Editor
             {...editorConfig}
-            onMount={(editor) => editorMount.emit(editor)}
+            onMount={(editor) => {
+              editorMount.emit(editor);
+              editorConfig.onMount?.(editor);
+            }}
           />
         </NubeProvider>
       </React.StrictMode>,
