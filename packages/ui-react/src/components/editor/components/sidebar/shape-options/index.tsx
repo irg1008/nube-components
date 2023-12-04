@@ -1,10 +1,10 @@
 import { WidgetForProp } from '@/editor/components/ui/widgets/widget-record';
-import { EditableProp } from '@/editor/components/ui/widgets/widget.types';
 import { useEditor } from '@/editor/hooks/useEditor';
 import {
   getShapesSharedProps,
   updateShapesProp,
 } from '@/editor/utils/editor.utils';
+import { EditableProp } from '@/editor/utils/widget.utils';
 import { useMemo } from 'react';
 import { OpacitySlider } from '../opacity-slider';
 

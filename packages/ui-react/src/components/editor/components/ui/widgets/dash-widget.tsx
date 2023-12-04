@@ -1,7 +1,7 @@
+import { Dash, Widget, dashValues } from '@/editor/utils/widget.utils';
 import { Tooltip, Typography } from '@material-tailwind/react';
 import { Icon } from '@tldraw/tldraw';
 import { SelectionGrid } from './selection-grid';
-import { Dash, Widget, dashValues } from './widget.types';
 
 const tooltips = {
   dashed: 'Líneas',

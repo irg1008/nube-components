@@ -1,3 +1,4 @@
+import { Align, Widget } from '@/editor/utils/widget.utils';
 import { Tab, Tabs, TabsHeader, Tooltip } from '@material-tailwind/react';
 import {
   AlignCenterIcon,
@@ -9,7 +10,6 @@ import {
   LucideIcon,
 } from 'lucide-react';
 import { createElement } from 'react';
-import { Align, Widget } from './widget.types';
 
 type WidgetIcon = LucideIcon;
 

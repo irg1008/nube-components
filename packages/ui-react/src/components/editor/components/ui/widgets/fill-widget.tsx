@@ -1,7 +1,7 @@
+import { Fill, Widget, fillValues } from '@/editor/utils/widget.utils';
 import { Tooltip, Typography } from '@material-tailwind/react';
 import { Icon } from '@tldraw/tldraw';
 import { SelectionGrid } from './selection-grid';
-import { Fill, Widget, fillValues } from './widget.types';
 
 const tooltips = {
   none: 'Ninguno',

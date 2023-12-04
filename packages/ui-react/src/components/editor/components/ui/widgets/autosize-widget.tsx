@@ -1,6 +1,6 @@
+import { AutoSize, Widget } from '@/editor/utils/widget.utils';
 import { Button } from '@material-tailwind/react';
 import { FoldHorizontalIcon } from 'lucide-react';
-import { AutoSize, Widget } from './widget.types';
 
 export const AutosizeWidget: Widget<AutoSize> = ({
   onChange,

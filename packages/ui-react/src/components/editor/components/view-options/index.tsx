@@ -1,5 +1,5 @@
-import { useCanvas } from '@/editor/hooks/useCanvas';
 import { useEditor } from '@/editor/hooks/useEditor';
+import { useCanvas } from '@/editor/stores/canvas.store';
 import { getIconElement } from '@/editor/utils/icons.utils';
 import {
   ButtonGroup,
@@ -74,7 +74,9 @@ export const ViewOptions = () => {
   ];
 
   return (
-    <div className="absolute bottom-0 left-0 flex items-start justify-center gap-4 p-4">
+    <div
+      id="editor-view-options"
+      className="absolute bottom-0 left-0 flex items-start justify-center gap-4 p-4">
       <ButtonGroup size="sm" variant="filled" color="white">
         {actions.map((props) => (
           <Action key={props.tooltip} {...props} />

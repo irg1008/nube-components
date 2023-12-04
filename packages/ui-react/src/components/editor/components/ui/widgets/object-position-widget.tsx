@@ -1,4 +1,5 @@
 import { getIconElement } from '@/editor/utils/icons.utils';
+import { ObjectPosition, Widget } from '@/editor/utils/widget.utils';
 import {
   IconButton,
   Menu,
@@ -20,7 +21,6 @@ import {
   ExpandIcon,
   LucideIcon,
 } from 'lucide-react';
-import { ObjectPosition, Widget } from './widget.types';
 
 type OptionInfo = {
   icon: LucideIcon;

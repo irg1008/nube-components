@@ -1,8 +1,8 @@
 import { getIconElement } from '@/editor/utils/icons.utils';
+import { ObjectFit, Widget } from '@/editor/utils/widget.utils';
 import { Tooltip, Typography } from '@material-tailwind/react';
 import { FullscreenIcon, LucideIcon, MaximizeIcon } from 'lucide-react';
 import { SelectionGrid } from './selection-grid';
-import { ObjectFit, Widget } from './widget.types';
 
 const options: ObjectFit[] = ['cover', 'contain'];
 

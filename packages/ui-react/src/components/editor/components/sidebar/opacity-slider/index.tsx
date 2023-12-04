@@ -1,4 +1,4 @@
-import { useCanvas } from '@/editor/hooks/useCanvas';
+import { useCanvas } from '@/editor/stores/canvas.store';
 import { Chip, Slider, Typography } from '@material-tailwind/react';
 
 export const OpacitySlider = () => {

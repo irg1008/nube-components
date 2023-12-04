@@ -1,3 +1,4 @@
+import { Color, Widget, colors } from '@/editor/utils/widget.utils';
 import {
   IconButton,
   Menu,
@@ -6,7 +7,6 @@ import {
   Typography,
 } from '@material-tailwind/react';
 import { DefaultColorThemePalette } from '@tldraw/tldraw';
-import { Color, Widget, colors } from './widget.types';
 
 type ColorWidgetProps = {
   label: string;

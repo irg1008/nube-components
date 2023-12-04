@@ -1,7 +1,7 @@
+import { Spline, Widget } from '@/editor/utils/widget.utils';
 import { Tab, Tabs, TabsHeader, Typography } from '@material-tailwind/react';
 import { Icon, TLUiIconType } from '@tldraw/tldraw';
 import { createElement } from 'react';
-import { Spline, Widget } from './widget.types';
 
 const options = {
   line: 'Línea',

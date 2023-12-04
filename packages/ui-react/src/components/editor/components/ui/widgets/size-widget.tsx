@@ -1,6 +1,6 @@
+import { Size, Widget, sizes } from '@/editor/utils/widget.utils';
 import { Typography } from '@material-tailwind/react';
 import { SelectionGrid } from './selection-grid';
-import { Size, Widget, sizes } from './widget.types';
 
 export const SizeWidget: Widget<Size> = ({ onChange, initialValue }) => {
   return (

@@ -1,7 +1,7 @@
 import { useEditor } from '@/editor/hooks/useEditor';
+import { Text, Widget } from '@/editor/utils/widget.utils';
 import { Textarea, Typography } from '@material-tailwind/react';
 import { track } from '@tldraw/tldraw';
-import { Text, Widget } from './widget.types';
 
 export const TextWidget: Widget<Text> = track(({ initialValue, onChange }) => {
   const { scapeEditingState } = useEditor();

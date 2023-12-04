@@ -3,8 +3,7 @@ import { ShapeOptions } from '@/editor/components/sidebar/shape-options';
 import { ViewportSelect } from '@/editor/components/sidebar/viewport-select';
 import { Collapse } from '@/editor/components/ui/collapse';
 import { ColorPicker } from '@/editor/components/ui/color-picker';
-import { useCanvas } from '@/editor/hooks/useCanvas';
-import { useConfig } from '@/editor/stores/config.store';
+import { useCanvas, useConfig } from '@/editor/stores/canvas.store';
 import { Typography } from '@material-tailwind/react';
 import { twMerge } from 'tailwind-merge';
 import { useToggle } from 'usehooks-ts';
@@ -31,6 +30,7 @@ export const SidebarContent = () => {
       </section>
 
       <Collapse
+        containerProps={{ id: 'editor-canvas-size' }}
         as="section"
         open={canvasSizeOpen}
         toggleOpen={toggleCanvasSizeOpen}
@@ -40,6 +40,7 @@ export const SidebarContent = () => {
 
       {selectedShapes.length > 0 && (
         <Collapse
+          containerProps={{ id: 'editor-selection-options' }}
           as="section"
           collapseProps={{
             className: twMerge('px-1', !hideExportUI && 'mb-5'),
@@ -52,7 +53,9 @@ export const SidebarContent = () => {
       )}
 
       {!hideExportUI && (
-        <section className="fixed bottom-0 left-0 z-30 h-min w-full px-4 py-2">
+        <section
+          id="editor-export"
+          className="fixed bottom-0 left-0 z-30 h-min w-full px-4 py-2">
           <ExportSection />
         </section>
       )}

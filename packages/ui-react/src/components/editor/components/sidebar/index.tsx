@@ -1,4 +1,4 @@
-import { useCanvas } from '@/editor/hooks/useCanvas';
+import { useCanvas } from '@/editor/stores/canvas.store';
 import { IconButton } from '@material-tailwind/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRightToLine } from 'lucide-react';
@@ -21,6 +21,7 @@ export const Sidebar = () => {
   return (
     <>
       <aside
+        id="editor-sidebar"
         ref={sidebarRef}
         className="absolute right-0 z-10 h-full w-0 overflow-visible lg:relative lg:w-auto">
         <section
@@ -44,6 +45,7 @@ export const Sidebar = () => {
           <SidebarContent />
         </section>
       </aside>
+
       <AnimatePresence>
         {open && (
           <motion.span

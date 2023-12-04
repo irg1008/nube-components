@@ -1,7 +1,7 @@
+import { Font, Widget, fonts } from '@/editor/utils/widget.utils';
 import { Tooltip, Typography } from '@material-tailwind/react';
 import { DefaultFontFamilies, track } from '@tldraw/tldraw';
 import { SelectionGrid } from './selection-grid';
-import { Font, Widget, fonts } from './widget.types';
 
 export const FontWidget: Widget<Font> = track(({ initialValue, onChange }) => {
   const getCss = (font: Font) => DefaultFontFamilies[font];

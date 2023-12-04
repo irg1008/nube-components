@@ -1,3 +1,12 @@
+import {
+  EditableProp,
+  ExtractMetaForProp,
+  ExtractTypeForProp,
+  PropsKey,
+  WidgetForKey,
+  WidgetProps,
+  WidgetRecord,
+} from '@/editor/utils/widget.utils';
 import { TLShape } from '@tldraw/tldraw';
 import { HTMLAttributes, createElement } from 'react';
 import { HorizontalAlignWidget, VerticalAlignWidget } from './align-widget';
@@ -12,15 +21,6 @@ import { ObjectPositionWidget } from './object-position-widget';
 import { SizeWidget } from './size-widget';
 import { SplineWidget } from './spline-widget';
 import { TextVariableWidget, UrlVariableWidget } from './text-variable-widget';
-import {
-  EditableProp,
-  ExtractMetaForProp,
-  ExtractTypeForProp,
-  PropsKey,
-  WidgetForKey,
-  WidgetProps,
-  WidgetRecord,
-} from './widget.types';
 
 const propWidgets: Partial<WidgetRecord> = {
   [EditableProp.Text]: TextVariableWidget,
