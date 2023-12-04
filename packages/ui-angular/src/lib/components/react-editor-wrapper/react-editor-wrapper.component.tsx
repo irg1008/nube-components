@@ -40,7 +40,8 @@ export class ReactEditorWrapperComponent
 
   root: ReactDOM.Root;
 
-  ngOnChanges(_: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['editorConfig'].isFirstChange()) return;
     this.render();
   }
 
