@@ -39,21 +39,6 @@ export const getShapesSharedProps = <T>(shapes: TLShape[]): T[] => {
   return shapePropsKeys.reduce(intersect, shapePropsKeys[0]) as T[];
 };
 
-export const updateShape = <T extends string, V>(
-  shape: TLShape,
-  prop: T,
-  value: V,
-): TLShapePartial => {
-  return {
-    id: shape.id,
-    type: shape.type,
-    props: {
-      ...shape.props,
-      [prop]: value,
-    },
-  };
-};
-
 export type UpdatePropCb<V> = (shape: TLShape) => V;
 
 export type UpdatePropsParams<V = JsonPrimitive> = {
@@ -66,14 +51,17 @@ export const updateShapeProp = <V = JsonPrimitive>(
   shape: TLShape,
   { prop, value, meta }: UpdatePropsParams<V>,
 ): TLShapePartial => {
-  return {
+  const partial: TLShapePartial = {
     id: shape.id,
     type: shape.type,
-    meta,
-    props: {
-      [prop]: value,
-    },
+    props: { [prop]: value },
   };
+
+  if (meta) {
+    partial.meta = meta;
+  }
+
+  return { ...shape, ...partial };
 };
 
 export const updateShapesProp = <V = JsonPrimitive>(

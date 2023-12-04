@@ -1,7 +1,10 @@
+import { placeholderImage } from '@/editor/shapes/placeholder-img/placeholder-img.consts';
 import { CanvasSize } from '@/editor/stores/canvas.store';
+import { TLShape } from '@tldraw/tldraw';
 import { cssScopeClassName } from 'config/styles.config';
 import { getInlineStyles } from './dom.utils';
 import { getFontFaceSetStyle } from './font.utils';
+import { getShapeMetaValue } from './shapes.util';
 
 const getCanvasNode = () => {
   return document
@@ -70,4 +73,25 @@ const transformHeadToExport = (head: HTMLElement) => {
   const meta = document.createElement('meta');
   meta.setAttribute('charset', 'utf-8');
   head.appendChild(meta);
+};
+
+type ElementResolver = (el: HTMLElement, value: string) => void;
+
+const elementsResolvers: Record<string, ElementResolver> = {
+  [placeholderImage]: (el, value) => {
+    const imgEl = el.querySelector('img')!;
+    imgEl!.src = value;
+  },
+};
+
+const defaultResolver: ElementResolver = (el, value) => {
+  const textEl = el.querySelector<HTMLDivElement>('.tl-text-content');
+  textEl!.textContent = value;
+};
+
+export const getDynamicElement = (el: HTMLElement, shape: TLShape) => {
+  const value = getShapeMetaValue(shape);
+  if (!value) return;
+  const resolver = elementsResolvers[shape.type] || defaultResolver;
+  return resolver(el, value);
 };
