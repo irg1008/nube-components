@@ -1,9 +1,8 @@
-import { Tldraw } from '@tldraw/tldraw';
+import { TLUiOverrides, Tldraw } from '@tldraw/tldraw';
 import { ComponentProps } from 'react';
 import { CustomUI } from './components/custom-ui';
 import { customShapeUtils, customTools } from './shapes';
-import { CanvasProvider } from './stores/canvas.store';
-import { EditorConfig } from './stores/config.store';
+import { CanvasProvider, EditorConfig } from './stores/canvas.store';
 import './styles.module.css';
 
 const externalAssetsConfig: Pick<
@@ -19,17 +18,22 @@ const externalAssetsConfig: Pick<
   maxAssetSize: 1 * 1024 * 1024, // 1MB
 };
 
+const overrides: TLUiOverrides = {
+  contextMenu: () => [],
+};
+
 export const CustomEditor = (config: EditorConfig) => {
   return (
-    <section className="h-full w-full overflow-visible">
+    <section id="editor" className="h-full w-full overflow-visible">
       <Tldraw
         {...externalAssetsConfig}
         hideUi
         persistenceKey="editor"
         initialState="select"
         shapeUtils={customShapeUtils}
-        tools={customTools}>
-        <CanvasProvider initialConfig={config}>
+        tools={customTools}
+        overrides={overrides}>
+        <CanvasProvider config={config}>
           <CustomUI />
         </CanvasProvider>
       </Tldraw>

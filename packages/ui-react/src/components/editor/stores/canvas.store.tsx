@@ -1,4 +1,6 @@
+import { Variable } from '@/editor/components/ui/variable-input';
 import { useEditor } from '@/editor/hooks/useEditor';
+import { EditorAPI } from '@/editor/hooks/useEditorAPI';
 import {
   Frame,
   FrameHook,
@@ -10,10 +12,9 @@ import {
   PropsWithChildren,
   RefObject,
   createContext,
+  useContext,
   useRef,
-  useState,
 } from 'react';
-import { EditorConfig, SetUp } from './config.store';
 
 export type CanvasSize = {
   w: number;
@@ -28,6 +29,20 @@ type RefitCanvasOptions = {
   moveCamera?: boolean;
 };
 
+export type VariableConfig = {
+  textLabel?: string;
+  imageLabel?: string;
+  textVariables: Variable[];
+  imageVariables: Variable[];
+  variableValueResolver: (key: Variable['key']) => string;
+};
+
+export type EditorConfig = {
+  variablesConfig?: VariableConfig;
+  onMount?: (api: EditorAPI) => void;
+  hideExportUI?: boolean;
+};
+
 type CanvasContext = {
   canvasSize: CanvasSize;
   canvas: Frame;
@@ -40,7 +55,6 @@ type CanvasContext = {
   canvasColor: FrameHook['backgroundColor'];
   sidebarRef: SidebarRef;
   selectedShapes: TLShape[];
-  setConfig: (config: EditorConfig) => void;
   config: EditorConfig;
 };
 
@@ -48,7 +62,7 @@ export const StoreContext = createContext<CanvasContext>(null!);
 
 export type CanvasProviderProps = {
   sidebarRef?: SidebarRef;
-  initialConfig?: EditorConfig;
+  config?: EditorConfig;
 } & Partial<InitialFrameOptions>;
 
 export const CanvasProvider = track(
@@ -56,9 +70,8 @@ export const CanvasProvider = track(
     children,
     initialSize = { w: 1000, h: 1000 },
     initialBackground = '#ffffff',
-    initialConfig = {},
+    config = {},
   }: PropsWithChildren<CanvasProviderProps>) => {
-    const [config, setConfig] = useState<EditorConfig>(initialConfig);
     const sidebarRef: SidebarRef = useRef(null);
 
     const getCanvasShift = () => {
@@ -125,7 +138,6 @@ export const CanvasProvider = track(
           canvasColor: backgroundColor,
           selectedShapes: selectedChildren,
           config,
-          setConfig,
           refitCanvas,
           resetCanvas: initFrame,
           resizeCanvas: resizeFrame,
@@ -133,8 +145,11 @@ export const CanvasProvider = track(
           changeCanvasColor: changeBackgroundColor,
           changeSelectedOpacity,
         }}>
-        <SetUp>{children}</SetUp>
+        {children}
       </StoreContext.Provider>
     );
   },
 );
+
+export const useCanvas = () => useContext(StoreContext);
+export const useConfig = () => useCanvas().config;

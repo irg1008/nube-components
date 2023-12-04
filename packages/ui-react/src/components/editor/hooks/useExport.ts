@@ -1,9 +1,7 @@
-import {
-  filterShapesWithValue,
-  getDynamicElement,
-} from '@/editor/shapes/dynamic-shapes';
+import { useCanvas } from '@/editor/stores/canvas.store';
 import {
   generateCanvasHTML,
+  getDynamicElement,
   updateElementsValue,
 } from '@/editor/utils/canvas-html.utils';
 import { updateShapeProp } from '@/editor/utils/editor.utils';
@@ -12,6 +10,7 @@ import {
   saveHTMLFile,
   saveObjectAsFile,
 } from '@/editor/utils/files.utils';
+import { filterShapesWithValue } from '@/editor/utils/shapes.util';
 import {
   StoreSnapshot,
   TLRecord,
@@ -20,7 +19,6 @@ import {
   useCopyAs,
   useExportAs,
 } from '@tldraw/tldraw';
-import { useCanvas } from './useCanvas';
 import { useEditor } from './useEditor';
 
 type ExportOptions = {
