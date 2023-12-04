@@ -94,9 +94,14 @@ const variablesConfig: VariableConfig = {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  editor: EditorAPI;
+
   editorConfig: EditorConfig = {
     variablesConfig,
+    onMount: (editor) => (this.editor = editor),
   };
 
-  editor: EditorAPI;
+  manualExport() {
+    this.editor.exportTemplateHTML('template.html');
+  }
 }
