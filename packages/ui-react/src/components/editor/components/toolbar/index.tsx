@@ -34,6 +34,7 @@ export const Toolbar = () => {
 
   return (
     <motion.div
+      id="editor-toolbar"
       animate={{ translateY: isReadonly ? '-100%' : 0 }}
       className="flex h-[min-content] grow flex-col flex-wrap items-center justify-start gap-2 p-4 ease-in-out sm:flex-row sm:items-start sm:justify-center sm:gap-4">
       <ButtonGroup size="sm" className="order-2">

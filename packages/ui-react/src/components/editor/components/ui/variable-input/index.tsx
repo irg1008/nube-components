@@ -52,6 +52,10 @@ export const VariableInput = ({
     syncVariables();
   };
 
+  const isSameContent = () => {
+    return JSON.stringify(editor?.getJSON()) === JSON.stringify(content);
+  };
+
   const syncVariables = () => {
     if (!editor) return;
     editor.commands.focus('all');
@@ -67,7 +71,7 @@ export const VariableInput = ({
   };
 
   const setContent = () => {
-    if (!editor || content === undefined) return;
+    if (!editor || content === undefined || isSameContent()) return;
     queueMicrotask(() => {
       editor?.commands.setContent(content);
     });
@@ -92,7 +96,14 @@ export const VariableInput = ({
   return (
     <div className="flex gap-2">
       <div className="h-10 w-[80%] basis-10/12">
-        <TextEditor onCreate={setEditor} content={content} autofocus={false} />
+        <TextEditor
+          onCreate={(editor) => {
+            setEditor(editor);
+            onEditorChange();
+          }}
+          content={content}
+          autofocus={false}
+        />
       </div>
       <Menu allowHover>
         <MenuHandler>

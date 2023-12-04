@@ -1,5 +1,90 @@
 # @nubebytes/ui-react
 
+## 0.7.3
+
+### Patch Changes
+
+- Add ui ids for extenral use like onboardings
+
+## 0.7.2
+
+### Patch Changes
+
+- Fix shapes syn not working on new fetcher
+
+## 0.7.1
+
+### Patch Changes
+
+- Remove logs
+
+## 0.7.0
+
+### Minor Changes
+
+- Update config management and update editor api to include syncShapeValuesMethod
+
+## 0.6.1
+
+### Patch Changes
+
+- Call value resolver for varibale input on load. Just to check if source has change
+
+## 0.6.0
+
+### Minor Changes
+
+- Fix angular build maximum stack error. Changed to vite based build
+
+## 0.5.2
+
+### Patch Changes
+
+- Misc changes for stabler version
+
+## 0.5.1
+
+### Patch Changes
+
+- Fix variables not being updated in text editor. Now they update when a new one is added
+
+## 0.5.0
+
+### Minor Changes
+
+- Update onmount external callback to "remake" editor on canvasSize change. Basically because the external api is mostly about canvas export for the moment
+
+## 0.4.4
+
+### Patch Changes
+
+- Try fixing render on backend is cropping the content on bottom
+
+## 0.4.3
+
+### Patch Changes
+
+- Fix fontface not being added correctly to html export
+
+## 0.4.2
+
+### Patch Changes
+
+- Change ripple effect on collapse handler
+
+## 0.4.1
+
+### Patch Changes
+
+- Temporal revert to global style import until we know how to inject third party styles on template creation. Also we need to inject specific stylesheets to prevent fetching all head styles (for size and conflicts)
+
+## 0.4.0
+
+### Minor Changes
+
+- Fix several bugs when exporting html template
+  Fix several styles and conflict issues
+
 ## 0.3.4
 
 ### Patch Changes
