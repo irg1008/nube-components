@@ -1,5 +1,11 @@
 # @nubebytes/ui-react
 
+## 0.7.4
+
+### Patch Changes
+
+- Update html export to scope css stylesheets and correctly apply styles
+
 ## 0.7.3
 
 ### Patch Changes
