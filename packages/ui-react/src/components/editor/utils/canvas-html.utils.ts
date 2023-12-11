@@ -6,6 +6,32 @@ import { getInlineStyles } from './dom.utils';
 import { getFontFaceSetStyle } from './font.utils';
 import { getShapeMetaValue } from './shapes.util';
 
+export const generateCanvasHTML = (canvasSize: CanvasSize) => {
+  // Canvas
+  const canvasNode = getCanvasNode();
+  removeFrameNode(canvasNode);
+  removeNonExportableNodes(canvasNode);
+  transformCanvasToExport(canvasNode, canvasSize);
+
+  // Styles
+  const fontStyle = getFontFaceSetStyle();
+  const styles = getScopedStyleSheet();
+
+  const newDoc = document.implementation.createHTMLDocument();
+  newDoc.head.append(styles, fontStyle);
+  newDoc.body.innerHTML = canvasNode.outerHTML;
+
+  transformHeadToExport(newDoc.head);
+  transformBodyToExport(newDoc.body);
+
+  return newDoc;
+};
+
+const getScopedStyleSheet = () => {
+  const styles = getInlineStyles();
+  return styles.find((style) => style.innerText.includes(cssScopeClassName))!;
+};
+
 const getCanvasNode = () => {
   return document
     .querySelector('.tl-shapes')!
@@ -18,23 +44,9 @@ const removeFrameNode = (canvas: HTMLDivElement) => {
   frame.remove();
 };
 
-export const generateCanvasHTML = (canvasSize: CanvasSize) => {
-  const newDoc = document.implementation.createHTMLDocument();
-
-  const fontStyle = getFontFaceSetStyle();
-  const styles = getInlineStyles();
-
-  newDoc.head.append(...styles, fontStyle);
-
-  const canvasNode = getCanvasNode();
-  removeFrameNode(canvasNode);
-  transformCanvasToExport(canvasNode, canvasSize);
-  newDoc.body.innerHTML = canvasNode.outerHTML;
-
-  transformBodyToExport(newDoc.body);
-  transformHeadToExport(newDoc.head);
-
-  return newDoc;
+const removeNonExportableNodes = (canvas: HTMLDivElement) => {
+  const nonExportable = canvas.querySelectorAll('[data-exportable="false"]');
+  nonExportable.forEach((el) => el.remove());
 };
 
 export const updateElementsValue = <T extends { id: string }>(
@@ -50,12 +62,12 @@ export const updateElementsValue = <T extends { id: string }>(
   return doc;
 };
 
-export const getTextShapeElement = (el: HTMLElement) =>
-  el.querySelector('.tl-text-content') as HTMLElement;
-
 const transformCanvasToExport = (canvas: HTMLDivElement, size: CanvasSize) => {
   canvas.classList.remove('tl-html-layer');
-  canvas.classList.add('tl-container');
+
+  const containerClassList = document.querySelector('.tl-container')!.classList;
+  canvas.classList.value = containerClassList.value;
+
   canvas.style.transform = 'none';
   canvas.style.width = `${size.w}px`;
   canvas.style.height = `${size.h}px`;
@@ -75,23 +87,20 @@ const transformHeadToExport = (head: HTMLElement) => {
   head.appendChild(meta);
 };
 
-type ElementResolver = (el: HTMLElement, value: string) => void;
-
-const elementsResolvers: Record<string, ElementResolver> = {
-  [placeholderImage]: (el, value) => {
-    const imgEl = el.querySelector('img')!;
-    imgEl!.src = value;
-  },
-};
-
-const defaultResolver: ElementResolver = (el, value) => {
-  const textEl = el.querySelector<HTMLDivElement>('.tl-text-content');
-  textEl!.textContent = value;
-};
-
-export const getDynamicElement = (el: HTMLElement, shape: TLShape) => {
+export const transformElement = (el: HTMLElement, shape: TLShape) => {
   const value = getShapeMetaValue(shape);
   if (!value) return;
-  const resolver = elementsResolvers[shape.type] || defaultResolver;
-  return resolver(el, value);
+
+  switch (shape.type) {
+    case placeholderImage: {
+      const imgEl = el.querySelector('img')!;
+      imgEl!.src = value;
+      break;
+    }
+    default: {
+      const textEl = el.querySelector<HTMLDivElement>('.tl-text-content');
+      textEl!.textContent = value;
+      break;
+    }
+  }
 };

@@ -70,15 +70,11 @@ export function Select<T extends SelectItem>({
         <MenuHandler>
           <Chip
             variant="outlined"
-            animate={{
-              mount: {
-                transition: { duration: 0 },
-              },
-            }}
+            animate={{ mount: { transition: { duration: 0 } } }}
             icon={
               <div
                 data-drag-handle
-                className="flex h-full w-full cursor-move items-center justify-center">
+                className="grid h-full w-full cursor-move place-content-center">
                 <GripVerticalIcon className="h-3 w-3 opacity-75" />
               </div>
             }

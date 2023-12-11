@@ -1,7 +1,7 @@
 import { useCanvas } from '@/editor/stores/canvas.store';
 import {
   generateCanvasHTML,
-  getDynamicElement,
+  transformElement,
   updateElementsValue,
 } from '@/editor/utils/canvas-html.utils';
 import { updateShapeProp } from '@/editor/utils/editor.utils';
@@ -84,7 +84,7 @@ export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
   const getTemplateCanvasHTML = () => {
     const canvasHTML = getCanvasHTML();
     const withMetaValue = filterShapesWithValue(editor.currentPageShapes);
-    return updateElementsValue(canvasHTML, withMetaValue, getDynamicElement);
+    return updateElementsValue(canvasHTML, withMetaValue, transformElement);
   };
 
   const exportTemplateHTML = (fileName: string) => {

@@ -113,6 +113,7 @@ export class PlaceholderImgUtil extends ShapeUtil<PIShape> {
             !validUrl && 'bg-red-200',
           )}>
           <Chip
+            data-exportable="false"
             className={twMerge(
               'bg-gray-800 px-4 py-3 text-white opacity-0 transition-opacity duration-200',
               showDimensions && 'opacity-100',

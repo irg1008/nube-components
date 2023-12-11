@@ -1,4 +1,3 @@
-import { useEditor } from '@/editor/hooks/useEditor';
 import { useExport } from '@/editor/hooks/useExport';
 import { getIconElement } from '@/editor/utils/icons.utils';
 import {
@@ -47,7 +46,6 @@ export const ExportSection = () => {
     exportHTML,
     exportTemplateHTML,
   } = useExport();
-  const { editor } = useEditor();
 
   const {
     value: open,
@@ -98,15 +96,22 @@ export const ExportSection = () => {
     },
   };
 
-  const exportCb: Record<ExportFormat, () => void | Promise<void>> = {
-    [ExportFormat.Image]: exportCanvasImg,
-    [ExportFormat.Snapshot]: () => saveSnapshot('snapshot'),
-    [ExportFormat.HTML]: () => exportHTML('static'),
-    [ExportFormat.TemplateHTML]: () => exportTemplateHTML('template'),
-  };
-
   const exportFormat = async () => {
-    await exportCb[selectedFormat]();
+    switch (selectedFormat) {
+      case ExportFormat.Image:
+        exportCanvasImg();
+        break;
+      case ExportFormat.Snapshot:
+        saveSnapshot('snapshot');
+        break;
+      case ExportFormat.HTML:
+        exportHTML('static');
+        break;
+      case ExportFormat.TemplateHTML:
+        exportTemplateHTML('template');
+        break;
+    }
+
     closeDialog();
   };
 
@@ -136,10 +141,7 @@ export const ExportSection = () => {
         <Button
           fullWidth
           variant="gradient"
-          onClick={() => {
-            openDialog();
-            editor.selectNone();
-          }}
+          onClick={openDialog}
           className="flex items-center justify-center gap-2">
           <DownloadIcon className="h-4 w-4" />
           Exportar

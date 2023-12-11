@@ -53,7 +53,7 @@ export const NubeProvider = ({ children }: PropsWithChildren) => {
         toastOptions={{ className: 'font-sans text-sm' }}
       />
       <div
-        className={`${cssScopeClassName}`}
+        className={cssScopeClassName}
         style={{ height: '100%', width: '100%' }}>
         {children}
       </div>
