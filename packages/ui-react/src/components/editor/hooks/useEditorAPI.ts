@@ -18,7 +18,7 @@ export const useEditorAPI = () => {
 
     const variables = [...varConf.imageVariables, ...varConf.textVariables];
     const syncedShapes = refillShapesDisplayValue(
-      editor.currentPageShapes,
+      editor.getCurrentPageShapes(),
       variables,
       varConf.variableValueResolver,
     );
