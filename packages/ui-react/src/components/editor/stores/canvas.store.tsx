@@ -7,7 +7,13 @@ import {
   InitialFrameOptions,
   useFrame,
 } from '@/editor/hooks/useFrame';
-import { Editor, TLShape, track } from '@tldraw/tldraw';
+import {
+  Editor,
+  StoreSnapshot,
+  TLRecord,
+  TLShape,
+  track,
+} from '@tldraw/tldraw';
 import {
   PropsWithChildren,
   RefObject,
@@ -39,8 +45,10 @@ export type VariableConfig = {
 
 export type EditorConfig = {
   variablesConfig?: VariableConfig;
+  initialSnapshot?: StoreSnapshot<TLRecord>;
   onMount?: (api: EditorAPI) => void;
   hideExportUI?: boolean;
+  disableLocalPersistance?: boolean;
 };
 
 type CanvasContext = {

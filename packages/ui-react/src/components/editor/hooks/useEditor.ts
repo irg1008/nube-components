@@ -44,9 +44,9 @@ const tools = [
   'laser',
   'highlight',
   'line',
+  'arrow',
   // 'frame', // Not allowed
   // 'embed', // Not implemented
-  // 'arrow', // Not working in frame mode since it snaps automatically and dissapears. Maybe extending this shape?
 ] as const;
 
 const actions = [
