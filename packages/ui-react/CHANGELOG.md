@@ -1,5 +1,41 @@
 # @nubebytes/ui-react
 
+## 0.12.0
+
+### Minor Changes
+
+- Remove deprecated call and add new method to get preview image blob
+
+## 0.11.0
+
+### Minor Changes
+
+- Add config option to disable local persistance. Useful when creating your own backend or alternative persistance
+
+## 0.10.0
+
+### Minor Changes
+
+- Update loading screen
+
+## 0.9.0
+
+### Minor Changes
+
+- Add arrow tool
+
+## 0.8.1
+
+### Patch Changes
+
+- Now adding external assets bigger than canvas work. Previously they were added outside the canvas and therefore automatically removed
+
+## 0.8.0
+
+### Minor Changes
+
+- Fix "bug" that prevented unused assets from being removed, weighting a lot in exported snapshot
+
 ## 0.7.4
 
 ### Patch Changes

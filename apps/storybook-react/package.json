@@ -1,7 +1,7 @@
 {
   "name": "storybook-react",
   "private": true,
-  "version": "0.0.24",
+  "version": "0.0.30",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -18,26 +18,26 @@
   },
   "devDependencies": {
     "@ngneat/falso": "7.1.1",
-    "@storybook/addon-essentials": "7.6.0",
-    "@storybook/addon-interactions": "7.6.0",
-    "@storybook/addon-links": "7.6.0",
-    "@storybook/blocks": "7.6.0",
-    "@storybook/react": "7.6.0",
-    "@storybook/react-vite": "7.6.0",
+    "@storybook/addon-essentials": "7.6.4",
+    "@storybook/addon-interactions": "7.6.4",
+    "@storybook/addon-links": "7.6.4",
+    "@storybook/blocks": "7.6.4",
+    "@storybook/react": "7.6.4",
+    "@storybook/react-vite": "7.6.4",
     "@storybook/testing-library": "0.2.2",
     "@types/react": "18.2.39",
     "@types/react-dom": "18.2.17",
-    "@vitejs/plugin-react": "4.2.0",
+    "@vitejs/plugin-react": "4.2.1",
     "autoprefixer": "10.4.16",
     "eslint-config-custom": "workspace:*",
-    "postcss": "8.4.31",
+    "postcss": "8.4.32",
     "prop-types": "15.8.1",
-    "storybook": "7.6.0",
-    "tailwindcss": "3.3.5",
+    "storybook": "7.6.4",
+    "tailwindcss": "3.3.6",
     "tsconfig": "workspace:*",
     "typescript": "5.2.2",
     "vite": "4.5.0",
     "vite-plugin-checker": "0.6.2",
-    "vite-tsconfig-paths": "4.2.1"
+    "vite-tsconfig-paths": "4.2.2"
   }
 }

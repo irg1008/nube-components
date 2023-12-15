@@ -99,16 +99,32 @@ export default function App() {
     editor?.syncShapesValue();
   };
 
+  const getEditorImageBlob = async () => {
+    const blob = await editor?.getCanvasImg({ scale: 0.5 });
+    console.log(blob);
+    if (blob) {
+      const url = URL.createObjectURL(blob);
+      console.log(url);
+    }
+  };
+
   return (
     <div className="flex h-screen w-full flex-col gap-3 p-4">
       <div>
         <h2 className="font-mono text-4xl font-bold uppercase">Editor</h2>
         <button
           className="rounded-lg bg-red-500 p-4"
+          onClick={getEditorImageBlob}>
+          Get image blob
+        </button>
+        <button
+          className="rounded-lg bg-red-500 p-4"
           onClick={fetchRandomValues}>
           New values
         </button>
-        <pre>{JSON.stringify(randValues)}</pre>
+        <pre className="line-clamp-4">
+          {JSON.stringify(randValues, null, 2)}
+        </pre>
       </div>
       <div className="flex-grow overflow-hidden rounded-2xl border-2 border-black shadow-xl">
         <Editor onMount={setEditor} variablesConfig={variablesConfig} />
