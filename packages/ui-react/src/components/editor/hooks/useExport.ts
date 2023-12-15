@@ -12,10 +12,12 @@ import {
 } from '@/editor/utils/files.utils';
 import { filterShapesWithValue } from '@/editor/utils/shapes.util';
 import {
+  SerializedStore,
   StoreSnapshot,
   TLRecord,
   TLShape,
   TLStoreSnapshot,
+  getSvgAsImage,
   useCopyAs,
   useExportAs,
 } from '@tldraw/tldraw';
@@ -23,6 +25,19 @@ import { useEditor } from './useEditor';
 
 type ExportOptions = {
   exportExtension?: string;
+};
+
+const purgeUnusedAssets = (snapshot: StoreSnapshot<TLRecord>) => {
+  const isAsset = (k: string) => k.startsWith('asset');
+
+  const assetsKeys = Object.keys(snapshot.store).filter(isAsset);
+  const nonAssets = Object.entries(snapshot.store).filter(([k]) => !isAsset(k));
+  const nonAssetsString = JSON.stringify(nonAssets);
+  const unusedAssets = assetsKeys.filter((k) => !nonAssetsString.includes(k));
+
+  unusedAssets.forEach((asset) => {
+    delete snapshot.store[asset as keyof SerializedStore<TLRecord>];
+  });
 };
 
 export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
@@ -39,7 +54,21 @@ export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
     return copyAs([canvas.id], 'png');
   };
 
-  const exportCanvasImg = async (name?: string) => {
+  const getCanvasImg = async ({
+    quality = 1,
+    scale = 2,
+  }): Promise<Blob | null> => {
+    const svg = await editor.getSvg([canvas.id]);
+    if (!svg) throw new Error('Could not get canvas svg');
+
+    return getSvgAsImage(svg, editor.environment.isSafari, {
+      type: 'png',
+      scale,
+      quality,
+    });
+  };
+
+  const exportCanvasImg = (name?: string) => {
     if (!name) return exportCanvas();
 
     const shapes = updateShapeProp(canvas as TLShape, {
@@ -48,11 +77,13 @@ export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
     });
 
     editor.updateShape(shapes, { ephemeral: true });
-    await exportCanvas();
+    exportCanvas();
   };
 
   const getSnapshot = () => {
-    return editor.store.getSnapshot('all');
+    const snapshot = editor.store.getSnapshot('all');
+    purgeUnusedAssets(snapshot);
+    return snapshot;
   };
 
   const setSnapshot = (snapshot: TLStoreSnapshot) => {
@@ -95,6 +126,7 @@ export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
   return {
     exportExtension,
     exportCanvasImg,
+    getCanvasImg,
     exportTemplateHTML,
     exportHTML,
     saveSnapshot,
