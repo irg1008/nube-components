@@ -6,6 +6,7 @@ import {
   EraserIcon,
   HighlighterIcon,
   ImageIcon,
+  LucideArrowUpRight,
   MoreVerticalIcon,
   MousePointer2Icon,
   PencilIcon,
@@ -73,7 +74,7 @@ export const Toolbar = () => {
           <ImageIcon className="h-4 w-4" />
         </Action>
         <Action
-          hotkey="alt+p"
+          hotkey="alt+c"
           action={() => setCustomTool('placeholder-img')}
           tooltip="Imagen de catálogo">
           <ReplaceIcon className="h-4 w-4" />
@@ -83,6 +84,12 @@ export const Toolbar = () => {
           action={() => setTool('highlight')}
           tooltip="Subrayador">
           <HighlighterIcon className="h-4 w-4" />
+        </Action>
+        <Action
+          hotkey="alt+f"
+          action={() => setTool('arrow')}
+          tooltip="Flecha">
+          <LucideArrowUpRight className="h-4 w-4" />
         </Action>
         <FreeFormMenu onFormPick={setTool}>
           <ShapesIcon className="h-4 w-4" />

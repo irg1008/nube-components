@@ -7,7 +7,9 @@ import {
   updateShapesProp,
 } from '@/editor/utils/editor.utils';
 import {
+  TLArrowShape,
   TLFrameShape,
+  TLImageShape,
   TLLineShape,
   TLRecord,
   TLShape,
@@ -64,12 +66,12 @@ export const useFrameOperations = ({
         exitEditingState();
         return this;
       },
-      ofType<T extends TLShape>(type: T['type']) {
-        tempShapes = tempShapes.filter((s) => s.type === type);
+      ofType<T extends TLShape>(...types: T['type'][]) {
+        tempShapes = tempShapes.filter((s) => types.includes(s.type));
         return this;
       },
-      notOfType<T extends TLShape>(type: T['type']) {
-        tempShapes = tempShapes.filter((s) => s.type !== type);
+      notOfType<T extends TLShape>(...types: T['type'][]) {
+        tempShapes = tempShapes.filter((s) => !types.includes(s.type));
         return this;
       },
       notEmpty() {
@@ -98,13 +100,12 @@ export const useFrameOperations = ({
         return this;
       },
       updateProp<V>(prop: string, value: V) {
-        const partialShapes = updateShapesProp(tempShapes, { prop, value });
-        return {
-          run: () => {
-            editor.updateShapes(partialShapes);
-            return this;
-          },
-        };
+        const partialShapes = updateShapesProp(tempShapes, {
+          prop: prop.toString(),
+          value,
+        });
+        editor.updateShapes(partialShapes);
+        return this;
       },
       cancel() {
         editor.cancel();
@@ -128,6 +129,12 @@ export const useFrameOperations = ({
       },
       delete() {
         editor.deleteShapes(tempShapes);
+        return this;
+      },
+      centerToFrame() {
+        editor.updateShapes(
+          tempShapes.map((shape) => ({ ...shape, parentId: frame.id })),
+        );
         return this;
       },
       do<T extends TLShape>(cb: (shapes: T[]) => void) {
@@ -270,23 +277,29 @@ export const useFrame = ({
         .ofType<TLTextShape>('text')
         .withEmptyProp('text')
         .updateProp('text', 'Texto')
-        .run();
+        .resetOutside()
+        .ofType<TLImageShape>('image')
+        .centerToFrame();
 
       filterShapes(updated).isFrameAffected()?.preventFrameAlterations();
       filterShapes(removed).isFrameAffected()?.preventFrameDeletion();
 
       filterShapes([...added, ...updated])
         .outsideFrame()
-        .ofType<TLLineShape>('line')
+        .ofType<TLLineShape | TLArrowShape>('line', 'arrow')
         .cancelIfNotEmpty()
         .resetOutside()
-        .notOfType<TLLineShape>('line')
+        .notOfType<TLLineShape | TLImageShape | TLArrowShape>(
+          'line',
+          'image',
+          'arrow',
+        )
         .delete();
     },
   });
 
   useUpdateEffect(() => {
-    // Prevent all shapes from being moved behind background layer
+    // Prevents all shapes from being moved behind background layer
     editor.sendToBack([backgroundShape.id]);
   }, [editor.currentPageShapesSorted]);
 
