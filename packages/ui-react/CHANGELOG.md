@@ -1,5 +1,41 @@
 # @nubebytes/ui-react
 
+## 0.14.0
+
+### Minor Changes
+
+- Add layer view with drag and drop. Fix minor performance issues
+
+## 0.13.3
+
+### Patch Changes
+
+- Change toast message for read only
+
+## 0.13.2
+
+### Patch Changes
+
+- Fixed variable input changing the cached selectedshapes instead of the current ones
+
+## 0.13.1
+
+### Patch Changes
+
+- Fix wrong inline styles for rich editor
+
+## 0.13.0
+
+### Minor Changes
+
+- Change all the editor ineccesary deprecated property access for getters and single listeners in canvas provider
+
+## 0.12.1
+
+### Patch Changes
+
+- Fix image placeholder tailwind class overriding inline style
+
 ## 0.12.0
 
 ### Minor Changes

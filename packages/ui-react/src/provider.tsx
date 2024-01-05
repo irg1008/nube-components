@@ -34,7 +34,6 @@ export const NubeProvider = ({ children }: PropsWithChildren) => {
     );
 
     observer.observe(document.body, { childList: true });
-
     return observer;
   };
 

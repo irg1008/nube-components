@@ -1,10 +1,11 @@
+import { useEditor } from '@/editor/hooks/useEditor';
 import { useCanvas } from '@/editor/stores/canvas.store';
 import { Chip, Slider, Typography } from '@material-tailwind/react';
 
 export const OpacitySlider = () => {
+  const { editor } = useEditor();
   const {
     selectedShapes: [firstShape],
-    changeSelectedOpacity,
   } = useCanvas();
 
   const opacityPerc = firstShape.opacity * 100;
@@ -18,6 +19,7 @@ export const OpacitySlider = () => {
       <div className="flex items-center gap-2">
         <Chip
           size="sm"
+          className="min-w-10 flex items-center justify-center"
           variant="gradient"
           value={`${opacityPerc.toFixed(0)}%`}
         />
@@ -27,7 +29,7 @@ export const OpacitySlider = () => {
           max={100}
           value={opacityPerc}
           onChange={(e) => {
-            changeSelectedOpacity(e.target.valueAsNumber / 100);
+            editor.setOpacityForSelectedShapes(e.target.valueAsNumber / 100);
           }}
         />
       </div>

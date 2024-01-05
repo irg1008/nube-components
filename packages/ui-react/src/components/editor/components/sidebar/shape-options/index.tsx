@@ -1,5 +1,6 @@
 import { WidgetForProp } from '@/editor/components/ui/widgets/widget-record';
 import { useEditor } from '@/editor/hooks/useEditor';
+import { useCanvas } from '@/editor/stores/canvas.store';
 import {
   getShapesSharedProps,
   updateShapesProp,
@@ -10,7 +11,7 @@ import { OpacitySlider } from '../opacity-slider';
 
 export const ShapeOptions = () => {
   const { editor } = useEditor();
-  const { selectedShapes: shapes } = editor;
+  const { selectedShapes: shapes } = useCanvas();
 
   const props = useMemo(
     () => getShapesSharedProps<EditableProp>(shapes),
@@ -29,7 +30,7 @@ export const ShapeOptions = () => {
           shapes={shapes}
           prop={prop}
           onChange={(value, meta) => {
-            const updated = updateShapesProp(editor.selectedShapes, {
+            const updated = updateShapesProp(editor.getSelectedShapes(), {
               prop,
               value,
               meta,

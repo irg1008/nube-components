@@ -49,7 +49,7 @@ export function TextEditor({ content, onCreate, autofocus }: TextEditorProps) {
     editorProps: {
       attributes: {
         class:
-          'h-full flex items-center grow overflow-x-auto scrollbar-none whitespace-nowrap leading-[100%] p-2 font-sans text-sm [&>*]:min-w-full [&_*]:inline [&_*]:whitespace-nowrap',
+          'h-full flex items-center grow overflow-x-auto scrollbar-none whitespace-nowrap leading-[100%] p-2 font-sans text-sm *:min-w-full [&_*]:inline [&_*]:whitespace-nowrap',
       },
     },
   });
@@ -57,7 +57,7 @@ export function TextEditor({ content, onCreate, autofocus }: TextEditorProps) {
   return (
     <EditorContent
       editor={editor}
-      className="focus:bg-blue-gray-8900 flex h-full w-full items-center justify-start rounded-lg border border-blue-gray-200 focus-within:border-2 focus-within:border-blue-gray-900"
+      className="focus:bg-blue-gray-8900 border-blue-gray-200 focus-within:border-blue-gray-900 flex h-full w-full items-center justify-start rounded-lg border focus-within:border-2"
     />
   );
 }

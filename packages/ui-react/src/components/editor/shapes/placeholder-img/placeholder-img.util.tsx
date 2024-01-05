@@ -16,6 +16,8 @@ import { basicRectangleProps, defaultProps } from './placeholder-img.props';
 import { PIShape } from './placeholder-img.types';
 
 const getDataURIFromURL = async (url: string): Promise<string> => {
+  // Images must have CORS disabled. Otherwise some sort of proxy mechanism should be provided
+
   const response = await fetch(url);
   const blob = await response.blob();
 
@@ -30,6 +32,8 @@ const getDataURIFromURL = async (url: string): Promise<string> => {
 export class PlaceholderImgUtil extends ShapeUtil<PIShape> {
   static override type = placeholderImage;
   static override props = basicRectangleProps;
+
+  imgElement: HTMLImageElement | null = null;
 
   override isAspectRatioLocked = () => false;
   override canResize = () => true;
@@ -67,6 +71,9 @@ export class PlaceholderImgUtil extends ShapeUtil<PIShape> {
     image.setAttributeNS('http://www.w3.org/1999/xlink', 'href', src);
     image.setAttribute('width', shape.props.w.toString());
     image.setAttribute('height', shape.props.h.toString());
+
+    // TODO: Add object-fit and object-position support
+
     g.appendChild(image);
 
     return g;
@@ -86,8 +93,8 @@ export class PlaceholderImgUtil extends ShapeUtil<PIShape> {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [validUrl, setValidUrl] = useState<boolean>(true);
 
-    const isHovered = this.editor.hoveredShapeId === shape.id;
-    const isSelected = this.editor.selectedShapeIds.includes(shape.id);
+    const isHovered = this.editor.getHoveredShapeId() === shape.id;
+    const isSelected = this.editor.getSelectedShapeIds().includes(shape.id);
     const emptyUrl = !trimmedUrl;
     const showDimensions = isHovered || isSelected || emptyUrl || !validUrl;
 
@@ -95,9 +102,12 @@ export class PlaceholderImgUtil extends ShapeUtil<PIShape> {
       <HTMLContainer id={shape.id} className="relative">
         {trimmedUrl && (
           <img
-            className={twMerge('h-full w-full object-contain')}
+            className={twMerge('h-full w-full')}
             src={trimmedUrl}
-            onLoad={() => setValidUrl(true)}
+            onLoad={(img) => {
+              setValidUrl(true);
+              this.imgElement = img.target as HTMLImageElement;
+            }}
             onError={() => setValidUrl(false)}
             alt={shape.id}
             style={{

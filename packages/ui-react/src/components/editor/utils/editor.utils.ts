@@ -42,23 +42,26 @@ export const getShapesSharedProps = <T>(shapes: TLShape[]): T[] => {
 export type UpdatePropCb<V> = (shape: TLShape) => V;
 
 export type UpdatePropsParams<V = JsonPrimitive> = {
-  prop: string;
-  value: V;
+  prop?: string;
+  value?: V;
   meta?: Partial<JsonObject>;
 };
 
 export const updateShapeProp = <V = JsonPrimitive>(
   shape: TLShape,
   { prop, value, meta }: UpdatePropsParams<V>,
-): TLShapePartial => {
+): TLShape => {
   const partial: TLShapePartial = {
     id: shape.id,
     type: shape.type,
-    props: { [prop]: value },
   };
 
   if (meta) {
     partial.meta = meta;
+  }
+
+  if (prop) {
+    partial.props = { [prop]: value };
   }
 
   return { ...shape, ...partial };

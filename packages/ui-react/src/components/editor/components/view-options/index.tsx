@@ -44,10 +44,10 @@ export const ViewOptions = () => {
   const { performAction, toggleReadonly, isReadonly } = useEditor();
 
   useUpdateEffect(() => {
-    toast.info(
-      isReadonly ? 'Modo solo lectura activo' : 'Modo solo lectura desactivado',
-      { id: 'isReadonly', duration: 1000 },
-    );
+    toast.info(`Modo solo lectura ${isReadonly ? 'activado' : 'desactivado'}`, {
+      id: 'isReadonly',
+      duration: 1000,
+    });
   }, [isReadonly]);
 
   const actions: ActionProps[] = [
@@ -76,7 +76,7 @@ export const ViewOptions = () => {
   return (
     <div
       id="editor-view-options"
-      className="absolute bottom-0 left-0 flex items-start justify-center gap-4 p-4">
+      className="absolute bottom-0 left-1/2 flex -translate-x-1/2 items-start justify-center gap-4 p-4 sm:left-0 sm:translate-x-0">
       <ButtonGroup size="sm" variant="filled" color="white">
         {actions.map((props) => (
           <Action key={props.tooltip} {...props} />

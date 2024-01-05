@@ -56,13 +56,13 @@ type CanvasContext = {
   canvas: Frame;
   zoomToFrame: (animation: Animation) => void;
   refitCanvas: (options?: RefitCanvasOptions) => void;
-  changeSelectedOpacity: (opacity: number) => void;
   resizeCanvas: FrameHook['resizeFrame'];
   resetCanvas: FrameHook['initFrame'];
   changeCanvasColor: FrameHook['changeBackgroundColor'];
   canvasColor: FrameHook['backgroundColor'];
   sidebarRef: SidebarRef;
   selectedShapes: TLShape[];
+  sortedShapes: TLShape[];
   config: EditorConfig;
 };
 
@@ -111,14 +111,6 @@ export const CanvasProvider = track(
       refitCanvas();
     };
 
-    const changeSelectedOpacity = (opacity: number) => {
-      const newShapes = selectedChildren.map((shape) => ({
-        ...shape,
-        opacity,
-      }));
-      editor.updateShapes(newShapes);
-    };
-
     const { editor } = useEditor({
       onMount: initCanvas,
     });
@@ -126,8 +118,9 @@ export const CanvasProvider = track(
     const {
       frameSize,
       frame,
-      selectedChildren,
       backgroundColor,
+      selectedChildren,
+      sortedChildren,
       initFrame,
       resizeFrame,
       changeBackgroundColor,
@@ -145,13 +138,13 @@ export const CanvasProvider = track(
           canvas: frame,
           canvasColor: backgroundColor,
           selectedShapes: selectedChildren,
+          sortedShapes: sortedChildren,
           config,
           refitCanvas,
           resetCanvas: initFrame,
           resizeCanvas: resizeFrame,
           zoomToFrame,
           changeCanvasColor: changeBackgroundColor,
-          changeSelectedOpacity,
         }}>
         {children}
       </StoreContext.Provider>

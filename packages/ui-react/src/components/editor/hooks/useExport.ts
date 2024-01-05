@@ -114,7 +114,8 @@ export const useExport = ({ exportExtension = '.nbs' }: ExportOptions = {}) => {
 
   const getTemplateCanvasHTML = () => {
     const canvasHTML = getCanvasHTML();
-    const withMetaValue = filterShapesWithValue(editor.currentPageShapes);
+    const allShapes = editor.getCurrentPageShapes();
+    const withMetaValue = filterShapesWithValue(allShapes);
     return updateElementsValue(canvasHTML, withMetaValue, transformElement);
   };
 

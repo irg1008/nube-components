@@ -9,6 +9,7 @@ import {
 } from '@tldraw/tldraw';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { customToolsNames } from '../shapes';
+import { placeholderImage } from '../shapes/placeholder-img/placeholder-img.consts';
 import { getShapesInChange } from '../utils/editor.utils';
 
 const geometry = [
@@ -117,9 +118,21 @@ const actions = [
   'toggle-lock',
 ] as const;
 
+const shapeTypes = [
+  'geo',
+  'image',
+  'text',
+  'line',
+  'draw',
+  'highlight',
+  'arrow',
+  placeholderImage,
+] as const;
+
 export type Geometry = (typeof geometry)[number];
 export type EditorTool = (typeof tools)[number];
 export type CustomTool = (typeof customToolsNames)[number];
+export type ShapeType = (typeof shapeTypes)[number];
 
 export type Tool = Geometry | EditorTool;
 export type Action = (typeof actions)[number];
@@ -155,11 +168,11 @@ export const useEditor = ({
   };
 
   const deleteSelected = () => {
-    editor.deleteShapes(editor.selectedShapes);
+    editor.deleteShapes(editor.getSelectedShapes());
   };
 
   const scapeEditingState = () => {
-    const shape = editor.editingShape;
+    const shape = editor.getEditingShape();
     if (!shape) return;
 
     // Find a better way

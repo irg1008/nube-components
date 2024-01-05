@@ -13,6 +13,7 @@ import {
   DiamondIcon,
   HexagonIcon,
   LucideIcon,
+  OctagonIcon,
   PentagonIcon,
   RectangleVerticalIcon,
   StarIcon,
@@ -66,7 +67,7 @@ const freeForms: FreeForm[] = [
   },
   {
     geo: 'octagon',
-    icon: 'geo-octagon',
+    icon: OctagonIcon,
     tooltip: 'Octágono',
   },
   {

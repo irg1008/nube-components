@@ -4,13 +4,12 @@ import { BackgroundColor } from '@/editor/styles/background-color';
 import {
   filterShapeInChanges,
   shapeLookup,
+  updateShapeProp,
   updateShapesProp,
 } from '@/editor/utils/editor.utils';
 import {
-  TLArrowShape,
   TLFrameShape,
   TLImageShape,
-  TLLineShape,
   TLRecord,
   TLShape,
   TLShapePartial,
@@ -19,6 +18,7 @@ import {
 } from '@tldraw/tldraw';
 import { useMemo, useState } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
+import { toolLabels } from '../utils/i18n.utils';
 import { useEditor } from './useEditor';
 
 export type Frame = TLShapePartial<TLFrameShape>;
@@ -44,7 +44,7 @@ export const useFrameOperations = ({
   };
 
   const exitEditingState = () => {
-    if (!editor.editingShape) return;
+    if (!editor.getEditingShape()) return;
     editor.cancel();
   };
 
@@ -81,12 +81,6 @@ export const useFrameOperations = ({
         tempShapes = nonFrameShapes;
         return this;
       },
-      resetInside() {
-        return this.reset().insideFrame();
-      },
-      resetOutside() {
-        return this.reset().outsideFrame();
-      },
       isToolState(state: string) {
         return editor.isIn(state) ? this : undefined;
       },
@@ -100,11 +94,10 @@ export const useFrameOperations = ({
         return this;
       },
       updateProp<V>(prop: string, value: V) {
-        const partialShapes = updateShapesProp(tempShapes, {
+        tempShapes = updateShapesProp(tempShapes, {
           prop: prop.toString(),
           value,
         });
-        editor.updateShapes(partialShapes);
         return this;
       },
       cancel() {
@@ -132,13 +125,21 @@ export const useFrameOperations = ({
         return this;
       },
       centerToFrame() {
-        editor.updateShapes(
-          tempShapes.map((shape) => ({ ...shape, parentId: frame.id })),
-        );
+        tempShapes = tempShapes.map((shape) => ({
+          ...shape,
+          parentId: frame.id,
+        }));
         return this;
       },
-      do<T extends TLShape>(cb: (shapes: T[]) => void) {
-        cb(tempShapes as T[]);
+      sync() {
+        editor.updateShapes(tempShapes);
+        return this;
+      },
+      syncAndReset() {
+        return this.sync().reset();
+      },
+      do(cb: (shapes: TLShape[]) => TLShape[]) {
+        tempShapes = cb(tempShapes);
         return this;
       },
       isFrameAffected() {
@@ -229,7 +230,7 @@ export const useFrame = ({
     [bgId, frameId, backgroundColor, frameSize],
   );
 
-  const updateShape = (shape: TLShapePartial<BRShape> | Frame) => {
+  const invisibleUpdateShape = (shape: TLShapePartial<BRShape> | Frame) => {
     editor.updateShape(shape, { ephemeral: epheremeralChanges });
   };
 
@@ -270,51 +271,71 @@ export const useFrame = ({
     restoreOp: createFrame,
   });
 
+  const addMetaName = (shapes: TLShape[]) => {
+    return shapes.map((shape) => {
+      const shapeCount = editor
+        .getCurrentPageShapes()
+        .filter((s) => s.type === shape.type).length;
+
+      const typeLabel = toolLabels[shape.type];
+      if (!typeLabel) return shape;
+
+      return updateShapeProp(shape, {
+        meta: { name: `${typeLabel} ${shapeCount}` },
+      });
+    });
+  };
+
   const { editor } = useEditor({
     onChange: ({ added, removed, updated }) => {
       filterShapes(added)
-        .insideFrame()
         .ofType<TLTextShape>('text')
         .withEmptyProp('text')
         .updateProp('text', 'Texto')
-        .resetOutside()
+        .syncAndReset()
+        .outsideFrame()
         .ofType<TLImageShape>('image')
-        .centerToFrame();
+        .centerToFrame()
+        .syncAndReset()
+        .do(addMetaName)
+        .sync();
 
       filterShapes(updated).isFrameAffected()?.preventFrameAlterations();
       filterShapes(removed).isFrameAffected()?.preventFrameDeletion();
 
       filterShapes([...added, ...updated])
         .outsideFrame()
-        .ofType<TLLineShape | TLArrowShape>('line', 'arrow')
-        .cancelIfNotEmpty()
-        .resetOutside()
-        .notOfType<TLLineShape | TLImageShape | TLArrowShape>(
-          'line',
-          'image',
-          'arrow',
-        )
-        .delete();
+        .centerToFrame()
+        .sync();
     },
   });
+
+  const selectedShapes = editor.getSelectedShapes();
+  const sortedShapes = editor.getCurrentPageShapesSorted();
+
+  const selectedChildren: TLShape[] = useMemo(
+    () => selectedShapes.filter(isFrameChild),
+    [selectedShapes, isFrameChild],
+  );
+
+  const sortedChildren = useMemo(
+    () => sortedShapes.filter(isFrameChild).filter((s) => s.id !== bgId),
+    [sortedShapes, isFrameChild, bgId],
+  );
 
   useUpdateEffect(() => {
     // Prevents all shapes from being moved behind background layer
     editor.sendToBack([backgroundShape.id]);
-  }, [editor.currentPageShapesSorted]);
+  }, [sortedChildren]);
 
   useUpdateEffect(() => {
-    updateShape(frame);
+    invisibleUpdateShape(frame);
     onChange?.(frame);
   }, [frame]);
 
   useUpdateEffect(() => {
-    updateShape(backgroundShape);
+    invisibleUpdateShape(backgroundShape);
   }, [backgroundShape]);
-
-  const selectedChildren = useMemo(() => {
-    return editor.selectedShapes.filter(isFrameChild);
-  }, [editor.selectedShapes, isFrameChild]);
 
   return {
     frameSize,
@@ -323,6 +344,7 @@ export const useFrame = ({
     initFrame,
     frame,
     selectedChildren,
+    sortedChildren,
     backgroundColor,
     changeBackgroundColor,
   };
