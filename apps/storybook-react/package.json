@@ -1,7 +1,7 @@
 {
   "name": "storybook-react",
   "private": true,
-  "version": "0.0.30",
+  "version": "0.0.36",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -33,7 +33,7 @@
     "postcss": "8.4.32",
     "prop-types": "15.8.1",
     "storybook": "7.6.4",
-    "tailwindcss": "3.3.6",
+    "tailwindcss": "3.4.0",
     "tsconfig": "workspace:*",
     "typescript": "5.2.2",
     "vite": "4.5.0",
