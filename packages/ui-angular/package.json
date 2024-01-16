@@ -1,6 +1,6 @@
 {
   "name": "@nubebytes/ui-angular",
-  "version": "0.9.18",
+  "version": "0.9.20",
   "main": "dist/esm2020/public-api.mjs",
   "module": "dist/esm2020/public-api.mjs",
   "types": "dist/index.d.ts",

@@ -1,5 +1,17 @@
 # @nubebytes/ui-react
 
+## 0.14.2
+
+### Patch Changes
+
+- Fix canvas not correctly setting up becouse editor on-mount event callback wasn't being called or was called too late
+
+## 0.14.1
+
+### Patch Changes
+
+- Change default layer drawer state
+
 ## 0.14.0
 
 ### Minor Changes
