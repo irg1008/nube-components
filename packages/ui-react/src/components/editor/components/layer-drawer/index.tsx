@@ -6,7 +6,7 @@ import { useToggle } from 'usehooks-ts';
 import { Layerlist } from './layer-list';
 
 export const LayerDrawer = () => {
-  const [open, toggle] = useToggle(true);
+  const [open, toggle] = useToggle(false);
   const { isReadonly } = useEditor();
 
   return (

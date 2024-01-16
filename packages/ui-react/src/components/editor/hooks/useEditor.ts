@@ -1,5 +1,6 @@
 import {
   HistoryEntry,
+  TLEventInfo,
   TLRecord,
   VecLike,
   useActions,
@@ -195,8 +196,8 @@ export const useEditor = ({
     onMount?.();
   };
 
-  const setReadonly = (readonly: boolean) => {
-    editor.updateInstanceState({ isReadonly: readonly });
+  const setReadonly = (isReadonly: boolean) => {
+    editor.updateInstanceState({ isReadonly });
   };
 
   const toggleReadonly = () => {
@@ -207,19 +208,17 @@ export const useEditor = ({
     onChange?.(getShapesInChange(h.changes));
   };
 
-  const listenForEvents = () => {
-    editor.on('event', (e) => {
-      switch (e.name) {
-        case 'double_click': {
-          onDoubleClick?.(e.point);
-          break;
-        }
-        case 'pointer_down': {
-          onClick?.(e.point);
-          break;
-        }
+  const listenForEvents = (e: TLEventInfo) => {
+    switch (e.name) {
+      case 'double_click': {
+        onDoubleClick?.(e.point);
+        break;
       }
-    });
+      case 'pointer_down': {
+        onClick?.(e.point);
+        break;
+      }
+    }
   };
 
   const runTransientAction = async (action: () => void | Promise<void>) => {
@@ -230,16 +229,16 @@ export const useEditor = ({
   };
 
   useEffectOnce(() => {
-    if (onMount) editor.once('mount', onEditorMount);
+    if (onMount) onEditorMount();
   });
 
   useUpdateEffect(() => {
     if (onChange) editor.on('change', onEditorChange);
-    listenForEvents();
+    editor.on('event', listenForEvents);
 
     return () => {
       editor.off('change', onEditorChange);
-      editor.off('event', onEditorMount);
+      editor.off('event', listenForEvents);
     };
   }, [editor]);
 
