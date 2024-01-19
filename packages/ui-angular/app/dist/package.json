@@ -1,0 +1,54 @@
+{
+  "name": "@nubebytes/ui-angular",
+  "version": "0.5.3",
+  "main": "dist/esm2020/public-api.mjs",
+  "module": "dist/esm2020/public-api.mjs",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
+  "scripts": {
+    "ng": "ng",
+    "build:sass": "sass src/lib/styles/index.scss assets/styles.css",
+    "prebuild": "npm run build:sass",
+    "build": "ng build ui",
+    "prewatch": "npm run build:sass",
+    "watch": "ng build ui --watch --configuration development",
+    "lint": "ng lint ui",
+    "prerelease": "copyfiles package.json LICENSE app/dist"
+  },
+  "peerDependencies": {
+    "@angular/animations": "^16",
+    "@angular/cdk": "^16",
+    "@angular/common": "^16",
+    "@angular/compiler": "^16",
+    "@angular/core": "^16",
+    "@angular/forms": "^16",
+    "@angular/platform-browser": "^16",
+    "@angular/platform-browser-dynamic": "^16",
+    "rxjs": "7.8.1",
+    "zone.js": "~0.13.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^16",
+    "@angular/cli": "^16",
+    "@angular/compiler-cli": "^16",
+    "@tldraw/tldraw": "2.0.0-alpha.18",
+    "@types/react": "18.2.38",
+    "@types/react-dom": "18.2.17",
+    "copyfiles": "2.4.1",
+    "eslint-config-custom": "workspace:*",
+    "ng-packagr": "^16",
+    "sass": "1.69.5",
+    "tsconfig": "workspace:*",
+    "tslib": "2.6.2",
+    "typescript": "~5.1.6"
+  },
+  "sideEffects": false,
+  "dependencies": {
+    "@nubebytes/ui-react": "workspace:*",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
+}

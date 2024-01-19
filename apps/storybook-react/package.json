@@ -1,37 +1,43 @@
 {
   "name": "storybook-react",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.38",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "storybook": "storybook dev -p 6006 -c ./storybook/config",
-    "storybook:build": "storybook build -c ./storybook/config -o ./storybook/export"
+    "lint": "eslint ./app --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "storybook": "storybook dev -p 6002 -c ./storybook/config",
+    "build-storybook": "storybook build -c ./storybook/config -o ./storybook/export"
   },
   "dependencies": {
+    "@nubebytes/ui-react": "workspace:*",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "7.0.7",
-    "@storybook/addon-interactions": "7.0.7",
-    "@storybook/addon-links": "7.0.7",
-    "@storybook/blocks": "7.0.7",
-    "@storybook/react": "7.0.7",
-    "@storybook/react-vite": "7.0.7",
-    "@storybook/testing-library": "0.1.0",
-    "@types/react": "18.2.0",
-    "@types/react-dom": "18.2.1",
-    "@vitejs/plugin-react-swc": "3.3.0",
+    "@ngneat/falso": "7.1.1",
+    "@storybook/addon-essentials": "7.6.4",
+    "@storybook/addon-interactions": "7.6.4",
+    "@storybook/addon-links": "7.6.4",
+    "@storybook/blocks": "7.6.4",
+    "@storybook/react": "7.6.4",
+    "@storybook/react-vite": "7.6.4",
+    "@storybook/testing-library": "0.2.2",
+    "@types/react": "18.2.39",
+    "@types/react-dom": "18.2.17",
+    "@vitejs/plugin-react": "4.2.1",
+    "autoprefixer": "10.4.16",
     "eslint-config-custom": "workspace:*",
+    "postcss": "8.4.32",
     "prop-types": "15.8.1",
-    "storybook": "7.0.7",
+    "storybook": "7.6.4",
+    "tailwindcss": "3.4.0",
     "tsconfig": "workspace:*",
-    "ui-react": "workspace:*",
-    "vite": "4.3.3",
-    "typescript": "5.0.4"
+    "typescript": "5.2.2",
+    "vite": "4.5.0",
+    "vite-plugin-checker": "0.6.2",
+    "vite-tsconfig-paths": "4.2.2"
   }
 }

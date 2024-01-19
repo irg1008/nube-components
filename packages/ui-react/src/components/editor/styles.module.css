@@ -1,0 +1,16 @@
+.tl-frame-label {
+  @apply hidden;
+}
+
+/* Necessary fix because slickgrid conflicts with faulty naming class inside editor. "row" is used instead of "flex-row". */
+/* See https://github.com/creativetimofficial/material-tailwind/issues/512 */
+
+.row {
+  margin: unset;
+}
+
+.row > * {
+  margin: unset;
+  display: unset;
+  width: unset;
+}

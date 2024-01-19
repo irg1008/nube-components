@@ -6,17 +6,23 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo dev",
+    "dev": "turbo run dev --parallel",
+    "dev:react": "turbo run dev --filter=storybook-react...",
+    "dev:angular": "turbo run dev --filter=*angular",
     "build": "turbo build",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "storybook": "turbo storybook"
+    "format": "turbo run format",
+    "storybook": "turbo storybook",
+    "change": "changeset && changeset version",
+    "prerelease": "turbo prerelease --filter=@nubebytes/ui-*",
+    "release": "turbo prerelease --filter=@nubebytes/ui-* && changeset publish"
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
-    "turbo": "1.9.3",
-    "eslint": "8.39.0",
-    "prettier": "2.8.8"
+    "turbo": "1.11.2",
+    "eslint": "8.55.0",
+    "prettier": "3.1.1",
+    "@changesets/cli": "2.27.1"
   },
   "packageManager": "pnpm@7.15.0"
 }

@@ -2,24 +2,24 @@
   "name": "eslint-config-custom",
   "version": "0.0.0",
   "main": "index.js",
-  "publishConfig": {
-    "access": "public"
-  },
+  "private": true,
   "devDependencies": {
-    "@angular-eslint/builder": "15.2.1",
-    "@angular-eslint/eslint-plugin": "15.2.1",
-    "@angular-eslint/eslint-plugin-template": "15.2.1",
-    "@angular-eslint/schematics": "15.2.1",
-    "@angular-eslint/template-parser": "15.2.1",
-    "@typescript-eslint/eslint-plugin": "5.59.1",
-    "@typescript-eslint/parser": "5.59.1",
-    "eslint": "8.39.0",
-    "eslint-config-prettier": "8.8.0",
-    "eslint-config-turbo": "1.9.3",
-    "eslint-plugin-react": "7.32.2",
+    "@angular-eslint/builder": "16.2.0",
+    "@angular-eslint/eslint-plugin": "16.2.0",
+    "@angular-eslint/eslint-plugin-template": "16.2.0",
+    "@angular-eslint/schematics": "16.2.0",
+    "@angular-eslint/template-parser": "16.2.0",
+    "@typescript-eslint/eslint-plugin": "6.14.0",
+    "@typescript-eslint/parser": "6.14.0",
+    "eslint": "8.55.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-config-turbo": "1.11.2",
+    "eslint-plugin-react": "7.33.2",
     "eslint-plugin-react-hooks": "4.6.0",
-    "eslint-plugin-react-refresh": "0.4.0",
-    "eslint-plugin-storybook": "0.6.11",
-    "prettier": "2.8.8"
+    "eslint-plugin-react-refresh": "0.4.5",
+    "eslint-plugin-storybook": "0.6.15",
+    "prettier": "3.1.1",
+    "prettier-plugin-tailwindcss": "0.5.9",
+    "typescript": "5.2.2"
   }
 }
