@@ -7,6 +7,7 @@ import {
 import {
   Editor,
   EditorAPI,
+  EditorConfig,
   Variable,
   VariableConfig,
 } from '@nubebytes/ui-react';
@@ -83,6 +84,15 @@ const getRandomValues = (): Record<string, string> => {
   };
 };
 
+const assetsUrl: EditorConfig['assetsUrl'] = {
+  fonts: {
+    draw: './assets/fonts/Shantell_Sans-Tldrawish.woff2',
+    monospace: './assets/fonts/IBMPlexMono-Medium.woff2',
+    sansSerif: './assets/fonts/OpenSans-VariableFont_wdth,wght.ttf',
+    serif: './assets/fonts/IBMPlexSerif-Medium.woff2',
+  },
+};
+
 export default function App() {
   const [randValues, setRandValues] = useState(getRandomValues());
   const [editor, setEditor] = useState<EditorAPI>();
@@ -127,7 +137,12 @@ export default function App() {
         </pre>
       </div>
       <div className="flex-grow overflow-hidden rounded-2xl border-2 border-black shadow-xl">
-        <Editor onMount={setEditor} variablesConfig={variablesConfig} />
+        <Editor
+          onMount={setEditor}
+          variablesConfig={variablesConfig}
+          assetsUrl={assetsUrl}
+          renderingBoundsMargin={Infinity}
+        />
       </div>
     </div>
   );
