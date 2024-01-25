@@ -5,22 +5,6 @@ type Font = {
   weights?: number[];
 };
 
-const fonts: Font[] = [
-  {
-    name: 'IBM Plex Mono',
-  },
-  {
-    name: 'IBM Plex Sans',
-  },
-  {
-    name: 'IBM Plex Serif',
-  },
-  {
-    name: 'Shantell Sans',
-    weights: [500, 600],
-  },
-];
-
 const encodeFontName = (font: Font) => {
   const { name, weights } = font;
   const encodedWeights = weights ? `:wght@${weights.join(';')}` : '';
@@ -28,14 +12,14 @@ const encodeFontName = (font: Font) => {
   return `${encodedName}${encodedWeights}`;
 };
 
-export const getFontsCdnSource = () => {
+export const getFontsCdnSource = (...fonts: Font[]) => {
   const cdn = 'https://fonts.googleapis.com/css2';
   const fontsEncodedStrings = fonts.map(encodeFontName);
   return `${cdn}?family=${fontsEncodedStrings.join('&family=')}&display=swap`;
 };
 
-export const getFontsStyle = () => {
-  const fontSource = getFontsCdnSource();
+export const getFontsStyle = (...fonts: Font[]) => {
+  const fontSource = getFontsCdnSource(...fonts);
   const importStr = `@import url('${fontSource}');`;
   return createStyleWithContent(importStr);
 };

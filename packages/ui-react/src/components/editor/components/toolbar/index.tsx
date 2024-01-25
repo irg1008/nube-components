@@ -19,7 +19,7 @@ import {
   Undo2Icon,
 } from 'lucide-react';
 import { FreeFormMenu } from '../ui/freeform-menu';
-import { LayerActionsMenu } from '../ui/layer-actions-menu';
+import { ActionsMenu } from '../ui/layer-actions-menu';
 import { Action } from './action';
 
 export const Toolbar = () => {
@@ -133,9 +133,9 @@ export const Toolbar = () => {
               tooltip="Borrar">
               <Trash2Icon className="h-4 w-4" />
             </Action>
-            <LayerActionsMenu onAction={performAction}>
+            <ActionsMenu onAction={performAction}>
               <MoreVerticalIcon className="h-4 w-4" />
-            </LayerActionsMenu>
+            </ActionsMenu>
           </ButtonGroup>
         </motion.div>
       )}

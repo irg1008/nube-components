@@ -1,4 +1,8 @@
 import {
+  pickFromEyeDropper,
+  supportsEyeDropper,
+} from '@/editor/utils/browser.utils';
+import {
   IconButton,
   Input,
   Popover,
@@ -11,13 +15,12 @@ import { useRef } from 'react';
 import { HexColorPicker } from 'react-colorful';
 import { toast } from 'sonner';
 import { useBoolean, useOnClickOutside } from 'usehooks-ts';
+import { ColorButton } from '../color-button';
 
 type ColorPickerProps = {
   initialColor: string;
   onChange: (color: string) => void;
 };
-
-const supportsEyeDropper = 'EyeDropper' in window;
 
 export const ColorPicker = ({ initialColor, onChange }: ColorPickerProps) => {
   const {
@@ -34,30 +37,36 @@ export const ColorPicker = ({ initialColor, onChange }: ColorPickerProps) => {
     if (!isContentChild) closePopUp();
   });
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(initialColor);
+  const hexInputRef = useRef<HTMLInputElement>(null);
+  const setManualHex = (hex: string) => {
+    const hexRegex = /^#([0-9A-F]{3}){1,2}$/i;
+    const isValid = hexRegex.test(hex);
+    if (!isValid) return;
+    onChange(hex);
   };
 
-  const pickFromEyeDropper = async () => {
-    if (!supportsEyeDropper) return;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const eyeDropper = new (window as any).EyeDropper();
-    const color = await eyeDropper.open();
-    onChange(color.sRGBHex);
+  const setPickerColor = (color: string) => {
+    onChange(color);
+    if (!hexInputRef.current) return;
+    hexInputRef.current.value = color;
+  };
+
+  const setEyeDropperColor = async () => {
+    const color = await pickFromEyeDropper();
+    if (!color) return;
+    onChange(color);
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(initialColor);
   };
 
   return (
     <Popover placement="bottom" open={open} handler={setOpen}>
       <PopoverHandler onMouseOver={openPopUp} ref={handlerRef}>
-        <IconButton
-          variant="outlined"
-          className="rounded-xl border-2 border-black shadow-md"
-          size="sm"
-          style={{
-            backgroundColor: initialColor,
-          }}>
-          <></>
-        </IconButton>
+        <span>
+          <ColorButton hex={initialColor} />
+        </span>
       </PopoverHandler>
       <PopoverContent
         onMouseLeave={closePopUp}
@@ -65,14 +74,14 @@ export const ColorPicker = ({ initialColor, onChange }: ColorPickerProps) => {
         ref={contentRef}>
         <HexColorPicker
           color={initialColor}
-          onChange={onChange}
+          onChange={setPickerColor}
           className="cursor-pointer"
         />
         <div className="relative flex max-w-[200px] items-center gap-2">
           {supportsEyeDropper && (
             <Tooltip content="Seleccionar color">
               <IconButton
-                onClick={() => pickFromEyeDropper()}
+                onClick={setEyeDropperColor}
                 color="gray"
                 variant="gradient"
                 className="shrink-0">
@@ -81,11 +90,12 @@ export const ColorPicker = ({ initialColor, onChange }: ColorPickerProps) => {
             </Tooltip>
           )}
           <Input
-            readOnly
+            inputRef={hexInputRef}
             className="flex-grow"
             crossOrigin=""
             label="Hex"
-            value={initialColor}
+            defaultValue={initialColor}
+            onChange={(e) => setManualHex(e.target.value)}
           />
           <Tooltip content="Copiar al portapapales">
             <IconButton

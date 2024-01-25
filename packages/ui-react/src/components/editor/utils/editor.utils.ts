@@ -4,7 +4,6 @@ import {
   RecordsDiff,
   TLRecord,
   TLShape,
-  TLShapePartial,
 } from '@tldraw/tldraw';
 import intersect from 'just-intersect';
 
@@ -51,20 +50,13 @@ export const updateShapeProp = <V = JsonPrimitive>(
   shape: TLShape,
   { prop, value, meta }: UpdatePropsParams<V>,
 ): TLShape => {
-  const partial: TLShapePartial = {
-    id: shape.id,
-    type: shape.type,
+  const newMeta = meta ?? shape.meta;
+  const newProps = prop ? { [prop]: value } : shape.props;
+  return {
+    ...shape,
+    props: newProps,
+    meta: newMeta,
   };
-
-  if (meta) {
-    partial.meta = meta;
-  }
-
-  if (prop) {
-    partial.props = { [prop]: value };
-  }
-
-  return { ...shape, ...partial };
 };
 
 export const updateShapesProp = <V = JsonPrimitive>(

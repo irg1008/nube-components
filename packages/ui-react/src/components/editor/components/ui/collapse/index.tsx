@@ -18,7 +18,7 @@ type CollapseProps<C = keyof JSX.IntrinsicElements> = {
   label: ReactNode;
   open: boolean;
   toggleOpen: () => void;
-  as?: keyof JSX.IntrinsicElements;
+  as?: C;
   containerProps?: HTMLAttributes<C>;
   collapseProps?: Omit<MTCollapseProps, 'open' | 'children'>;
   size?: ButtonProps['size'];

@@ -76,6 +76,7 @@ export const WidgetForProp = <
     ...containerProps,
     children: (
       <PropWidget
+        shapes={shapes}
         initialValue={firstShape.props[prop as PropsKey]}
         meta={firstShape.meta as ExtractMetaForProp<K>}
         onChange={onChange}

@@ -18,7 +18,7 @@ export const LayerDrawer = () => {
             initial={{ x: '-100%' }}
             animate={{ x: open ? 0 : '-100%' }}
             exit={{ x: '-100%' }}
-            transition={{ duration: 0.2 }}>
+            transition={{ type: 'spring', duration: 0.3 }}>
             <div className="pointer-events-auto relative flex flex-grow p-4 pe-0 sm:max-h-96">
               <Card className="shadow-blue-gray-900/5 w-full border-2 border-gray-900">
                 <Layerlist />
@@ -28,7 +28,6 @@ export const LayerDrawer = () => {
                 initial={{ x: 0 }}
                 animate={{ x: '100%' }}
                 exit={{ x: 0 }}
-                transition={{ duration: 0.2 }}
                 className="absolute bottom-0 right-0 p-4 sm:bottom-0">
                 <Tooltip content={open ? 'Esconder capas' : 'Mostrar capas'}>
                   <IconButton onClick={toggle} variant="filled">

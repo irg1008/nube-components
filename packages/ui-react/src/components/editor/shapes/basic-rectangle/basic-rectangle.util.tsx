@@ -21,7 +21,6 @@ export class BasicRectangleUtil extends ShapeUtil<BRShape> {
   override canBind = () => false;
   override canEdit = () => false;
   override canSnap = () => false;
-  override canUnmount = () => false;
   override canScroll = () => false;
   override hideResizeHandles = () => true;
   override hideRotateHandle = () => true;

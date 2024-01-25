@@ -12,6 +12,7 @@ import type {
   TLDefaultFontStyle as Font,
   JsonObject,
   TLDefaultSizeStyle as Size,
+  TLShape,
   TLTextShape,
 } from '@tldraw/tldraw';
 import {
@@ -196,6 +197,7 @@ export type WidgetProps<T, M = Partial<JsonObject>> = {
   initialValue: T;
   onChange: (value: T, meta?: M) => void;
   meta: M;
+  shapes: TLShape[];
 };
 
 type WidgetFC<T, P, M> = (props: WidgetProps<T, M> & P) => JSX.Element;

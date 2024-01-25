@@ -1,5 +1,41 @@
 # @nubebytes/ui-react
 
+## 0.15.0
+
+### Minor Changes
+
+- Multiple layer fix, add multiple actions to selected shapes. Add new settings
+
+## 0.14.7
+
+### Patch Changes
+
+- Update layer incremental name not being correctly updated
+
+## 0.14.6
+
+### Patch Changes
+
+- Fix bugged shape update
+
+## 0.14.5
+
+### Patch Changes
+
+- Fix editor change hook not working
+
+## 0.14.4
+
+### Patch Changes
+
+- Fix frame size not getting calculated on page load
+
+## 0.14.3
+
+### Patch Changes
+
+- Fix change detection outside frame not working on angular build. Was working everywhere else
+
 ## 0.14.2
 
 ### Patch Changes

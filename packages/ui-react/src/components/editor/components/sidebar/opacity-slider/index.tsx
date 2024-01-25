@@ -29,6 +29,7 @@ export const OpacitySlider = () => {
           max={100}
           value={opacityPerc}
           onChange={(e) => {
+            console.log(editor.renderingBoundsMargin);
             editor.setOpacityForSelectedShapes(e.target.valueAsNumber / 100);
           }}
         />
