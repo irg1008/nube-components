@@ -90,7 +90,7 @@ export const Toolbar = () => {
               <ReplaceIcon className="h-4 w-4" />
             </Action>
             <Action
-              hotkey="alt+s"
+              hotkey="alt+h"
               action={() => setTool('highlight')}
               tooltip="Subrayador">
               <HighlighterIcon className="h-4 w-4" />
