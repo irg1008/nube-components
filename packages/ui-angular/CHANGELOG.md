@@ -1,5 +1,19 @@
 # @nubebytes/ui-angular
 
+## 0.9.28
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-react@0.16.1
+
+## 0.9.27
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-react@0.16.0
+
 ## 0.9.26
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @nubebytes/ui-react
 
+## 0.16.1
+
+### Patch Changes
+
+- Fix duplicated hotkey for editor highlight
+
+## 0.16.0
+
+### Minor Changes
+
+- Add tons of small layer features and fix many bug like initial render bug and layer naming on reload
+
 ## 0.15.0
 
 ### Minor Changes
