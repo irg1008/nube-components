@@ -1,12 +1,12 @@
 import { Color, Widget, colors } from '@/editor/utils/widget.utils';
 import {
-  IconButton,
   Menu,
   MenuHandler,
   MenuList,
   Typography,
 } from '@material-tailwind/react';
 import { DefaultColorThemePalette } from '@tldraw/tldraw';
+import { ColorButton } from '../color-button';
 
 type ColorWidgetProps = {
   label: string;
@@ -27,27 +27,19 @@ export const ColorWidget: Widget<Color, ColorWidgetProps> = ({
       </Typography>
       <Menu allowHover>
         <MenuHandler>
-          <IconButton
-            className="bg-unset rounded-xl border-2 border-white shadow-md"
-            size="sm"
-            style={{
-              backgroundColor: getCss(initialValue),
-            }}>
-            <></>
-          </IconButton>
+          <span>
+            <ColorButton hex={getCss(initialValue)} />
+          </span>
         </MenuHandler>
         <MenuList className="grid min-w-0 grid-cols-4 place-content-center gap-2">
           {colors.map((color) => (
             <div key={color} className="focus:outline-none">
-              <IconButton
-                className="bg-unset rounded-xl border-2 border-white shadow-md"
-                size="sm"
-                onClick={() => onChange(color)}
-                style={{
-                  backgroundColor: getCss(color),
-                }}>
-                <></>
-              </IconButton>
+              <ColorButton
+                onClick={() => {
+                  onChange(color);
+                }}
+                hex={getCss(color)}
+              />
             </div>
           ))}
         </MenuList>

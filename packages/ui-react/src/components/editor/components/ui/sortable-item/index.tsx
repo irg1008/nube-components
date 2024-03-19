@@ -1,30 +1,41 @@
 import { UniqueIdentifier } from '@dnd-kit/core';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { ReactNode, createElement } from 'react';
+import {
+  ComponentProps,
+  HTMLAttributes,
+  ReactNode,
+  createElement,
+} from 'react';
 
 type BaseSortableItemProps = {
   id: UniqueIdentifier;
   children: ReactNode | ((handle?: ReactNode) => ReactNode);
 };
 
-type HandleProps =
+type HandleProps<H = keyof JSX.IntrinsicElements> =
   | {
-      handleAs: keyof JSX.IntrinsicElements;
+      handleAs: H;
       handleChildren: ReactNode;
+      handleProps?: HTMLAttributes<H>;
     }
   | {
       handleAs?: undefined;
       handleChildren?: undefined;
+      handleProps?: undefined;
     };
 
-type SortableItemProps = BaseSortableItemProps & HandleProps;
+type SortableItemProps = BaseSortableItemProps &
+  HandleProps &
+  Omit<ComponentProps<'div'>, 'children'>;
 
 export const SortableItem = ({
   id,
   children,
   handleAs,
   handleChildren,
+  handleProps,
+  ...props
 }: SortableItemProps) => {
   const {
     attributes,
@@ -45,6 +56,7 @@ export const SortableItem = ({
         handleAs,
         {
           ref: handleRef,
+          ...handleProps,
           ...listeners,
         },
         handleChildren,
@@ -52,7 +64,12 @@ export const SortableItem = ({
     : null;
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes}>
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...props}
+      {...attributes}
+      {...(handle ? {} : listeners)}>
       {typeof children === 'function' ? children(handle) : children}
     </div>
   );

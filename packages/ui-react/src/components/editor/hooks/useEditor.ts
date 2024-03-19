@@ -184,18 +184,6 @@ export const useEditor = ({
     });
   };
 
-  const onEditorMount = () => {
-    editor
-      .updateInstanceState({
-        canMoveCamera: true,
-        isGridMode: true,
-        exportBackground: false,
-      })
-      .updateViewportScreenBounds();
-
-    onMount?.();
-  };
-
   const setReadonly = (isReadonly: boolean) => {
     editor.updateInstanceState({ isReadonly });
   };
@@ -204,11 +192,22 @@ export const useEditor = ({
     editor.updateInstanceState({ isReadonly: !isReadonly });
   };
 
-  const onEditorChange = (h: HistoryEntry<TLRecord>) => {
-    onChange?.(getShapesInChange(h.changes));
+  const runTransientAction = async (action: () => void | Promise<void>) => {
+    const mark = 'transient';
+    editor.mark(mark);
+    await action();
+    editor.bailToMark(mark);
   };
 
-  const listenForEvents = (e: TLEventInfo) => {
+  const onEditorMount = () => {
+    onMount?.();
+  };
+
+  const onEditorChange = (h: HistoryEntry<TLRecord>) => {
+    if (onChange) onChange(getShapesInChange(h.changes));
+  };
+
+  const onEditorEvent = (e: TLEventInfo) => {
     switch (e.name) {
       case 'double_click': {
         onDoubleClick?.(e.point);
@@ -221,26 +220,23 @@ export const useEditor = ({
     }
   };
 
-  const runTransientAction = async (action: () => void | Promise<void>) => {
-    const mark = 'transient';
-    editor.mark(mark);
-    await action();
-    editor.bailToMark(mark);
-  };
-
   useEffectOnce(() => {
-    if (onMount) onEditorMount();
+    onEditorMount();
   });
 
   useUpdateEffect(() => {
-    if (onChange) editor.on('change', onEditorChange);
-    editor.on('event', listenForEvents);
-
+    editor.on('change', onEditorChange);
     return () => {
       editor.off('change', onEditorChange);
-      editor.off('event', listenForEvents);
     };
-  }, [editor]);
+  }, [onChange]);
+
+  useUpdateEffect(() => {
+    editor.on('event', onEditorEvent);
+    return () => {
+      editor.off('event', onEditorEvent);
+    };
+  }, [onClick, onDoubleClick]);
 
   return {
     editor,

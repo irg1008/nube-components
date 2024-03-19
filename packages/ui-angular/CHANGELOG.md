@@ -1,5 +1,81 @@
 # @nubebytes/ui-angular
 
+## 0.10.1
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-react@0.16.3
+
+## 0.10.0
+
+### Minor Changes
+
+- Add react color picker
+
+## 0.9.29
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-react@0.16.2
+
+## 0.9.28
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-react@0.16.1
+
+## 0.9.27
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-react@0.16.0
+
+## 0.9.26
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-react@0.15.0
+
+## 0.9.25
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-react@0.14.7
+
+## 0.9.24
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-react@0.14.6
+
+## 0.9.23
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-react@0.14.5
+
+## 0.9.22
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-react@0.14.4
+
+## 0.9.21
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-react@0.14.3
+
 ## 0.9.20
 
 ### Patch Changes

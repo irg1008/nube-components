@@ -1,5 +1,5 @@
 import { ViewportsCategoriesMenu } from '@/editor/components/ui/viewports-menu';
-import { CanvasSize } from '@/editor/stores/canvas.store';
+import { CanvasSize, useConfig } from '@/editor/stores/canvas.store';
 import { viewportCats } from '@/editor/utils/viewport.utils';
 import { Input } from '@material-tailwind/react';
 import { RectangleHorizontal, RectangleVertical } from 'lucide-react';
@@ -29,9 +29,12 @@ export const ViewportSelect = ({
     mode: 'onChange',
   });
 
+  const { hideSizePresets } = useConfig();
+
   const debounceOnChange = useDebouncedCallback(() => {
     const v = getValues();
-    isValid && onChange(v);
+    if (!isValid) return;
+    onChange(v);
   }, 800);
 
   return (
@@ -74,13 +77,15 @@ export const ViewportSelect = ({
         />
       </fieldset>
 
-      <ViewportsCategoriesMenu
-        categories={viewportCats}
-        onChange={({ canvasSize }) => {
-          onChange(canvasSize);
-          reset(canvasSize);
-        }}
-      />
+      {!hideSizePresets && (
+        <ViewportsCategoriesMenu
+          categories={viewportCats}
+          onChange={({ canvasSize }) => {
+            onChange(canvasSize);
+            reset(canvasSize);
+          }}
+        />
+      )}
     </section>
   );
 };

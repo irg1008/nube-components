@@ -8,6 +8,7 @@ import {
   updateShapesProp,
 } from '@/editor/utils/editor.utils';
 import {
+  TLArrowShape,
   TLFrameShape,
   TLImageShape,
   TLRecord,
@@ -132,7 +133,9 @@ export const useFrameOperations = ({
         return this;
       },
       sync() {
-        editor.updateShapes(tempShapes);
+        if (tempShapes.length > 0) {
+          editor.updateShapes(tempShapes);
+        }
         return this;
       },
       syncAndReset() {
@@ -182,7 +185,6 @@ export type FrameOptions = {
   id?: string;
   name?: string;
   onChange?: (frame: Frame) => void;
-  epheremeralChanges?: boolean;
 } & InitialFrameOptions;
 
 export type FrameHook = ReturnType<typeof useFrame>;
@@ -190,13 +192,24 @@ export type FrameHook = ReturnType<typeof useFrame>;
 export const useFrame = ({
   id = 'main-frame',
   name = 'Frame',
-  epheremeralChanges = true,
   initialSize,
   initialBackground,
   onChange,
 }: FrameOptions) => {
   const frameId = createShapeId(id);
   const bgId = createShapeId(`${id}-background`);
+
+  const getFrameSize = (): CanvasSize | undefined => {
+    const shapeBounds = editor.getShapePageBounds(frameId);
+    if (!shapeBounds) return;
+    return { w: shapeBounds.width, h: shapeBounds.height };
+  };
+
+  const getFrameColor = (): BackgroundColor | undefined => {
+    const shape = editor.getShape<BRShape>(bgId);
+    if (!shape) return;
+    return shape.props.backgroundColor;
+  };
 
   const [frameSize, resizeFrame] = useState<CanvasSize>(initialSize);
   const [backgroundColor, changeBackgroundColor] =
@@ -231,25 +244,26 @@ export const useFrame = ({
   );
 
   const invisibleUpdateShape = (shape: TLShapePartial<BRShape> | Frame) => {
-    editor.updateShape(shape, { ephemeral: epheremeralChanges });
-  };
-
-  const getFrameSize = (): CanvasSize | undefined => {
-    const shapeBounds = editor.getShapePageBounds(frameId);
-    if (!shapeBounds) return;
-    return { w: shapeBounds.width, h: shapeBounds.height };
-  };
-
-  const getFrameColor = (): BackgroundColor | undefined => {
-    const shape = editor.getShape<BRShape>(bgId);
-    if (!shape) return;
-    return shape.props.backgroundColor;
+    editor.updateShape(shape, { ephemeral: true });
   };
 
   const createFrame = () => {
     editor.createShape(frame);
     editor.createShape(backgroundShape);
+
     onChange?.(frame);
+  };
+
+  const setUpBaseEditor = () => {
+    editor.batch(() => {
+      editor.updateInstanceState({
+        canMoveCamera: true,
+        isGridMode: true,
+        exportBackground: false,
+      });
+      createFrame();
+      editor.history.clear();
+    });
   };
 
   const initFrame = () => {
@@ -257,7 +271,7 @@ export const useFrame = ({
     const bgColor = getFrameColor();
 
     if (!currentSize || !bgColor) {
-      createFrame();
+      setUpBaseEditor();
       return;
     }
 
@@ -271,17 +285,38 @@ export const useFrame = ({
     restoreOp: createFrame,
   });
 
+  const getPageInstanceCountByType = () => {
+    const { meta } = editor.getCurrentPageState();
+    const instanceCountByType = meta['instanceCountByType']!;
+    return instanceCountByType as Record<string, number>;
+  };
+
+  const increasePageInstanceCountByType = (type: TLShape['type']) => {
+    const instanceCountByType = getPageInstanceCountByType() ?? {};
+    const typeCount = instanceCountByType[type] ?? 0;
+    const newTypeCount = typeCount + 1;
+
+    editor.updateCurrentPageState({
+      meta: {
+        instanceCountByType: {
+          [type]: newTypeCount,
+        },
+      },
+    });
+
+    return newTypeCount;
+  };
+
   const addMetaName = (shapes: TLShape[]) => {
     return shapes.map((shape) => {
-      const shapeCount = editor
-        .getCurrentPageShapes()
-        .filter((s) => s.type === shape.type).length;
-
       const typeLabel = toolLabels[shape.type];
       if (!typeLabel) return shape;
 
+      const instanceCount = increasePageInstanceCountByType(shape.type);
       return updateShapeProp(shape, {
-        meta: { name: `${typeLabel} ${shapeCount}` },
+        meta: {
+          name: `${typeLabel} ${instanceCount}`,
+        },
       });
     });
   };
@@ -289,16 +324,16 @@ export const useFrame = ({
   const { editor } = useEditor({
     onChange: ({ added, removed, updated }) => {
       filterShapes(added)
+        .do(addMetaName)
+        .sync()
         .ofType<TLTextShape>('text')
         .withEmptyProp('text')
         .updateProp('text', 'Texto')
         .syncAndReset()
         .outsideFrame()
-        .ofType<TLImageShape>('image')
+        .ofType<TLImageShape | TLArrowShape>('image', 'arrow')
         .centerToFrame()
-        .syncAndReset()
-        .do(addMetaName)
-        .sync();
+        .syncAndReset();
 
       filterShapes(updated).isFrameAffected()?.preventFrameAlterations();
       filterShapes(removed).isFrameAffected()?.preventFrameDeletion();
@@ -308,6 +343,7 @@ export const useFrame = ({
         .centerToFrame()
         .sync();
     },
+    onMount: initFrame,
   });
 
   const selectedShapes = editor.getSelectedShapes();

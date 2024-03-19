@@ -19,7 +19,7 @@ export const ShapeOptions = () => {
   );
 
   return (
-    <ul className="flex flex-col gap-5">
+    <ul className="flex flex-col gap-8">
       <li>
         <OpacitySlider />
       </li>

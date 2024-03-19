@@ -1,5 +1,72 @@
 # storybook-angular
 
+## 0.0.55
+
+### Patch Changes
+
+- @nubebytes/ui-angular@0.10.1
+
+## 0.0.54
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-angular@0.10.0
+
+## 0.0.53
+
+### Patch Changes
+
+- @nubebytes/ui-angular@0.9.29
+
+## 0.0.52
+
+### Patch Changes
+
+- @nubebytes/ui-angular@0.9.28
+
+## 0.0.51
+
+### Patch Changes
+
+- @nubebytes/ui-angular@0.9.27
+
+## 0.0.50
+
+### Patch Changes
+
+- @nubebytes/ui-angular@0.9.26
+
+## 0.0.49
+
+### Patch Changes
+
+- @nubebytes/ui-angular@0.9.25
+
+## 0.0.48
+
+### Patch Changes
+
+- @nubebytes/ui-angular@0.9.24
+
+## 0.0.47
+
+### Patch Changes
+
+- @nubebytes/ui-angular@0.9.23
+
+## 0.0.46
+
+### Patch Changes
+
+- @nubebytes/ui-angular@0.9.22
+
+## 0.0.45
+
+### Patch Changes
+
+- @nubebytes/ui-angular@0.9.21
+
 ## 0.0.44
 
 ### Patch Changes

@@ -1,19 +1,12 @@
 import { VerticalSortableContext } from '@/editor/components/ui/sortable-context';
-import { SortableItem } from '@/editor/components/ui/sortable-item';
 import { ShapeType, useEditor } from '@/editor/hooks/useEditor';
 import { useCanvas } from '@/editor/stores/canvas.store';
 import { getIconElement } from '@/editor/utils/icons.utils';
 import { DragEndEvent } from '@dnd-kit/core';
-import {
-  IconButton,
-  List,
-  ListItem,
-  Typography,
-} from '@material-tailwind/react';
+import { List, Typography } from '@material-tailwind/react';
 import { TLUiIconType } from '@tldraw/tldraw';
 import {
   CopyPlusIcon,
-  GripHorizontalIcon,
   HighlighterIcon,
   ImageIcon,
   Layers2Icon,
@@ -25,6 +18,7 @@ import {
   SlashIcon,
   TypeIcon,
 } from 'lucide-react';
+import { LayerItem } from '../layer-item';
 
 const iconList: Record<string, LucideIcon | TLUiIconType> = {
   arrow: LucideArrowUpRight,
@@ -68,33 +62,15 @@ export const Layerlist = () => {
     <VerticalSortableContext items={sortedShapes} onDragEnd={handleDragEnd}>
       <List className="custom-scrollbar-thin w-full min-w-0 overflow-y-auto overflow-x-hidden">
         {sortedShapes.toReversed().map((shape) => (
-          <SortableItem
+          <LayerItem
             key={shape.id}
-            id={shape.id}
-            handleAs="div"
-            handleChildren={
-              <IconButton size="sm" variant="text">
-                <GripHorizontalIcon className="h-3 w-3" />
-              </IconButton>
-            }>
-            {(handle) => (
-              <ListItem
-                selected={selectedShape?.id === shape.id}
-                onClick={() => editor.select(shape)}
-                className="flex items-center gap-3 p-1 ps-3">
-                <span>
-                  {getIconElement(
-                    iconList[shape.type] ?? Layers2Icon,
-                    'h-3 w-3 opacity-75',
-                  )}
-                </span>
-                <span className="line-clamp-1 text-sm">
-                  {shape.meta['name']?.toString() ?? shape.id}
-                </span>
-                <span className="ms-auto">{handle}</span>
-              </ListItem>
+            icon={getIconElement(
+              iconList[shape.type] ?? Layers2Icon,
+              'h-3 w-3 opacity-75',
             )}
-          </SortableItem>
+            isSelected={selectedShape?.id === shape.id}
+            shape={shape}
+          />
         ))}
       </List>
       {sortedShapes.length === 0 && (

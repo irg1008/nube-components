@@ -12,6 +12,7 @@ import {
   StoreSnapshot,
   TLRecord,
   TLShape,
+  TLUiAssetUrlOverrides,
   track,
 } from '@tldraw/tldraw';
 import {
@@ -48,7 +49,10 @@ export type EditorConfig = {
   initialSnapshot?: StoreSnapshot<TLRecord>;
   onMount?: (api: EditorAPI) => void;
   hideExportUI?: boolean;
+  renderingBoundsMargin?: number;
+  hideSizePresets?: boolean;
   disableLocalPersistance?: boolean;
+  assetsUrl?: Pick<TLUiAssetUrlOverrides, 'fonts'>;
 };
 
 type CanvasContext = {
@@ -81,17 +85,11 @@ export const CanvasProvider = track(
     config = {},
   }: PropsWithChildren<CanvasProviderProps>) => {
     const sidebarRef: SidebarRef = useRef(null);
+    const { editor } = useEditor();
 
     const getCanvasShift = () => {
       const refWidth = sidebarRef?.current?.clientWidth || 0;
       return refWidth / 2;
-    };
-
-    const initCanvas = () => {
-      editor.batch(() => {
-        initFrame();
-        editor.history.clear();
-      });
     };
 
     const zoomToFrame = (animation: Animation) => {
@@ -111,18 +109,14 @@ export const CanvasProvider = track(
       refitCanvas();
     };
 
-    const { editor } = useEditor({
-      onMount: initCanvas,
-    });
-
     const {
       frameSize,
       frame,
       backgroundColor,
       selectedChildren,
       sortedChildren,
-      initFrame,
       resizeFrame,
+      initFrame,
       changeBackgroundColor,
     } = useFrame({
       onChange: onFrameChange,

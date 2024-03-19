@@ -37,7 +37,6 @@ export class PlaceholderImgUtil extends ShapeUtil<PIShape> {
 
   override isAspectRatioLocked = () => false;
   override canResize = () => true;
-  override canUnmount = () => false;
 
   getDefaultProps(): PIShape['props'] {
     return defaultProps;

@@ -5,15 +5,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ReactEditorWrapperComponent } from '@nubebytes/ui-angular';
+import {
+  ReactColorPickerComponent,
+  ReactEditorWrapperComponent,
+} from '@nubebytes/ui-angular';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactEditorWrapperComponent,
     DragDropModule,
+    ReactEditorWrapperComponent,
+    ReactColorPickerComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
