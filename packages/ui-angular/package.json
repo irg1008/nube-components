@@ -1,6 +1,6 @@
 {
   "name": "@nubebytes/ui-angular",
-  "version": "0.9.28",
+  "version": "0.10.1",
   "main": "dist/esm2020/public-api.mjs",
   "module": "dist/esm2020/public-api.mjs",
   "types": "dist/index.d.ts",
@@ -49,6 +49,7 @@
   "dependencies": {
     "@nubebytes/ui-react": "workspace:*",
     "react": "18.2.0",
+    "react-colorful": "5.6.1",
     "react-dom": "18.2.0"
   }
 }

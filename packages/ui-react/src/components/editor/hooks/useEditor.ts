@@ -220,19 +220,23 @@ export const useEditor = ({
     }
   };
 
-  const setUpEvents = () => {
-    editor.once('mount', onEditorMount);
-    editor.on('event', onEditorEvent);
-    editor.on('change', onEditorChange);
+  useEffectOnce(() => {
+    onEditorMount();
+  });
 
+  useUpdateEffect(() => {
+    editor.on('change', onEditorChange);
     return () => {
-      editor.off('event', onEditorEvent);
       editor.off('change', onEditorChange);
     };
-  };
+  }, [onChange]);
 
-  useEffectOnce(setUpEvents);
-  useUpdateEffect(setUpEvents, [editor]);
+  useUpdateEffect(() => {
+    editor.on('event', onEditorEvent);
+    return () => {
+      editor.off('event', onEditorEvent);
+    };
+  }, [onClick, onDoubleClick]);
 
   return {
     editor,

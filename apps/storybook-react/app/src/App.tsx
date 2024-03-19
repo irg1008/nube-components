@@ -142,6 +142,7 @@ export default function App() {
           variablesConfig={variablesConfig}
           assetsUrl={assetsUrl}
           renderingBoundsMargin={Infinity}
+          disableLocalPersistance={true}
         />
       </div>
     </div>

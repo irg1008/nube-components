@@ -99,6 +99,7 @@ export class AppComponent {
   editorConfig: EditorConfig = {
     variablesConfig,
     onMount: (editor) => (this.editor = editor),
+    disableLocalPersistance: true,
   };
 
   manualExport() {

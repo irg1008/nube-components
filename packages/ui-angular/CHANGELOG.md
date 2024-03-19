@@ -1,5 +1,25 @@
 # @nubebytes/ui-angular
 
+## 0.10.1
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-react@0.16.3
+
+## 0.10.0
+
+### Minor Changes
+
+- Add react color picker
+
+## 0.9.29
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-react@0.16.2
+
 ## 0.9.28
 
 ### Patch Changes

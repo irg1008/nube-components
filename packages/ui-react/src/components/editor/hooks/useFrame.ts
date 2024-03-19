@@ -250,7 +250,20 @@ export const useFrame = ({
   const createFrame = () => {
     editor.createShape(frame);
     editor.createShape(backgroundShape);
+
     onChange?.(frame);
+  };
+
+  const setUpBaseEditor = () => {
+    editor.batch(() => {
+      editor.updateInstanceState({
+        canMoveCamera: true,
+        isGridMode: true,
+        exportBackground: false,
+      });
+      createFrame();
+      editor.history.clear();
+    });
   };
 
   const initFrame = () => {
@@ -258,7 +271,7 @@ export const useFrame = ({
     const bgColor = getFrameColor();
 
     if (!currentSize || !bgColor) {
-      createFrame();
+      setUpBaseEditor();
       return;
     }
 
@@ -308,22 +321,6 @@ export const useFrame = ({
     });
   };
 
-  const onEditorMount = () => {
-    editor.batch(() => {
-      editor
-        .updateInstanceState({
-          canMoveCamera: true,
-          isGridMode: true,
-          exportBackground: false,
-        })
-        .updateViewportScreenBounds();
-
-      initFrame();
-
-      editor.history.clear();
-    });
-  };
-
   const { editor } = useEditor({
     onChange: ({ added, removed, updated }) => {
       filterShapes(added)
@@ -346,7 +343,7 @@ export const useFrame = ({
         .centerToFrame()
         .sync();
     },
-    onMount: onEditorMount,
+    onMount: initFrame,
   });
 
   const selectedShapes = editor.getSelectedShapes();

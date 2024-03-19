@@ -1,5 +1,17 @@
 # @nubebytes/ui-react
 
+## 0.16.3
+
+### Patch Changes
+
+- Bug fix: Fix image element not being found when passed url is empty (placeholder is found but value is valid so it tried to find it)
+
+## 0.16.2
+
+### Patch Changes
+
+- Fix major rendering and useEffect use in react editor
+
 ## 0.16.1
 
 ### Patch Changes

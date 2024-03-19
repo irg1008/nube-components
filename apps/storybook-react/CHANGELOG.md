@@ -1,5 +1,19 @@
 # storybook-react
 
+## 0.0.48
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-react@0.16.3
+
+## 0.0.47
+
+### Patch Changes
+
+- Updated dependencies
+  - @nubebytes/ui-react@0.16.2
+
 ## 0.0.46
 
 ### Patch Changes

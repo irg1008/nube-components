@@ -94,7 +94,8 @@ export const transformElement = (el: HTMLElement, shape: TLShape) => {
   switch (shape.type) {
     case placeholderImage: {
       const imgEl = el.querySelector('img')!;
-      imgEl!.src = value;
+      if (!imgEl) return;
+      imgEl.src = value;
       break;
     }
     default: {
